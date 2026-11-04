@@ -3,13 +3,16 @@
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const isTouch=matchMedia('(hover:none)').matches;
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const ROOT=document.documentElement.dataset.root||'';
-const START=document.documentElement.dataset.start||'/';
+const ROOT='/';
+/* Each page ships only its own markup; the other pages arrive with this script, so moving between them is instant */
+(()=>{const R={{ROUTESJSON}},app=$('#app');Object.keys(R).forEach(k=>{if(!$('.route[data-route="'+k+'"]'))app.insertAdjacentHTML('beforeend',R[k])});$('footer').insertAdjacentHTML('beforebegin',{{PARKINGJSON}})})();
+const META={{METAJSON}};
+window.dataLayer=window.dataLayer||[];const track=(event,o)=>window.dataLayer.push(Object.assign({event},o||{}));
 const PHOTOS={{PHOTOSJSON}};
 const SITE={{SITEJSON}};
 const imgSrc=(id,w=1200)=>{const p=PHOTOS[id];if(!p)return '';const use=p.w.filter(x=>x<=w).pop()||p.w[0];return ROOT+'img/'+id+'-'+use+'.webp'};
 function pic(id,o={}){const p=PHOTOS[id];if(!p)return '<div class="ph-slot"><span>Photo: '+(o.alt||id)+'</span></div>';const ss=f=>p.w.map(w=>ROOT+'img/'+id+'-'+w+'.'+f+' '+w+'w').join(', ');const sizes=o.sizes||'100vw';const alt=String(o.alt===undefined?p.alt:o.alt).replace(/"/g,'&quot;');
- return '<picture><source type="image/avif" srcset="'+ss('avif')+'" sizes="'+sizes+'"><source type="image/webp" srcset="'+ss('webp')+'" sizes="'+sizes+'"><img src="'+imgSrc(id,1200)+'" alt="'+alt+'"'+(o.eager?'':' loading="lazy"')+' decoding="async" style="background:url('+p.lq+') center/cover"></picture>'}
+ return '<picture><source type="image/avif" srcset="'+ss('avif')+'" sizes="'+sizes+'"><source type="image/webp" srcset="'+ss('webp')+'" sizes="'+sizes+'"><img src="'+imgSrc(id,1200)+'" alt="'+alt+'"'+(o.eager?' fetchpriority="high"':' loading="lazy"')+' decoding="async" draggable="false" style="background:url('+p.lq+') center/cover"></picture>'}
 
 /* =========================================================
    3D POOL SCENE

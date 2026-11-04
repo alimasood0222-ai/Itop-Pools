@@ -1,0 +1,88 @@
+/* Acceptance-test fixes: gestures, drag, tap targets, contrast, text size, stacked tables */
+html,body{overscroll-behavior-x:none}
+.hero,.drawer{touch-action:pan-y}
+.r2c img{-webkit-user-drag:none;user-select:none;pointer-events:none}
+.toast{visibility:hidden;transition:transform .6s var(--ease),visibility .6s}
+.toast.on{visibility:visible}
+
+.q-manual .q-next{display:none}
+
+/* the first page paints straight away: only page changes animate in */
+html:not(.spa) .route.on{animation:none}
+.hero .word>span{transform:none!important;transition:none!important}
+html:not(.spa) .md-copy .rv,html:not(.spa) .phero .rv{opacity:1;transform:none}
+
+/* sliders: a 44px tall target with the same 6px track */
+.rng{--t:rgba(125,211,252,.2);height:44px;margin:0;background:none!important;display:block}
+.fp-side .rng{--t:rgba(11,37,69,.1)}
+.rng::-webkit-slider-runnable-track{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--azure) var(--p,50%),var(--t) var(--p,50%))}
+.rng::-moz-range-track{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--azure) var(--p,50%),var(--t) var(--p,50%))}
+.rng::-webkit-slider-thumb{margin-top:-10px}
+
+/* contrast: a darker blue for small text on light backgrounds */
+:root{--azure-t:#0b6aa8}
+.eyebrow:not(.light),.pc .t,.fts span,.ac .meta span,.eopt em,.jy small,.tli .who,.tr-brand b span,.ab-card small,.q-hint a{color:var(--azure-t)}
+.hero .eyebrow,.config .eyebrow,.rail .eyebrow,.steps .eyebrow,.gallery .eyebrow,.v3-care .eyebrow,.wty .eyebrow,.phero .eyebrow,.cta .eyebrow{color:var(--sky)}
+.hero .eyebrow{color:#e3f4ff}
+.vs-row.h .us,.tli .dot{background:#0f76b8}
+.stages button i{color:#5d6b7a}
+.tli .who.mf{color:#7a4f00}
+.ab-more small,.ac .tag{color:inherit}
+
+/* readable minimum */
+.eyebrow,.tag,.hud span,.hud b,.views button,.lightseg button,.panel-h small,.stp-h i,.mbtn small,.lab-tag,.lab-pick small,.lab-pair small,.mini-top small,.mini-out small,.r2s,.r2i-tags span,.r2-fil sup,.fd-n,.tr-brand small,.dims small,.spec small,.es-models small,.q-models small,.qd small,.q-days small,.q-days span,.q-card-h small,.q-l,.jy small,.who,.fts span,.pc .t,.mtx-r.h>*,.vs-row.h>*,footer .f-h,.md-tags span,.md-sizes small,.sum,.r2i-m small,.ms span,.dur,.es-h i,.eo-fh small,.eo-card small,.md-sticky small,.ab-card small,.ab-more small,.lab-light button,.seg button,.fp-g h6,.loan i,.fl .who,.tli .who{font-size:12px!important}
+.r2-fil sup,.filters sup,.tg small,.panel-f p,.mini-row small,.stages button i,.jy small,.cmp,.scale,.q-trust span,.q-steps button i,kbd,.eoptions small,.eopt small,.eopt em,.loan i,.mbtn span small,.md-a-row span{font-size:12px!important}
+/* these need to beat rules with higher specificity */
+.fts span,.ac .tx .meta span,.loan i,.tli .card .who,.pc .t{color:var(--azure-t)!important}
+.tli .card .who.mf{color:#7a4f00!important}
+.tli .dot,.tli.in .dot{background:#0f76b8!important;color:#fff!important}
+.stages button:not(.on) i,.stages button i{color:#5d6b7a!important;opacity:1!important}
+#faq{scroll-margin-top:90px}
+.stages button.on i{color:#fff!important}
+
+/* takeaways + all-versions */
+.takeaways{background:var(--mist);border:1px solid var(--line);border-radius:var(--r);padding:20px 24px;margin:0 0 28px}
+.takeaways b{display:block;font-family:var(--display);font-size:18px;margin-bottom:8px}
+.takeaways ul{margin:0;padding-left:20px}
+.prose .ct-wrap{margin:14px 0 24px}
+.prose .cost-tbl{margin:0}
+.prose .cost-tbl tbody th{background:none;color:var(--navy-900);text-transform:none;letter-spacing:0}
+.prose .cost-tbl tbody tr:nth-child(odd){background:none}
+.ns-list{columns:2;color:#fff;list-style:none;margin:20px auto;width:min(1240px,100% - 48px)}
+.ns-list a{display:inline-block;padding:10px 0;color:var(--sky)}
+
+@media (max-width:1100px){
+  .grad,.grad-blue{animation:none}
+  .crumbs a{display:inline-flex;align-items:center;min-height:44px}
+  .crumbs{margin-bottom:14px}
+  .views button,.lightseg button,.lab-light button,.seg button,.q-seg button,.r2-fil button,.stages button,.filters button,.fp-chips button{min-height:44px}
+  .sw,.lab-sw button{width:44px;height:44px}
+  .sel{font-size:16px;min-height:44px}
+  .views .fs{min-width:44px;justify-content:center}
+  .acts a,.cmp,.ct-x,.q-back,.q-skip,.q-hint a,.redo,.md-call,.q-steps button,.mtx a,.fp-h button,.ac .meta a{min-height:44px}
+  .q-steps button{min-width:44px;justify-content:center}
+  .q-steps button.on{padding-inline:6px 12px}
+}
+@media (max-width:680px){
+  .hero{min-height:0}
+  .r2-ticks{display:none}
+  .hs-dots{pointer-events:none}
+  .hs-nav,#hsPause{width:44px;height:44px}
+  .hs-ui{top:calc(var(--ph) - 62px)}
+  .hs-dots button{width:22px;height:44px}
+  .sel{font-size:16px}
+  .md-sizes button,.mo-x{min-height:44px;min-width:44px}
+  /* tables stack */
+  .mtx-r{display:block;padding:10px 14px;border-bottom:1px solid var(--line)}
+  .mtx-r.h{display:none}
+  .mtx-r>*{padding:6px 0!important;background:none!important}
+  .mtx-r>span:first-child{display:block;font-family:var(--display);font-size:16px;font-weight:600;border-bottom:1px solid var(--line);margin-bottom:4px}
+  .mtx-r>span[data-l]{display:flex;justify-content:space-between;gap:14px;text-align:right;flex-wrap:wrap;font-size:15px}
+  .mtx-r>span[data-l]::before{content:attr(data-l);font-weight:600;color:var(--navy-900);text-align:left}
+  .mtx-r .bar{display:none}
+  .mo-tbl{overflow:hidden;min-width:0}
+  .mo-r{min-width:0}
+  .mo-r>*{min-width:0;overflow-wrap:anywhere;padding:10px 8px}
+  .prose table:not(.cost-tbl){display:block;overflow-x:auto}
+  .takeaways{padding:16px 18px}
+}

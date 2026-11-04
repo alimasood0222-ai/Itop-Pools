@@ -1,0 +1,11 @@
+const { serve, ctxOpts, launch, shot } = require('./lib');
+async function swipe(cdp, x1, y1, x2, y2) { await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: x1, y: y1 }] }); for (let i = 1; i <= 8; i++) { await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x1 + (x2 - x1) * i / 8, y: y1 + (y2 - y1) * i / 8 }] }); await new Promise(r => setTimeout(r, 16)); } await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); }
+(async () => {
+  const { srv, base } = await serve(); const br = await launch(); const phone = await br.newContext(ctxOpts(390, 844)); phone.setDefaultTimeout(30000);
+  const p = await phone.newPage(); const cdp = await phone.newCDPSession(p); await p.goto(base + '/why-itop/'); await p.waitForTimeout(500); await p.goto(base + '/', { waitUntil: 'load' }); await p.waitForTimeout(1000);
+  await p.tap('#hsPause'); await p.waitForTimeout(300); const a = await p.textContent('#hsCap'); await swipe(cdp, 320, 180, 80, 183); await p.waitForTimeout(600); const b = await p.textContent('#hsCap'); await swipe(cdp, 80, 180, 320, 183); await p.waitForTimeout(1500); const c = await p.textContent('#hsCap');
+  console.log('paused swipe', a, '>', b, '>', c, 'url', p.url()); await p.close();
+  const q = await phone.newPage(); await q.goto(base + '/pool-school/fiberglass-vs-concrete/', { waitUntil: 'load' }); await q.waitForTimeout(800); await q.evaluate(() => document.querySelector('.prose table').scrollIntoView({ block: 'start', behavior: 'instant' })); await q.evaluate(() => scrollBy({ top: -90, behavior: 'instant' })); await q.waitForTimeout(600); await q.screenshot({ path: shot('after-article-table-390') }); await q.close();
+  const m = await phone.newPage(); await m.goto(base + '/fiberglass-pools/bondi/', { waitUntil: 'load' }); await m.waitForTimeout(1000); await m.evaluate(() => document.querySelector('#mdAll').scrollIntoView({ block: 'start', behavior: 'instant' })); await m.evaluate(() => scrollBy({ top: -90, behavior: 'instant' })); await m.waitForTimeout(800); await m.screenshot({ path: shot('after-model-all-390') }); await m.close();
+  await br.close(); srv.close();
+})().catch(e => { console.error(e.message.slice(0, 300)); process.exit(1); });

@@ -9,7 +9,7 @@ const k$=n=>'$'+(Math.round(n/1000)).toLocaleString('en-US')+'k';
 const MODELS={{MODELSJSON}};
 MODELS.forEach(m=>{const z=m.sizes.reduce((a,b)=>b.L>a.L?b:a,m.sizes[0]);m.def=m.sizes.indexOf(z);Object.assign(m,{L:z.L,W:z.W,S:z.S,D:z.D,gal:z.gal,Ls:z.Ls,Ws:z.Ws,photo:'m-'+m.id})});
 const byId=id=>MODELS.find(m=>m.id===id);
-const FT_LBL={ledge:'Tanning ledge',spa:'Integrated spa',bench:'Bench seating',deep:'Deep end 6\'+',new:'New 2026'};
+const FT_LBL={ledge:'Lounging ledge',spa:'Integrated spa',bench:'Built-in seating',deep:'Deep end 6\'+',new:'New 2026'};
 const CAT_LBL={rect:'Rectangular',free:'Freeform',kidney:'Kidney',roman:'Roman',plunge:'Plunge'};
 
 const FIN_META={
@@ -27,77 +27,73 @@ const swBg=k=>{const c=FINISH[k].sw;return `radial-gradient(circle at 35% 30%,${
 const STAGES=[['dream','Dream','Picture it'],['plan','Plan','Budget & rules'],['design','Design','Shape & finish'],['build','Build','Dig to swim'],['own','Own','Enjoy & maintain']];
 const ARTS=[
  {id:'fiberglass-vs-concrete',st:'dream',img:'aerial',min:6,t:'Fiberglass vs concrete vs vinyl: which suits Florida?',d:'Install time, upkeep, feel underfoot and lifetime cost, compared honestly.',
-  b:`<p>Almost every Jacksonville buyer starts with the same question: which type of pool? All three can be great. They just suit different priorities.</p>
-  <h2>The short version</h2>
-  <table><tr><th></th><th>Fiberglass</th><th>Concrete</th><th>Vinyl liner</th></tr>
-  <tr><td>Typical install</td><td>2–6 weeks</td><td>3–6 months</td><td>Several weeks</td></tr>
-  <tr><td>Surface</td><td>Smooth gelcoat</td><td>Plaster or pebble, textured</td><td>Soft vinyl</td></tr>
-  <tr><td>Shape freedom</td><td>Choose from molds</td><td>Any shape</td><td>Many shapes</td></tr>
-  <tr><td>Big future cost</td><td>Rare</td><td>Resurfacing</td><td>Liner replacement</td></tr></table>
-  <h2>Why fiberglass is popular in Florida</h2>
+  b:`<div class="takeaways"><b>Key takeaways</b><ul><li>Fiberglass is typically installed in 2–6 weeks, concrete in 3–6 months.</li><li>Fiberglass has a smooth, non-porous surface and rarely carries a big future cost.</li><li>Choose concrete for a truly custom shape, and vinyl for the lowest upfront price.</li></ul></div><p>Almost every Jacksonville buyer starts with the same question: which type of pool? All three can be great. They just suit different priorities.</p>
+  <h2>How do fiberglass, concrete and vinyl compare?</h2>
+  <div class="ct-wrap"><table class="cost-tbl"><thead><tr><th scope="col"><span class="vh">Compare</span></th><th scope="col">Fiberglass</th><th scope="col">Concrete</th><th scope="col">Vinyl liner</th></tr></thead><tbody><tr><th scope="row">Typical install</th><td data-l="Fiberglass">2–6 weeks</td><td data-l="Concrete">3–6 months</td><td data-l="Vinyl liner">Several weeks</td></tr><tr><th scope="row">Surface</th><td data-l="Fiberglass">Smooth gelcoat</td><td data-l="Concrete">Plaster or pebble, textured</td><td data-l="Vinyl liner">Soft vinyl</td></tr><tr><th scope="row">Shape freedom</th><td data-l="Fiberglass">Choose from molds</td><td data-l="Concrete">Any shape</td><td data-l="Vinyl liner">Many shapes</td></tr><tr><th scope="row">Big future cost</th><td data-l="Fiberglass">Rare</td><td data-l="Concrete">Resurfacing</td><td data-l="Vinyl liner">Liner replacement</td></tr></tbody></table></div>
+  <h2>Why is fiberglass popular in Florida?</h2>
   <p>A fiberglass shell is made in a factory and set in one piece, so the build is short and less weather-dependent. That matters in a Florida summer. The gelcoat surface is smooth and non-porous, which gives algae less to grip. Barrier Reef estimates vinyl pools use about 50% more chemicals than fiberglass.</p>
-  <h2>When concrete makes sense</h2>
+  <h2>When does concrete make sense?</h2>
   <p>If you want a vanishing edge, an unusual size or a shape no mold offers, concrete (gunite) is the answer. Expect a longer build and periodic resurfacing over the pool's life.</p>
-  <h2>Where vinyl fits</h2>
+  <h2>Where does vinyl fit?</h2>
   <p>Vinyl usually has the lowest upfront price. Barrier Reef puts fiberglass at roughly 15–20% more than vinyl. The liner wears and needs replacing, which industry guides put at around every 10 years.</p>
   <div class="callout"><strong>Our take:</strong> for most Northeast Florida families who want to swim this season and spend weekends swimming rather than scrubbing, fiberglass is the best balance. If your yard needs something truly custom, we'll tell you.</div>
   <p class="src">Sources: Barrier Reef Pools USA FAQ (install time, chemical use, price vs vinyl); published industry comparison guides (concrete build time, liner life).</p>`},
  {id:'shapes',st:'dream',img:'lounge',min:4,t:'Rectangle, freeform or kidney? Picking a shape',d:'How shape changes the way you swim, lounge and landscape.',
-  b:`<p>Shape is mostly about how you'll use the water and what your house looks like.</p>
-  <h2>Rectangular</h2><p>Clean lines suit modern and transitional homes. They also give the most usable swimming length, so they're great for laps. Try the <a href="#/pools/aussie">Aussie</a>, <a href="#/pools/bondi">Bondi</a> or <a href="#/pools/whitsunday">Whitsunday</a>.</p>
-  <h2>Freeform</h2><p>Curves feel like a resort and blend with palms and natural stone. Try <a href="#/pools/coral-sea">Coral Sea</a> or <a href="#/pools/billabong-cove">Billabong Cove</a>.</p>
-  <h2>Kidney &amp; plunge</h2><p>Soft, classic and compact. Kidney shapes wrap nicely around a lanai corner, and plunge pools fit townhome lots. Try <a href="#/pools/opal">Opal</a> or <a href="#/pools/milano">Milano</a>.</p>
-  <div class="callout">Not sure? Take the <a href="#/">30-second pool finder</a> on our homepage, or drop any model into the <a href="#/studio">3D studio</a> and walk around it.</div>`},
+  b:`<div class="takeaways"><b>Key takeaways</b><ul><li>Rectangles give the most usable swimming length and suit modern homes.</li><li>Freeform curves feel like a resort and blend with natural stone and palms.</li><li>Kidney and plunge shapes suit lanai corners and townhome lots.</li></ul></div><p>Shape is mostly about how you'll use the water and what your house looks like.</p>
+  <h2>Who should choose a rectangular pool?</h2><p>Clean lines suit modern and transitional homes. They also give the most usable swimming length, so they're great for laps. Try the <a href="/fiberglass-pools/aussie/">Aussie</a>, <a href="/fiberglass-pools/bondi/">Bondi</a> or <a href="/fiberglass-pools/whitsunday/">Whitsunday</a>.</p>
+  <h2>Who should choose a freeform pool?</h2><p>Curves feel like a resort and blend with palms and natural stone. Try <a href="/fiberglass-pools/coral-sea/">Coral Sea</a> or <a href="/fiberglass-pools/billabong-cove/">Billabong Cove</a>.</p>
+  <h2>Who should choose a kidney or plunge pool?</h2><p>Soft, classic and compact. Kidney shapes wrap nicely around a lanai corner, and plunge pools fit townhome lots. Try <a href="/fiberglass-pools/opal/">Opal</a> or <a href="/fiberglass-pools/milano/">Milano</a>.</p>
+  <div class="callout">Not sure? Take the <a href="/">30-second pool finder</a> on our homepage, or drop any model into the <a href="/3d-pool-design/">3D studio</a> and walk around it.</div>`},
  {id:'cost-guide',st:'plan',img:'pavilion',min:7,t:'What does a fiberglass pool cost in Jacksonville?',d:'What drives the price, what a complete quote should include, and how to compare bids.',
-  b:`<p>The honest answer is that it depends on the shell, the features, the deck and your site. Here's how to think about it.</p>
-  <h2>The national picture</h2><p>National industry price guides put an installed fiberglass inground pool at roughly <strong>$50,000 to $150,000</strong>. In Florida, advertised fiberglass packages often start in the $40,000s before decking, screens and upgrades.</p>
-  <h2>What moves the number</h2><ul><li><strong>Shell size and model.</strong> Longer and deeper shells cost more to make, ship and set.</li><li><strong>Features.</strong> Spa, heat pump, lighting, automation and water features.</li><li><strong>Deck.</strong> Square footage and material (pavers, travertine or porcelain).</li><li><strong>Site.</strong> Access, soil, slope, and whether a crane is needed.</li><li><strong>Screen enclosure.</strong> Common in Northeast Florida, and a significant line item.</li></ul>
-  <h2>What a complete quote should include</h2><p>Shell, delivery, excavation and haul-off, set and leveling, plumbing and equipment, backfill, coping, deck, electrical bonding, permits, the safety feature Florida requires, and start-up. If a bid is missing items, it isn't cheaper. It's incomplete.</p>
-  <div class="callout">Use our <a href="#/cost">estimator</a> to get a realistic range in two minutes, then book a free site visit for a firm, written price.</div>
+  b:`<div class="takeaways"><b>Key takeaways</b><ul><li>National guides put an installed fiberglass pool at roughly $50,000–$150,000.</li><li>Shell, features, deck, site and enclosure drive the final number.</li><li>A bid that leaves items out isn't cheaper, it's incomplete.</li></ul></div><p>The honest answer is that it depends on the shell, the features, the deck and your site. Here's how to think about it.</p>
+  <h2>What do fiberglass pools cost nationally?</h2><p>National industry price guides put an installed fiberglass inground pool at roughly <strong>$50,000 to $150,000</strong>. In Florida, advertised fiberglass packages often start in the $40,000s before decking, screens and upgrades.</p>
+  <h2>What changes the price?</h2><ul><li><strong>Shell size and model.</strong> Longer and deeper shells cost more to make, ship and set.</li><li><strong>Features.</strong> Spa, heat pump, lighting, automation and water features.</li><li><strong>Deck.</strong> Square footage and material (pavers, travertine or porcelain).</li><li><strong>Site.</strong> Access, soil, slope, and whether a crane is needed.</li><li><strong>Screen enclosure.</strong> Common in Northeast Florida, and a significant line item.</li></ul>
+  <h2>What should a complete quote include?</h2><p>Shell, delivery, excavation and haul-off, set and leveling, plumbing and equipment, backfill, coping, deck, electrical bonding, permits, the safety feature Florida requires, and start-up. If a bid is missing items, it isn't cheaper. It's incomplete.</p>
+  <div class="callout">Use our <a href="/pool-cost/">estimator</a> to get a realistic range in two minutes, then book a free site visit for a firm, written price.</div>
   <p class="src">Source: published national fiberglass pool price guides. Ranges vary by region and project.</p>`},
  {id:'permits',st:'plan',img:'screen',min:5,t:'Permits, HOAs and Florida pool safety rules',d:'What has to be approved before we dig, and who handles it.',
-  b:`<p>Every inground pool in Northeast Florida needs a building permit, and most neighborhoods also need HOA approval. iTop handles both.</p>
-  <h2>Building permit</h2><p>Your city or county reviews the site plan, setbacks, electrical and drainage before work starts, then inspects during the build.</p>
-  <h2>HOA architectural review</h2><p>Many communities, including Nocatee, Julington Creek and Ponte Vedra neighborhoods, want drawings, materials and sometimes colours before approving. Our 3D design and site plan make this faster.</p>
-  <h2>Florida's pool safety law</h2><p>Florida's Residential Swimming Pool Safety Act (Chapter 515, Florida Statutes) requires a new residential pool to have at least one approved safety feature. Options include a compliant barrier or fence, an approved safety cover, exit alarms on doors and windows that open to the pool, or self-closing, self-latching doors.</p>
+  b:`<div class="takeaways"><b>Key takeaways</b><ul><li>Every inground pool in Northeast Florida needs a building permit.</li><li>Most neighborhoods also need HOA approval, and iTop handles both.</li><li>Florida law requires a new residential pool to have at least one approved safety feature.</li></ul></div><p>Every inground pool in Northeast Florida needs a building permit, and most neighborhoods also need HOA approval. iTop handles both.</p>
+  <h2>Do I need a building permit?</h2><p>Your city or county reviews the site plan, setbacks, electrical and drainage before work starts, then inspects during the build.</p>
+  <h2>Will my HOA need to approve it?</h2><p>Many communities, including Nocatee, Julington Creek and Ponte Vedra neighborhoods, want drawings, materials and sometimes colours before approving. Our 3D design and site plan make this faster.</p>
+  <h2>What does Florida's pool safety law require?</h2><p>Florida's Residential Swimming Pool Safety Act (Chapter 515, Florida Statutes) requires a new residential pool to have at least one approved safety feature. Options include a compliant barrier or fence, an approved safety cover, exit alarms on doors and windows that open to the pool, or self-closing, self-latching doors.</p>
   <div class="callout">We'll recommend the safety option that fits your family and your county's inspection, and build it into your quote.</div>
   <p class="src">Requirements vary by jurisdiction. Your permit reviewer has the final word.</p>`},
  {id:'financing',st:'plan',img:'sunset',min:5,t:'Pool financing 101',d:'Pool loans, home equity, HELOCs and refinancing, in plain English.',
-  b:`<p>Most families finance at least part of a pool. These are the four common routes.</p>
+  b:`<div class="takeaways"><b>Key takeaways</b><ul><li>The four common routes are a pool loan, home equity loan, HELOC and cash-out refinance.</li><li>Loans secured by your home usually carry lower rates, but put the home at risk.</li><li>iTop isn't a lender, so talk to a lender or advisor before you choose.</li></ul></div><p>Most families finance at least part of a pool. These are the four common routes.</p>
   <h2>1. Unsecured pool loan</h2><p>A personal loan made for home projects. It's fast, and your house isn't collateral, but rates are usually higher.</p>
   <h2>2. Home equity loan</h2><p>A fixed amount borrowed against your equity. It usually carries a lower rate, but your home secures it.</p>
   <h2>3. HELOC</h2><p>A line of credit you draw as the build progresses. Rates are often variable.</p>
   <h2>4. Cash-out refinance</h2><p>You replace your mortgage with a larger one. This can make sense when current rates are at or below your existing rate.</p>
-  <div class="callout">Try different down payments and terms in our <a href="#/cost">estimator</a>. Talk to a lender or financial advisor before you choose. iTop isn't a lender.</div>`},
+  <div class="callout">Try different down payments and terms in our <a href="/pool-cost/">estimator</a>. Talk to a lender or financial advisor before you choose. iTop isn't a lender.</div>`},
  {id:'colours',st:'design',img:'falls',min:4,t:'How to choose a finish colour',d:'Why the same shell looks different in your yard, and how to pick with confidence.',
-  b:`<p>Barrier Reef's US range has seven finishes: Aquamarine, Arctic, California, Evening Sky, Ocean, Sandstone and Silver Mist.</p>
-  <h2>Light vs dark</h2><p>Light finishes such as Arctic and Sandstone give turquoise, Caribbean-style water. Dark finishes such as Ocean and Evening Sky look deeper and more reflective, like a lake.</p>
-  <h2>What changes the colour</h2><ul><li><strong>Depth.</strong> The deep end always reads darker than the steps.</li><li><strong>Sky and shade.</strong> A screen enclosure softens and darkens the water slightly.</li><li><strong>Deck.</strong> Light travertine makes water look brighter. Charcoal pavers make it look moodier.</li></ul>
-  <div class="callout">Compare any two finishes side by side in our <a href="#/colours">colour lab</a>, then ask us to bring real samples to your site visit.</div>`},
+  b:`<div class="takeaways"><b>Key takeaways</b><ul><li>Barrier Reef's US range has seven finishes.</li><li>Light finishes give turquoise water, and dark finishes look deeper and more reflective.</li><li>Depth, shade and deck color all change how the water looks.</li></ul></div><p>Barrier Reef's US range has seven finishes: Aquamarine, Arctic, California, Evening Sky, Ocean, Sandstone and Silver Mist.</p>
+  <h2>Should I choose a light or dark finish?</h2><p>Light finishes such as Arctic and Sandstone give turquoise, Caribbean-style water. Dark finishes such as Ocean and Evening Sky look deeper and more reflective, like a lake.</p>
+  <h2>What changes the color of the water?</h2><ul><li><strong>Depth.</strong> The deep end always reads darker than the steps.</li><li><strong>Sky and shade.</strong> A screen enclosure softens and darkens the water slightly.</li><li><strong>Deck.</strong> Light travertine makes water look brighter. Charcoal pavers make it look moodier.</li></ul>
+  <div class="callout">Compare any two finishes side by side in our <a href="/pool-colors/">colour lab</a>, then ask us to bring real samples to your site visit.</div>`},
  {id:'features',st:'design',img:'spa',min:5,t:'Tanning ledges, spas and lighting: what\'s worth it?',d:'The upgrades owners use every week, and the ones they forget.',
-  b:`<p>Some upgrades get used every day. Others get forgotten. Here's what we see owners use most.</p>
-  <h2>Tanning ledge</h2><p>A shallow shelf, usually under a foot of water. It's where chairs, toddlers and morning coffee end up. Highly recommended.</p>
-  <h2>Spa</h2><p>Choose a shell with an integrated spa, like <a href="#/pools/sydney-harbour">Sydney Harbour</a>, or add a raised spillover spa. Great for cooler months.</p>
-  <h2>Heat pump</h2><p>Florida's mild winters suit heat pumps well, and they stretch your swim season.</p>
-  <h2>LED lighting &amp; automation</h2><p>Colour LEDs and phone control for pump, lights and heat. Cheap to add during the build and awkward to add later.</p>
-  <div class="callout">Toggle a spa and tanning ledge in the <a href="#/studio">3D studio</a> to see the difference, then price them in the <a href="#/cost">estimator</a>.</div>`},
+  b:`<div class="takeaways"><b>Key takeaways</b><ul><li>A tanning ledge is one of the upgrades owners use most.</li><li>Heat pumps suit Florida's mild winters and stretch the swim season.</li><li>Lighting and automation are cheap during the build and awkward to add later.</li></ul></div><p>Some upgrades get used every day. Others get forgotten. Here's what we see owners use most.</p>
+  <h2>Is a tanning ledge worth it?</h2><p>A shallow shelf, usually under a foot of water. It's where chairs, toddlers and morning coffee end up. Highly recommended.</p>
+  <h2>Should I add a spa?</h2><p>Choose a shell with an integrated spa, like <a href="/fiberglass-pools/sydney-harbour/">Sydney Harbour</a>, or add a raised spillover spa. Great for cooler months.</p>
+  <h2>Do I need a heat pump?</h2><p>Florida's mild winters suit heat pumps well, and they stretch your swim season.</p>
+  <h2>Are LED lighting and automation worth it?</h2><p>Colour LEDs and phone control for pump, lights and heat. Cheap to add during the build and awkward to add later.</p>
+  <div class="callout">Toggle a spa and tanning ledge in the <a href="/3d-pool-design/">3D studio</a> to see the difference, then price them in the <a href="/pool-cost/">estimator</a>.</div>`},
  {id:'timeline',st:'build',img:'aerial',min:5,t:'Your build, week by week',d:'What happens from permit approval to the first swim.',
-  b:`<p>Once permits and HOA approval are in hand, a fiberglass install moves quickly. Barrier Reef puts a typical install at 2 to 6 weeks.</p>
+  b:`<div class="takeaways"><b>Key takeaways</b><ul><li>Barrier Reef puts a typical install at 2–6 weeks once permits and HOA approval are in hand.</li><li>The shell arrives in one piece and is backfilled evenly while the pool fills.</li><li>Weather, inspections and enclosure lead times can change the timeline.</li></ul></div><p>Once permits and HOA approval are in hand, a fiberglass install moves quickly. Barrier Reef puts a typical install at 2 to 6 weeks.</p>
   <ol><li><strong>Layout &amp; locates.</strong> We mark the pool and call Sunshine 811 so utilities are located.</li><li><strong>Excavation.</strong> Usually a day or two, with soil hauled away.</li><li><strong>Delivery &amp; set.</strong> The shell arrives in one piece and is lowered, leveled and plumbed.</li><li><strong>Backfill.</strong> We backfill evenly while the pool fills with water, to keep pressure balanced.</li><li><strong>Coping, deck &amp; enclosure.</strong> The same crew lays the deck.</li><li><strong>Inspections.</strong> Final electrical and safety-feature inspections.</li><li><strong>Start-up &amp; handover.</strong> We balance the water and show you how everything works.</li></ol>
   <p class="src">Timeline varies with weather, inspections, site conditions and screen-enclosure lead times.</p>`},
  {id:'access',st:'build',img:'pavilion',min:3,t:'Site access: how a shell gets into your yard',d:'Side gates, fences, cranes and what we check on the site visit.',
-  b:`<p>Fiberglass shells arrive on a truck in one piece, so the route into your yard matters.</p>
-  <h2>Side-yard access</h2><p>If there's a clear path wide enough for equipment, we can usually set the shell from the side. Fence panels can be removed temporarily and replaced.</p>
-  <h2>Crane sets</h2><p>Pools behind the house, narrow lots or screened areas may need a crane to lift the shell over. It's common, quick, and priced into your quote up front.</p>
-  <h2>What we check</h2><ul><li>Gate and side-yard widths</li><li>Overhead lines and trees</li><li>Septic, irrigation and drainage</li><li>Slope and soil</li></ul>`},
+  b:`<div class="takeaways"><b>Key takeaways</b><ul><li>Shells arrive on a truck in one piece, so the route into your yard matters.</li><li>Many pools can be set from the side, and fence panels can be removed and replaced.</li><li>Narrow lots or pools behind the house may need a crane.</li></ul></div><p>Fiberglass shells arrive on a truck in one piece, so the route into your yard matters.</p>
+  <h2>Can the shell come through my side yard?</h2><p>If there's a clear path wide enough for equipment, we can usually set the shell from the side. Fence panels can be removed temporarily and replaced.</p>
+  <h2>When is a crane needed?</h2><p>Pools behind the house, narrow lots or screened areas may need a crane to lift the shell over. It's common, quick, and priced into your quote up front.</p>
+  <h2>What do we check on the site visit?</h2><ul><li>Gate and side-yard widths</li><li>Overhead lines and trees</li><li>Septic, irrigation and drainage</li><li>Slope and soil</li></ul>`},
  {id:'first-30',st:'own',img:'sunset',min:5,t:'Your first 30 days as a pool owner',d:'Start-up, chemistry basics and a simple weekly routine.',
-  b:`<p>We'll start your pool and walk you through everything, but here's what to expect.</p>
-  <h2>Week one</h2><p>Run the pump as instructed, brush the walls and floor, and keep children's toys out until the water is balanced.</p>
-  <h2>Typical target ranges</h2><ul><li>pH: about 7.4–7.6</li><li>Free chlorine: about 1–3 ppm</li><li>Total alkalinity: about 80–120 ppm</li></ul>
+  b:`<div class="takeaways"><b>Key takeaways</b><ul><li>Run the pump as instructed and brush the walls and floor in week one.</li><li>Typical targets are pH 7.4–7.6, free chlorine 1–3 ppm and alkalinity 80–120 ppm.</li><li>A weekly routine takes about 10 minutes.</li></ul></div><p>We'll start your pool and walk you through everything, but here's what to expect.</p>
+  <h2>What happens in week one?</h2><p>Run the pump as instructed, brush the walls and floor, and keep children's toys out until the water is balanced.</p>
+  <h2>What should my water levels be?</h2><ul><li>pH: about 7.4–7.6</li><li>Free chlorine: about 1–3 ppm</li><li>Total alkalinity: about 80–120 ppm</li></ul>
   <p>Your handover sheet lists the exact targets for your pool and equipment. Saltwater systems still produce chlorine, so test just the same.</p>
-  <h2>A 10-minute weekly routine</h2><p>Skim, empty baskets, test, adjust, and give the floor a quick brush. The smooth gelcoat makes this the easy part.</p>`},
+  <h2>What is the weekly routine?</h2><p>Skim, empty baskets, test, adjust, and give the floor a quick brush. The smooth gelcoat makes this the easy part.</p>`},
  {id:'hurricane',st:'own',img:'screen',min:4,t:'Hurricane prep for your pool',d:'What to do (and what never to do) before a storm.',
-  b:`<p>Northeast Florida storms are part of life. Here's how to prepare your pool.</p>
+  b:`<div class="takeaways"><b>Key takeaways</b><ul><li>Never drain a fiberglass pool, because high groundwater can push an empty shell up.</li><li>Don't restart equipment until it's dry and debris is cleared.</li><li>Call iTop after the storm if anything looks off.</li></ul></div><p>Northeast Florida storms are part of life. Here's how to prepare your pool.</p>
   <h2>Do</h2><ul><li>Keep the pool full. The water's weight helps hold the shell in place.</li><li>Turn off pump, heater and lights at the breaker.</li><li>Bring in furniture, toys and loose décor.</li><li>Raise chlorine slightly before the storm.</li></ul>
   <h2>Don't</h2><ul><li><strong>Never drain a fiberglass pool.</strong> High groundwater after heavy rain can push an empty shell up.</li><li>Don't restart equipment until it's dry and debris is cleared.</li></ul>
   <div class="callout">After the storm, call us if anything looks off. We'd rather check than have you guess.</div>`}
@@ -238,9 +234,9 @@ function Lab(canvas,host){
 let looping=false,failed3D=false;
 function load3D(){if(!load3D.p)load3D.p=new Promise((res,rej)=>{if(window.THREE)return res();const s=document.createElement('script');s.src=ROOT+'js/three.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s)}).then(()=>{T=window.THREE;if(T.ColorManagement)T.ColorManagement.legacyMode=false});return load3D.p}
 function loop3D(){if(looping)return;looping=true;(function tick(){if(!document.hidden){cfg&&cfg.frame();lab&&lab.frame()}TEST?setTimeout(tick,700):requestAnimationFrame(tick)})()}
-function fail3D(err){if(failed3D)return;failed3D=true;console.warn('WebGL unavailable',err);document.body.classList.add('no3d');$$('.stage,.lab-stage').forEach(s=>s.insertAdjacentHTML('beforeend','<p class="no3d-msg">This device cannot show the 3D preview. <a href="#/quote">Ask us for your free 3D design</a>.</p>'))}
+function fail3D(err){if(failed3D)return;failed3D=true;console.warn('WebGL unavailable',err);document.body.classList.add('no3d');$$('.stage,.lab-stage').forEach(s=>s.insertAdjacentHTML('beforeend','<p class="no3d-msg">This device cannot show the 3D preview. <a href="/free-3d-design/">Ask us for your free 3D design</a>.</p>'))}
 function initStudio3D(){if(cfg||failed3D)return;load3D().then(()=>{if(cfg)return;cfg=new PoolScene($('#cfgCanvas'),{interactive:true,time:'day'});cfg.autospin=true;
-  cfg.onInteract=()=>{cfg.autospin=false;st.touched=true;const h=$('#cfgHint');if(h)h.style.opacity=0};
+  cfg.onInteract=()=>{if(!cfg.seen){cfg.seen=1;track('design_3d_interaction')}cfg.autospin=false;st.touched=true;const h=$('#cfgHint');if(h)h.style.opacity=0};
   $$('#optDeck .dk').forEach(b=>{try{b.querySelector('span').style.backgroundImage=`url(${deckTex(b.dataset.v).image.toDataURL('image/jpeg',.7)})`}catch(e){}});
   pickModel(st.model);setFinish(st.finish);const dk=$('#optDeck .dk.on');dk&&cfg.set({deck:dk.dataset.v});loop3D()}).catch(fail3D)}
 function initLab3D(){if(lab||failed3D)return;load3D().then(()=>{if(lab)return;lab=new Lab($('#labCanvas'),$('#labStage'));lab.set('a',LS.a);lab.set('b',LS.b);loop3D()}).catch(fail3D)}

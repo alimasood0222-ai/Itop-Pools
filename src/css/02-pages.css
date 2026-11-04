@@ -301,7 +301,7 @@
 .md-body{background:var(--mist);padding:80px 0}
 .md-cols{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start}
 .md-block{padding:30px;border-radius:var(--r-lg);background:#fff;border:1px solid var(--line);margin-bottom:18px}
-.md-block h3{font-size:24px;margin-bottom:18px;letter-spacing:-.03em}
+.md-block h2,.md-block h3{font-size:24px;margin-bottom:18px;letter-spacing:-.03em}
 .spec{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .spec div{padding:16px;border-radius:16px;background:var(--mist)}
 .spec small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--body);font-weight:600}

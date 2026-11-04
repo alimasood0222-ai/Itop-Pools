@@ -1,18 +1,71 @@
 {
-  "hero": ["m-castaway", "m-oasis", "m-southport", "m-aussie", "m-coral-sea", "m-whitsunday"],
+  "hero": [
+    "m-castaway",
+    "m-oasis",
+    "m-southport",
+    "m-aussie",
+    "m-coral-sea",
+    "m-whitsunday"
+  ],
   "leadWebhook": "",
   "leadEmail": "hello@itoppools.com",
   "business": {
-    "@type": ["PoolAndSpaContractor", "HomeAndConstructionBusiness"],
+    "@type": [
+      "PoolAndSpaContractor",
+      "HomeAndConstructionBusiness"
+    ],
     "name": "iTop Pools",
-    "alternateName": ["iTop Builder", "iTop Pavers"],
+    "alternateName": [
+      "iTop Builder",
+      "iTop Pavers"
+    ],
     "description": "Authorized Barrier Reef fiberglass pool dealer in Jacksonville, Florida. Pools, paver decks, spas, water features and outdoor kitchens, built by an in-house crew.",
     "url": "https://itoppools.com/",
     "telephone": "+1-904-685-2555",
     "email": "hello@itoppools.com",
     "priceRange": "$$$",
-    "address": { "@type": "PostalAddress", "streetAddress": "6510 Columbia Park Drive, Suite 206", "addressLocality": "Jacksonville", "addressRegion": "FL", "postalCode": "32258", "addressCountry": "US" },
-    "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "18:00" }],
-    "areaServed": ["Jacksonville, FL", "Ponte Vedra Beach, FL", "St. Johns, FL", "Orange Park, FL", "Fleming Island, FL", "Nocatee, FL", "Julington Creek, FL", "Mandarin, FL", "Jacksonville Beach, FL", "St. Augustine, FL", "Green Cove Springs, FL", "Middleburg, FL"]
-  }
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "6510 Columbia Park Drive, Suite 206",
+      "addressLocality": "Jacksonville",
+      "addressRegion": "FL",
+      "postalCode": "32258",
+      "addressCountry": "US"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    ],
+    "areaServed": [
+      "Jacksonville, FL",
+      "Ponte Vedra Beach, FL",
+      "St. Johns, FL",
+      "Orange Park, FL",
+      "Fleming Island, FL",
+      "Nocatee, FL",
+      "Julington Creek, FL",
+      "Mandarin, FL",
+      "Jacksonville Beach, FL",
+      "St. Augustine, FL",
+      "Green Cove Springs, FL",
+      "Middleburg, FL"
+    ]
+  },
+  "contentUpdated": "2026-11-04",
+  "gtm": "",
+  "ga4": "",
+  "googleVerify": "",
+  "bingVerify": "",
+  "indexNowKey": "b7e41d9c2fa34a0e8c6d15f7a9320e4b",
+  "sameAs": []
 }

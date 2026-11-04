@@ -14,7 +14,7 @@ $('#drClose').addEventListener('click',drClose);$('#drBack').addEventListener('c
 $('#drPoolsBtn').addEventListener('click',e=>{const b=e.currentTarget,o=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',o);$('#drPools').classList.toggle('open',o)});
 drawer.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const f=$$('a[href],button',drawer).filter(x=>x.offsetParent!==null);if(!f.length)return;const a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});
 (()=>{let sx=null,sy=0,dx=0;drawer.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;dx=0},{passive:true});
- drawer.addEventListener('touchmove',e=>{if(sx===null)return;dx=e.touches[0].clientX-sx;if(Math.abs(e.touches[0].clientY-sy)>Math.abs(dx)){sx=null;drawer.style.transform='';return}if(dx>0)drawer.style.transform='translateX('+dx+'px)'},{passive:true});
+ drawer.addEventListener('touchmove',e=>{if(sx===null)return;dx=e.touches[0].clientX-sx;if(Math.abs(e.touches[0].clientY-sy)>Math.abs(dx)){sx=null;drawer.style.transform='';return}if(e.cancelable)e.preventDefault();if(dx>0)drawer.style.transform='translateX('+dx+'px)'},{passive:false});
  drawer.addEventListener('touchend',()=>{if(sx!==null&&dx>70)drClose();else drawer.style.transform='';sx=null},{passive:true})})();
 /* hero photo carousel */
 (()=>{const hero=$('#top'),slides=$$('#hsStage .hs');if(!slides.length)return;let i=0,timer=0,userPaused=reduce,overUi=false,kbUi=false,seen=true;const DUR=6500;
@@ -23,7 +23,8 @@ drawer.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const f=$$('a[href
  const dots=$$('#hsDots button');
  const running=()=>!userPaused&&!overUi&&!kbUi&&seen&&!document.hidden&&!!hero.offsetParent;
  function arm(){clearTimeout(timer);hero.classList.toggle('hs-run',running());if(running())timer=setTimeout(()=>show(i+1),DUR)}
- function show(n,first){i=(n+slides.length)%slides.length;fill(slides[i]);if(!first)fill(slides[(i+1)%slides.length]);slides.forEach((s,k)=>{s.classList.toggle('on',k===i);s.setAttribute('aria-hidden',k!==i)});dots.forEach((d,k)=>{d.classList.toggle('on',k===i);if(k===i)d.setAttribute('aria-current','true');else d.removeAttribute('aria-current')});$('#hsCap').textContent=slides[i].dataset.cap;arm()}
+ const onHome=()=>!!hero.offsetParent;
+ function show(n,first){i=(n+slides.length)%slides.length;if(onHome()){fill(slides[i]);if(!first)fill(slides[(i+1)%slides.length])}slides.forEach((s,k)=>{s.classList.toggle('on',k===i);s.setAttribute('aria-hidden',k!==i)});dots.forEach((d,k)=>{d.classList.toggle('on',k===i);if(k===i)d.setAttribute('aria-current','true');else d.removeAttribute('aria-current')});$('#hsCap').textContent=slides[i].dataset.cap;arm()}
  dots.forEach((d,k)=>d.onclick=()=>show(k));$('#hsPrev').onclick=()=>show(i-1);$('#hsNext').onclick=()=>show(i+1);
  const syncPause=()=>{hero.classList.toggle('hs-paused',userPaused);$('#hsPause').setAttribute('aria-label',userPaused?'Play slideshow':'Pause slideshow');arm()};
  $('#hsPause').onclick=()=>{userPaused=!userPaused;syncPause()};
@@ -33,9 +34,11 @@ drawer.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const f=$$('a[href
  hero.addEventListener('keydown',e=>{if(e.target.closest('input,textarea'))return;if(e.key==='ArrowLeft'){show(i-1)}else if(e.key==='ArrowRight'){show(i+1)}});
  document.addEventListener('visibilitychange',arm);
  let sx=null,sy=0;hero.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+ hero.addEventListener('touchmove',e=>{if(sx===null)return;const t=e.touches[0];if(e.cancelable&&Math.abs(t.clientX-sx)>Math.abs(t.clientY-sy))e.preventDefault()},{passive:false});
  hero.addEventListener('touchend',e=>{if(sx===null)return;const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;sx=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)show(i+(dx<0?1:-1))},{passive:true});
- window.heroArm=arm;syncPause();show(0,true);
- addEventListener('load',()=>setTimeout(()=>fill(slides[1]),1500));})();
+ if(innerWidth<=680)dots.forEach(d=>{d.tabIndex=-1;d.setAttribute('aria-hidden','true')});
+ window.heroArm=()=>{if(onHome()){fill(slides[i]);setTimeout(()=>fill(slides[(i+1)%slides.length]),1500)}arm()};syncPause();show(0,true);
+ if(onHome())addEventListener('load',()=>setTimeout(()=>fill(slides[1]),1500));})();
 const heroEl=$('#top');addEventListener('scroll',()=>{const p=Math.min(1,scrollY/(heroEl.offsetHeight*.8));heroEl.style.setProperty('--dive',p.toFixed(3))},{passive:true});
 document.addEventListener('click',e=>{const a=e.target.closest('a[data-scroll]');if(!a)return;e.preventDefault();const t=$(a.getAttribute('href'));t&&t.scrollIntoView({behavior:'smooth'})});
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});
@@ -52,7 +55,7 @@ $('#lb').onclick=()=>$('#lb').classList.remove('on');
 const openLB=src=>{$('#lb img').src=src;$('#lb').classList.add('on')};
 addEventListener('keydown',e=>{if(e.key==='Escape'){$('#lb').classList.remove('on');$('#cmpModal').classList.remove('on');drClose();fpSheet(false)}});
 $('#megaPlan').outerHTML=planSVG(byId('aussie'),{fin:'california',dark:1});
-later(()=>$('#fLearn').innerHTML=ARTS.slice(0,6).map(a=>`<li><a href="#/learn/${a.id}">${a.t.split(/[:?]/)[0]}</a></li>`).join(''));
+later(()=>$('#fLearn').innerHTML=ARTS.slice(0,6).map(a=>`<li><a href="/pool-school/${a.id}/">${a.t.split(/[:?]/)[0]}</a></li>`).join(''));
 $$('input[type=range]').forEach(r=>{setP(r);r.addEventListener('input',()=>setP(r))});
 
 /* =========================================================
@@ -74,8 +77,8 @@ function qzGo(i){$$('.fd-q').forEach(q=>{const n=+q.dataset.q;q.classList.toggle
 $$('.fd-opts').forEach(g=>$$('button',g).forEach(b=>b.onclick=()=>{QZ[g.dataset.k]=b.dataset.v;const i=+g.closest('.fd-q').dataset.q;if(i<2)qzGo(i+1);else qzShow()}));
 function qzShow(){$$('.fd-q').forEach(q=>{q.classList.remove('on');q.classList.add('past')});$('#fdBar').style.width='100%';
  const top=MODELS.map(m=>({m,s:qzScore(m)})).sort((a,b)=>b.s-a.s||b.m.L-a.m.L).slice(0,3);
- const r=$('#fdRes');r.innerHTML=`<span class="fd-n">Your shortlist</span><h3>Best matches for your yard</h3><div class="fd-list">${top.map(({m,s})=>`<a class="fd-item" href="#/pools/${m.id}"><div class="pl">${planSVG(m,{fin:'california'})}</div><div><b>${m.n}</b><small>${m.t} · ${m.Ls} × ${m.Ws}${m.D?' · '+ft(m.D)+' deep':''}</small></div><div class="m">${s}%<small>MATCH</small></div></a>`).join('')}</div>
- <div class="fd-acts"><a href="#/quote?m=${top[0].m.id}" class="btn">Get a price for ${top[0].m.n} <span class="arr">→</span></a><a href="#/studio?m=${top[0].m.id}" class="btn ghost-d">See it in 3D <span class="arr">→</span></a><button class="redo" id="fdRedo">↺ Start over</button></div>`;r.classList.add('on');
+ const r=$('#fdRes');r.innerHTML=`<span class="fd-n">Your shortlist</span><h3>Best matches for your yard</h3><div class="fd-list">${top.map(({m,s})=>`<a class="fd-item" href="/fiberglass-pools/${m.id}/"><div class="pl">${planSVG(m,{fin:'california'})}</div><div><b>${m.n}</b><small>${m.t} · ${m.Ls} × ${m.Ws}${m.D?' · '+ft(m.D)+' deep':''}</small></div><div class="m">${s}%<small>MATCH</small></div></a>`).join('')}</div>
+ <div class="fd-acts"><a href="/free-3d-design/?m=${top[0].m.id}" class="btn">Get a price for ${top[0].m.n} <span class="arr">→</span></a><a href="/3d-pool-design/?m=${top[0].m.id}" class="btn ghost-d">See it in 3D <span class="arr">→</span></a><button class="redo" id="fdRedo">↺ Start over</button></div>`;r.classList.add('on');
  $('#fdRedo').onclick=()=>{r.classList.remove('on');qzGo(0)}}
 qzGo(0);
 
@@ -86,13 +89,13 @@ qzGo(0);
  function build(){tr.innerHTML=list.map((m,i)=>`<div class="r2c" data-i="${i}" role="group" aria-label="${m.n}">${m.feats.includes('new')?'<span class="tag">New 2026</span>':''}<div class="r2p r2ph">${pic(m.photo,{sizes:'(max-width:680px) 80vw,420px'})}<span class="r2s">${m.Ls} × ${m.Ws}</span></div><div class="r2n"><b>${m.n}</b><small>${m.t}</small></div></div>`).join('');
   $('#r2Ticks').innerHTML=list.map((m,i)=>`<button data-i="${i}" aria-label="${m.n}"><i></i><span>${m.n}</span></button>`).join('');
   $('#r2Tot').textContent='/ '+String(list.length).padStart(2,'0');
-  $$('.r2c',tr).forEach(c=>c.onclick=()=>{if(moved)return;const i=+c.dataset.i;if(i===act)go('/pools/'+list[i].id);else to(i)});
+  $$('.r2c',tr).forEach(c=>c.onclick=()=>{if(moved)return;const i=+c.dataset.i;if(i===act)go('/fiberglass-pools/'+list[i].id+'/');else to(i)});
   $$('#r2Ticks button').forEach(b=>b.onclick=()=>to(+b.dataset.i));act=-1;tr.scrollLeft=0;upd()}
  function to(i,inst){i=Math.max(0,Math.min(list.length-1,i));const c=tr.children[i];if(!c)return;tr.scrollTo({left:c.offsetLeft+c.offsetWidth/2-tr.clientWidth/2,behavior:inst||reduce?'auto':'smooth'})}
  function info(m){const sp=[['Size',m.Ls+' × '+m.Ws],['Deep end',m.D?ft(m.D):'See spec sheet'],['Water',m.gal?m.gal.toLocaleString()+' gal':'See spec sheet']];
   $('#r2Info').innerHTML=`<div class="r2i-l"><h3>${m.n}</h3><p>${m.blurb}</p><div class="r2i-tags">${m.feats.filter(f=>f!=='new').map(f=>`<span>${FT_LBL[f]}</span>`).join('')}<span>${m.sizes.length} version${m.sizes.length>1?'s':''}</span></div></div>
   <div class="r2i-m">${sp.map(([k,v])=>`<div><small>${k}</small><b>${v}</b></div>`).join('')}</div>
-  <div class="r2i-r"><a href="#/quote?m=${m.id}" class="btn">Get a price <span class="arr">→</span></a><div class="r2i-sub"><a href="#/pools/${m.id}">Full specs</a><a href="#/studio?m=${m.id}">See it in 3D</a></div></div>`}
+  <div class="r2i-r"><a href="/free-3d-design/?m=${m.id}" class="btn">Get a price <span class="arr">→</span></a><div class="r2i-sub"><a href="/fiberglass-pools/${m.id}/">Full specs</a><a href="/3d-pool-design/?m=${m.id}">See it in 3D</a></div></div>`}
  function upd(){raf=0;const cx=tr.scrollLeft+tr.clientWidth/2;let best=0,bd=1e9;
   [...tr.children].forEach((c,i)=>{const w=c.offsetWidth,d=(c.offsetLeft+w/2-cx)/w;const ad=Math.abs(d);if(ad<bd){bd=ad;best=i}
    if(!reduce){const k=Math.min(ad,2.5);c.style.transform=`perspective(1400px) translateX(${-Math.sign(d)*Math.min(ad,2)*18}px) rotateY(${Math.max(-38,Math.min(38,-d*26))}deg) scale(${1-k*.11})`}
@@ -102,10 +105,12 @@ qzGo(0);
    $('#r2Prev').disabled=act===0;$('#r2Next').disabled=act===list.length-1}}
  tr.addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(upd)},{passive:true});addEventListener('resize',()=>{to(act,1);upd()});
  $('#r2Prev').onclick=()=>to(act-1);$('#r2Next').onclick=()=>to(act+1);
- tr.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();to(act+1)}if(e.key==='ArrowLeft'){e.preventDefault();to(act-1)}if(e.key==='Enter')go('/pools/'+list[act].id)});
+ tr.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();to(act+1)}if(e.key==='ArrowLeft'){e.preventDefault();to(act-1)}if(e.key==='Enter')go('/fiberglass-pools/'+list[act].id+'/')});
  $$('#r2Fil button').forEach(b=>b.onclick=()=>{cat=b.dataset.k;$$('#r2Fil button').forEach(x=>x.classList.toggle('on',x===b));list=cat==='all'?MODELS.slice():MODELS.filter(m=>m.cat===cat);
   tr.classList.add('swap');setTimeout(()=>{build();tr.classList.remove('swap')},260)});
  let d=null,moved=false;
+ tr.addEventListener('dragstart',e=>e.preventDefault());
+ addEventListener('pointercancel',()=>{d=null;tr.classList.remove('drag')});
  tr.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')return;d={x:e.clientX,s:tr.scrollLeft,t:performance.now()};moved=false;tr.classList.add('drag')});
  addEventListener('pointermove',e=>{if(!d)return;const dx=e.clientX-d.x;if(Math.abs(dx)>5)moved=true;tr.scrollLeft=d.s-dx});
  addEventListener('pointerup',e=>{if(!d)return;const dx=e.clientX-d.x,v=dx/Math.max(1,performance.now()-d.t);d=null;tr.classList.remove('drag');
@@ -120,7 +125,7 @@ $('#flow').innerHTML=STEPS.map((s,i)=>`<div class="fl"><div class="dot">${String
  r.addEventListener('input',upd);$$('#miniTerm button').forEach(b=>b.onclick=()=>{$$('#miniTerm button').forEach(x=>x.classList.remove('on'));b.classList.add('on');term=+b.dataset.v;upd()});upd()})();
 
 // learn (shared)
-function artCard(a){const s=STAGES.find(x=>x[0]===a.st);return `<a class="ac" href="#/learn/${a.id}"><div class="im">${pic(ART_IMG[a.img],{alt:'',sizes:'(max-width:680px) 100vw,400px'})}<span class="tag">${s[1]}</span></div><div class="tx"><h3>${a.t}</h3><p>${a.d}</p><div class="meta"><span>${a.min} min read</span><span>Read guide →</span></div></div></a>`}
+function artCard(a){const s=STAGES.find(x=>x[0]===a.st);return `<a class="ac" href="/pool-school/${a.id}/"><div class="im">${pic(ART_IMG[a.img],{alt:'',sizes:'(max-width:680px) 100vw,400px'})}<span class="tag">${s[1]}</span></div><div class="tx"><h3>${a.t}</h3><p>${a.d}</p><div class="meta"><span>${a.min} min read</span><span>Read guide →</span></div></div></a>`}
 function stageBar(el,cur,fn){el.innerHTML=STAGES.map(([k,n],i)=>`<button data-k="${k}" class="${k===cur?'on':''}"><i>0${i+1}</i>${n}</button>`).join('');$$('button',el).forEach(b=>b.onclick=()=>fn(b.dataset.k))}
 function homeLearn(k){stageBar($('#stagesHome'),k,homeLearn);$('#artHome').innerHTML=ARTS.filter(a=>a.st===k).concat(ARTS.filter(a=>a.st!==k)).slice(0,3).map(artCard).join('')}
 later(()=>homeLearn('plan'));
@@ -140,7 +145,7 @@ function cardHTML(m){return `<div class="pc"><div class="pl pl-ph">${pic(m.photo
  <h3>${m.n}</h3><div class="t">${m.t}</div>
  <div class="dims"><div><small>Length</small><b>${m.Ls}</b></div><div><small>Width</small><b>${m.Ws}</b></div><div><small>Deep</small><b>${m.D?(m.sizes[m.def].Ds):'—'}</b></div></div>
  <div class="fts">${m.feats.filter(f=>f!=='new').map(f=>`<span>${FT_LBL[f]}</span>`).join('')}</div>
- <div class="acts"><a href="#/pools/${m.id}">View model</a><a href="#/studio?m=${m.id}">◆ 3D</a></div></div>`}
+ <div class="acts"><a href="/fiberglass-pools/${m.id}/">View model</a><a href="/3d-pool-design/?m=${m.id}">3D</a></div></div>`}
 function fpRender(){
  let list=MODELS.filter(m=>(!F.shape.size||F.shape.has(m.cat)||F.shape.has(m.s)&&m.cat!=='plunge')&&[...F.feat].every(f=>m.feats.includes(f))&&m.sizes.some(z=>z.L<=F.len+.3&&z.W<=F.wid+.1));
  const so={len:(a,b)=>b.L-a.L,'len-a':(a,b)=>a.L-b.L,name:(a,b)=>a.n.localeCompare(b.n),gal:(a,b)=>(b.gal||0)-(a.gal||0)}[F.sort];list.sort(so);
@@ -162,7 +167,7 @@ function cmpUpd(){const a=[...CMP];$('#ctSlots').innerHTML=[0,1,2].map(i=>a[i]?`
 $('#ctClear').onclick=()=>{CMP.clear();cmpUpd();fpRender()};
 $('#ctGo').onclick=()=>{const ms=[...CMP].map(byId);if(ms.length<2){toast('Pick at least 2 models to compare.');return}
  const row=(l,f,c='')=>`<div class="mo-r ${c}" style="--n:${ms.length}"><span>${l}</span>${ms.map(f).join('')}</div>`;
- $('#moTbl').innerHTML=row('',m=>`<a href="#/pools/${m.id}">${m.n}</a>`,'hd')+row('Photo',m=>`<div class="mo-ph">${pic(m.photo,{sizes:'300px'})}</div>`,'pl')+row('Type',m=>`<span>${m.t}</span>`)+row('Length',m=>`<b>${m.Ls}</b>`)+row('Width',m=>`<b>${m.Ws}</b>`)+row('Deep end',m=>`<b>${m.sizes[m.def].Ds||'Spec sheet'}</b>`)+row('Water',m=>`<span>${m.gal?m.gal.toLocaleString()+' gal':'Spec sheet'}</span>`)+row('Features',m=>`<span>${m.feats.map(f=>FT_LBL[f]).join(', ')||'—'}</span>`)+row('Versions',m=>`<span>${m.sizes.map(z=>zLabel(m,z)).join(' · ')}</span>`);
+ $('#moTbl').innerHTML=row('',m=>`<a href="/fiberglass-pools/${m.id}/">${m.n}</a>`,'hd')+row('Photo',m=>`<div class="mo-ph">${pic(m.photo,{sizes:'300px'})}</div>`,'pl')+row('Type',m=>`<span>${m.t}</span>`)+row('Length',m=>`<b>${m.Ls}</b>`)+row('Width',m=>`<b>${m.Ws}</b>`)+row('Deep end',m=>`<b>${m.sizes[m.def].Ds||'Spec sheet'}</b>`)+row('Water',m=>`<span>${m.gal?m.gal.toLocaleString()+' gal':'Spec sheet'}</span>`)+row('Features',m=>`<span>${m.feats.map(f=>FT_LBL[f]).join(', ')||'—'}</span>`)+row('Versions',m=>`<span>${m.sizes.map(z=>zLabel(m,z)).join(' · ')}</span>`);
  $('#cmpModal').classList.add('on')};
 $('#moX').onclick=()=>$('#cmpModal').classList.remove('on');$('#cmpModal').addEventListener('click',e=>{if(e.target.id==='cmpModal')$('#cmpModal').classList.remove('on')});
 $('#moTbl').addEventListener('click',e=>{if(e.target.closest('a'))$('#cmpModal').classList.remove('on')});
@@ -187,18 +192,19 @@ function mdSpec(){const m=mdS();const sp=[['Length',m.Ls],['Width',m.Ws],['Shall
  const gal=m.gal?`<div><small>Water</small><b>${m.gal.toLocaleString()}<em>gal</em></b></div>`:'<div><small>Water</small><b>See spec sheet</b></div>';
  $('#mdSpec').innerHTML=sp.map(([k,v])=>`<div><small>${k}</small><b>${v}</b></div>`).join('')+gal;
  $('#mdSpecNote').textContent='Specifications for the '+m.label+', from Barrier Reef Pools USA.';$('#mdAsideSize').textContent=m.Ls+' × '+m.Ws}
+function allSizes(m){const v=x=>x||'See spec sheet';return `<div class="ct-wrap"><table class="cost-tbl"><thead><tr><th scope="col">Version</th>${['Length','Width','Shallow','Deep','Lounger','Gallons'].map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${m.sizes.map(z=>`<tr><th scope="row">${z.label}</th><td data-l="Length">${v(z.Ls)}</td><td data-l="Width">${v(z.Ws)}</td><td data-l="Shallow">${v(z.Ss)}</td><td data-l="Deep">${v(z.Ds)}</td><td data-l="Lounger">${z.lounger||'None listed'}</td><td data-l="Gallons">${z.gal?z.gal.toLocaleString('en-US'):'See spec sheet'}</td></tr>`).join('')}</tbody></table></div>`}
 function mdPick(i){mdZ=i;$$('#mdSizes button').forEach((b,k)=>{b.classList.toggle('on',k===i);b.setAttribute('aria-pressed',k===i)});mdSpec();mdPlan();mdElev()}
-function renderModel(id,q){const m=byId(id);if(!m){go('/pools');return}mdM=m;mdZ=m.def;mdFin=q.f&&FINISH[q.f]?q.f:'california';
- document.title=`${m.n} Fiberglass Pool · iTop Pools Jacksonville`;
+function renderModel(id,q){const m=byId(id);if(!m){go('/fiberglass-pools/');return}mdM=m;mdZ=m.def;mdFin=q.f&&FINISH[q.f]?q.f:'california';
  $('#mdCrumb').textContent=m.n;$('#mdName').textContent=m.n;$('#mdBlurb').textContent=m.blurb;
  $('#mdTags').innerHTML=(m.feats.includes('new')?'<span class="n">New for 2026</span>':'')+`<span>${m.t}</span><span>Barrier Reef</span>`;
  $('#mdPhoto').innerHTML=pic(m.photo,{eager:true,sizes:'(max-width:900px) 100vw,620px'})+'<figcaption>'+m.n+' · Photo: Barrier Reef Pools USA</figcaption>';
  $('#mdSizes').innerHTML='<small>'+(m.sizes.length>1?'Choose a version':'Available version')+'</small>'+m.sizes.map((z,i)=>`<button type="button" data-i="${i}">${zLabel(m,z)}</button>`).join('');
  $$('#mdSizes button').forEach(b=>b.onclick=()=>mdPick(+b.dataset.i));
- $('#md3d').href='#/studio?m='+m.id;$('#mdQuote').href=$('#mdAsideQ').href='#/quote?m='+m.id;
+ $('#md3d').href='/3d-pool-design/?m='+m.id;$('#mdQuote').href=$('#mdAsideQ').href='/free-3d-design/?m='+m.id;
  $('#mdFeat').innerHTML=m.fl.map(f=>`<li>${f}</li>`).join('');
+ $('#mdAll').innerHTML=allSizes(m);
  $('#mdSw').innerHTML=FIN_KEYS.map(k=>`<button data-v="${k}" class="${k===mdFin?'on':''}"><i style="background:${swBg(k)}"></i>${FIN_META[k].n}</button>`).join('');
- $$('#mdSw button').forEach(b=>b.onclick=()=>{mdFin=b.dataset.v;$$('#mdSw button').forEach(x=>x.classList.toggle('on',x===b));mdPlan();mdElev();$('#mdAsideFin').textContent=FIN_META[mdFin].n;$('#md3d').href=`#/studio?m=${m.id}&f=${mdFin}`});
+ $$('#mdSw button').forEach(b=>b.onclick=()=>{mdFin=b.dataset.v;$$('#mdSw button').forEach(x=>x.classList.toggle('on',x===b));mdPlan();mdElev();$('#mdAsideFin').textContent=FIN_META[mdFin].n;$('#md3d').href=`/3d-pool-design/?m=${m.id}&f=${mdFin}`});
  $('#mdAsideName').textContent=m.n;$('#mdAsideFin').textContent=FIN_META[mdFin].n;
  $('#mdCmp').textContent=CMP.has(m.id)?'✓ In compare':'+ Add to compare';$('#mdCmp').onclick=()=>{toggleCmp(m.id);if(CMP.size>1)toast(CMP.size+' models in compare. Open Pool models to compare them.')};
  const sim=MODELS.filter(x=>x!==m).sort((a,b)=>(b.cat===m.cat)-(a.cat===m.cat)||Math.abs(a.L-m.L)-Math.abs(b.L-m.L)).slice(0,3);
@@ -221,11 +227,11 @@ function renderLearn(q){lStage=q.s||lStage;
  $('#artHub').innerHTML=ARTS.filter(a=>a.st===lStage).concat(ARTS.filter(a=>a.st!==lStage)).map(artCard).join('');
  $$('#artHub .ac').forEach((c,i)=>c.style.animationDelay=(i*.05)+'s')}
 const MTX=[['Typical install','2–6 weeks','3–6 months','Several weeks'],['Surface feel','Smooth gelcoat','Textured plaster or pebble','Soft vinyl'],['Algae resistance','High (non-porous)','Lower (porous)','Medium'],['Shape freedom','Choose from molds','Unlimited','Many shapes'],['Big future cost','Rare','Resurfacing','Liner replacement'],['Best for','Fast, low-upkeep family pools','Fully custom designs','Lowest upfront price']];
-later(()=>$('#mtx').innerHTML=`<div class="mtx-r h"><span></span><span>Fiberglass</span><span>Concrete</span><span>Vinyl liner</span></div>`+MTX.map((r,i)=>`<div class="mtx-r"><span>${r[0]}</span><span>${r[1]}${i===0?'<em class="bar"><i style="--w:92%"></i></em>':''}</span><span>${r[2]}${i===0?'<em class="bar"><i style="--w:18%"></i></em>':''}</span><span>${r[3]}${i===0?'<em class="bar"><i style="--w:55%"></i></em>':''}</span></div>`).join(''));
-function renderArticle(id){const a=ARTS.find(x=>x.id===id);if(!a){go('/learn');return}const s=STAGES.find(x=>x[0]===a.st);
- document.title=a.t+' · iTop Pools';$('#artHero').style.backgroundImage=`url(${imgSrc(ART_IMG[a.img],1920)})`;$('#artCrumb').textContent=s[1];$('#artStage').textContent=s[1]+' stage';$('#artTitle').textContent=a.t;$('#artSub').textContent=a.d;
- $('#artMeta').innerHTML=`<span>${a.min} min read</span><span>iTop Pools crew</span><span>Northeast Florida</span>`;$('#artBody').innerHTML=a.b;
- $('#artMore').innerHTML=ARTS.filter(x=>x!==a).sort((x,y)=>(y.st===a.st)-(x.st===a.st)).slice(0,4).map(x=>`<a href="#/learn/${x.id}">${x.t}<span>${STAGES.find(z=>z[0]===x.st)[1]} · ${x.min} min</span></a>`).join('')}
+later(()=>$('#mtx').innerHTML=`<div class="mtx-r h"><span></span><span>Fiberglass</span><span>Concrete</span><span>Vinyl liner</span></div>`+MTX.map((r,i)=>`<div class="mtx-r"><span>${r[0]}</span><span data-l="Fiberglass">${r[1]}${i===0?'<em class="bar"><i style="--w:92%"></i></em>':''}</span><span data-l="Concrete">${r[2]}${i===0?'<em class="bar"><i style="--w:18%"></i></em>':''}</span><span data-l="Vinyl liner">${r[3]}${i===0?'<em class="bar"><i style="--w:55%"></i></em>':''}</span></div>`).join(''));
+function renderArticle(id){const a=ARTS.find(x=>x.id===id);if(!a){go('/pool-school/');return}const s=STAGES.find(x=>x[0]===a.st);
+ $('#artHero').style.backgroundImage=`url(${imgSrc(ART_IMG[a.img],1920)})`;$('#artCrumb').textContent=s[1];$('#artStage').textContent=s[1]+' stage';$('#artTitle').textContent=a.t;$('#artSub').textContent=a.d;
+ $('#artMeta').innerHTML=`<span>${a.min} min read</span><span>By the iTop Pools crew</span><span>Updated ${SITE.updatedLabel}</span>`;$('#artBody').innerHTML=a.b;
+ $('#artMore').innerHTML=ARTS.filter(x=>x!==a).sort((x,y)=>(y.st===a.st)-(x.st===a.st)).slice(0,4).map(x=>`<a href="/pool-school/${x.id}/">${x.t}<span>${STAGES.find(z=>z[0]===x.st)[1]} · ${x.min} min</span></a>`).join('')}
 
 /* =========================================================
    ESTIMATOR
@@ -249,7 +255,7 @@ function est(){const m=byId(E.model);if(m.spa)E.opts.delete('spa');
  $$('#esModels button').forEach(b=>b.classList.toggle('on',b.dataset.id===E.model));
  $$('#esOpts .eopt').forEach(b=>{const k=b.dataset.k;const inc=!!(k==='spa'&&m.spa);b.classList.toggle('on',E.opts.has(k)||inc);b.style.opacity=inc?.6:1;b.querySelector('em').textContent=inc?'Included':'+'+k$(PRICE.opts.find(x=>x[0]===k)[3][0])+'–'+k$(PRICE.opts.find(x=>x[0]===k)[3][1])});
  ['#esDeck','#eoDown','#eoApr'].forEach(s=>setP($(s)))}
-$('#eoSend').addEventListener('click',()=>{Q.model=E.model;Q.estimate=`${k$(E.lo)}–${k$(E.hi)}`});
+$('#eoSend').addEventListener('click',()=>{track('estimator_complete',{model:E.model,range:`${k$(E.lo)}–${k$(E.hi)}`});Q.model=E.model;Q.estimate=`${k$(E.lo)}–${k$(E.hi)}`});
 later(()=>$('#loans').innerHTML=LOANS.map((l,i)=>`<div class="loan rv d${i+1}"><i>OPTION 0${i+1}</i><h3>${l[0]}</h3><p>${l[1]}</p><ul>${l[2].map(x=>`<li class="p">${x}</li>`).join('')}${l[3].map(x=>`<li class="m">${x}</li>`).join('')}</ul></div>`).join(''));
 
 /* =========================================================
@@ -265,7 +271,7 @@ later(()=>wkRender('all'));
 /* =========================================================
    WHY / TIMELINE
    ========================================================= */
-later(()=>$('#tl').insertAdjacentHTML('beforeend',TL.map((s,i)=>`<div class="tli"><div class="dot">${String(i+1).padStart(2,'0')}</div><div class="card"><span class="who ${s[2]==='Barrier Reef'?'mf':''}">${s[2]}</span><h3>${s[0]}</h3><p>${s[1]}</p><span class="dur">⏱ ${s[3]}</span></div></div>`).join('')));
+later(()=>$('#tl').insertAdjacentHTML('beforeend',TL.map((s,i)=>`<div class="tli"><div class="dot">${String(i+1).padStart(2,'0')}</div><div class="card"><span class="who ${s[2]==='Barrier Reef'?'mf':''}">${s[2]}</span><h3>${s[0]}</h3><p>${s[1]}</p><span class="dur">${s[3]}</span></div></div>`).join('')));
 addEventListener('scroll',()=>{if(cur.r!=='why')return;const t=$('#tl'),r=t.getBoundingClientRect();const p=Math.min(1,Math.max(0,(innerHeight*.6-r.top)/r.height));$('#tlFill').style.height=(p*100)+'%'},{passive:true});
 
 /* =========================================================
@@ -314,7 +320,7 @@ function qUpd(){
  const B=qBrief();const filled=B.filter(r=>r[1]).length;$('#qPct').textContent=Math.round(filled/B.length*100)+'%';
  $('#qSum').innerHTML=B.map(([k,v])=>`<div class="q-row ${v?'f':''}"><span>${k}</span><b>${v||'—'}</b></div>`).join('');
  const bi=['u60','60-80','80-100','100+'].indexOf(Q.budget);$('#qbFill').style.width=bi<0?'0':((bi+1)/4*100)+'%';
- const qs=$('#qStudio');qs.classList.toggle('on',!!st.touched);if(st.touched)qs.innerHTML='<b>◆ 3D design attached</b><span>'+$('#sum').innerHTML.replace(/<\/?b>/g,'')+'</span>'}
+ const qs=$('#qStudio');qs.classList.toggle('on',!!st.touched);if(st.touched)qs.innerHTML='<b>3D design attached</b><span>'+$('#sum').innerHTML.replace(/<\/?b>/g,'')+'</span>'}
 function err(key,msg){const e=$(`.qs.on .q-err[data-for="${key}"]`);if(e){e.textContent=msg;const f=e.closest('.fi');f&&f.classList.add('bad')}const s=$('.qs.on');s.classList.remove('shake');void s.offsetWidth;s.classList.add('shake');return false}
 function qValid(){const s=Q.step;$$('.qs.on .q-err').forEach(e=>e.textContent='');$$('.qs.on .fi.bad').forEach(e=>e.classList.remove('bad'));
  if(s===0&&!Q.project.size)return err('project','Pick at least one, even if you are only exploring.');
@@ -323,13 +329,14 @@ function qValid(){const s=Q.step;$$('.qs.on .q-err').forEach(e=>e.textContent=''
   const em=$('#qEm').value.trim();if(em&&!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em))ok=err('em','That email doesn\'t look right.');return ok}
  return true}
 /* Enquiry delivery: posts to SITE.leadWebhook when it is set (src/data/site.json). Until then, the visitor sends it by email or phone, so nobody is told a request went through when it didn't. */
-function qLead(){return {first_name:$('#qFn').value,last_name:$('#qLn').value,phone:$('#qPh').value,email:$('#qEm').value,postal_code:$('#qZip').value,project:[...Q.project].join(', '),model:Q.model,must_haves:[...Q.musts].join(', '),timing:Q.when,budget:Q.budget,hoa:Q.hoa,existing:Q.existing,visit_day:Q.day,visit_slot:Q.slot,call_first:Q.callFirst,contact_pref:Q.contact,notes:$('#qNotes').value,sms_consent:$('#qSms').checked,estimate:Q.estimate}}
+const SRC=(()=>{let s=null;try{s=JSON.parse(sessionStorage.getItem('itop_src'))}catch(e){}if(!s){const u=new URLSearchParams(location.search);s={utm_source:u.get('utm_source')||'',utm_medium:u.get('utm_medium')||'',utm_campaign:u.get('utm_campaign')||'',utm_term:u.get('utm_term')||'',utm_content:u.get('utm_content')||'',referrer:document.referrer||'',landing_page:location.pathname+location.search};try{sessionStorage.setItem('itop_src',JSON.stringify(s))}catch(e){}}return s})();
+function qLead(){return {...SRC,first_name:$('#qFn').value,last_name:$('#qLn').value,phone:$('#qPh').value,email:$('#qEm').value,postal_code:$('#qZip').value,project:[...Q.project].join(', '),model:Q.model,must_haves:[...Q.musts].join(', '),timing:Q.when,budget:Q.budget,hoa:Q.hoa,existing:Q.existing,visit_day:Q.day,visit_slot:Q.slot,call_first:Q.callFirst,contact_pref:Q.contact,notes:$('#qNotes').value,sms_consent:$('#qSms').checked,estimate:Q.estimate}}
 function qManualSend(msg){$('.q-done').classList.add('q-manual');const body=qBrief().filter(r=>r[1]).map(r=>r[0]+': '+r[1]).concat(['Phone: '+$('#qPh').value,'Email: '+$('#qEm').value,'Best way to reach me: '+Q.contact,'Notes: '+$('#qNotes').value]).join('\n');
  $('#qDoneTitle').firstChild.textContent='One last tap';$('#qDoneSub').textContent=msg;
  $('#qSend').innerHTML='<a class="btn" href="mailto:'+SITE.leadEmail+'?subject='+encodeURIComponent('Free 3D design request')+'&body='+encodeURIComponent(body)+'">Email my request to iTop <span class="arr">→</span></a><a class="btn ghost" href="tel:+19046852555">Call (904) 685-2555 <span class="arr">→</span></a>'}
-function qSubmit(){$('.q-done').classList.remove('q-manual');$('#qDoneTitle').firstChild.textContent="You're all set";$('#qDoneSub').textContent="Here's what happens next.";$('#qSend').innerHTML='';
+function qSubmit(){$('.q-done').classList.remove('q-manual');track('form_complete');$('#qDoneTitle').firstChild.textContent="You're all set";$('#qDoneSub').textContent="Here's what happens next.";$('#qSend').innerHTML='';
  if(!SITE.leadWebhook){qManualSend('Tap below to send your request to our team, or give us a call. Either way, a real person on our crew picks it up.');return}
- fetch(SITE.leadWebhook,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(qLead())}).then(r=>{if(!r.ok)throw new Error(r.status)}).catch(()=>qManualSend("We couldn't send that automatically. Please email it or call us so it reaches the team."))}
+ fetch(SITE.leadWebhook,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(qLead())}).then(r=>{if(!r.ok)throw new Error(r.status);track('generate_lead',{model:Q.model||'',budget:Q.budget||''})}).catch(()=>qManualSend("We couldn't send that automatically. Please email it or call us so it reaches the team."))}
 function qGo(dir){if(dir>0&&!qValid())return;Q.step=Math.max(0,Math.min(6,Q.step+dir));
  if(Q.step===6){qSubmit();$('#qDoneName').textContent=$('#qFn').value.trim()?', '+$('#qFn').value.trim():'';$('#qDoneVisit').textContent=Q.callFirst||!Q.day?'We\'ll agree a time that suits you, then measure your yard and check access.':`Requested for ${Q.day}${Q.slot?' ('+Q.slot.toLowerCase()+')':''}. We'll confirm the exact time.`}
  qUpd();const t=$('.q-main').getBoundingClientRect().top+scrollY-110;if(scrollY>t)scrollTo({top:t,behavior:'smooth'});
@@ -337,21 +344,21 @@ function qGo(dir){if(dir>0&&!qValid())return;Q.step=Math.max(0,Math.min(6,Q.step
 $('#qNext').addEventListener('click',e=>{e.preventDefault();qGo(1)});
 $('#qBack').onclick=()=>qGo(-1);
 $('#qBriefBtn').onclick=e=>{const o=e.currentTarget.getAttribute('aria-expanded')!=='true';e.currentTarget.setAttribute('aria-expanded',o);$('#qCard').classList.toggle('open',o)};
-$('#qForm').addEventListener('keydown',e=>{if(e.key!=='Enter'||e.target.tagName==='TEXTAREA'||e.target.tagName==='BUTTON'||e.isComposing)return;e.preventDefault();qGo(1)});
+$('#qForm').addEventListener('keydown',e=>{if(e.key!=='Enter'||e.target.tagName==='TEXTAREA'||e.isComposing)return;if(e.target.tagName==='BUTTON'){if(e.target.classList.contains('on')&&e.target.closest('[data-k]')){e.preventDefault();qGo(1)}return}e.preventDefault();qGo(1)});
 
 /* =========================================================
    MOTION LAYER
    ========================================================= */
 // sub-page hero CTAs -> form
 $$('.phero .ph-grid').forEach(g=>{const l=g.querySelector('.lead');if(!l)return;const w=document.createElement('div');w.className='ph-side';l.replaceWith(w);w.appendChild(l);
- w.insertAdjacentHTML('beforeend','<div class="ph-ctas"><a href="#/quote" class="btn">Get my free 3D design <span class="arr">→</span></a><a href="tel:+19046852555" class="ph-call">or call (904) 685-2555</a></div>')});
+ w.insertAdjacentHTML('beforeend','<div class="ph-ctas"><a href="/free-3d-design/" class="btn">Get my free 3D design <span class="arr">→</span></a><a href="tel:+19046852555" class="ph-call">or call (904) 685-2555</a></div>')});
 // split headings into masked words
 function splitHead(h){if(h.dataset.split)return;h.dataset.split=1;let i=0;
  const walk=n=>{[...n.childNodes].forEach(c=>{
   if(c.nodeType===3){if(!c.textContent.trim())return;const frag=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(t=>{if(!t)return;if(/^\s+$/.test(t)){frag.appendChild(document.createTextNode(' '));return}const w=document.createElement('span');w.className='w';const s=document.createElement('span');s.style.setProperty('--i',i++);s.textContent=t;w.appendChild(s);frag.appendChild(w)});c.replaceWith(frag)}
   else if(c.nodeType===1){if(c.matches('.grad,.grad-blue,br')){const w=document.createElement('span');w.className='w'+(getComputedStyle(c).display==='block'?' wb':'');c.replaceWith(w);const inner=document.createElement('span');inner.style.setProperty('--i',i++);w.appendChild(inner);inner.appendChild(c)}else walk(c)}})};
  walk(h);h.classList.add('sh');if(!h.classList.contains('rv'))h.classList.add('rv')}
-$$('.sec-head h2,.studio-head h2,.phero h1,.finder h2,.costt h2,.why h2,.faq h2,.mfg h2,.sp-head h1').forEach(splitHead);
+$$('.sec-head h2,.studio-head h2,.phero h1,.finder h2,.costt h2,.why h2,.faq h2,.mfg h2,.sp-head h1').filter(h=>!(h.tagName==='H1'&&h.closest('.route.on'))).forEach(splitHead);
 // stagger groups
 const STAG='.tr-items,.counters,.loans,.pal-grid,.wty-grid,.mfg-stats,.sp-tips,.journey,.p-points,.flow,.rv-grid,.q-trust';
 function stagger(root=document){$$(STAG,root).forEach(g=>{if(g.classList.contains('stg-g'))return;g.classList.add('stg-g');[...g.children].forEach((c,i)=>c.style.setProperty('--d',(i*70)+'ms'));io.observe(g)})}
@@ -369,19 +376,23 @@ const _reveal=reveal;reveal=function(root){stagger(root);imgRev(root);_reveal(ro
    ROUTER
    ========================================================= */
 const cur={r:null,key:null};
-const TITLES={home:'iTop Pools · Barrier Reef Fiberglass Pools · Jacksonville, FL',pools:'Pool Models · iTop Pools',studio:'3D Pool Design Studio · iTop Pools',colours:'Colour Lab · Barrier Reef Finishes · iTop Pools',learn:'Pool School · iTop Pools',cost:'Pool Cost Estimator & Financing · iTop Pools',work:'Our Work · iTop Pools',why:'Process & Warranty · iTop Pools',quote:'Free 3D Design · iTop Pools',faq:'Fiberglass Pool FAQ: Cost, Install & Warranty · iTop Pools Jacksonville'};
-const LABEL={home:'Home',pools:'Pool models',model:'Model',studio:'3D studio',colours:'Colour lab',learn:'Pool school',article:'Pool school',cost:'Cost & financing',work:'Our work',why:'Why iTop',quote:'Free 3D design',faq:'FAQ'};
-const hashPath=()=>{const h=location.hash;return h.startsWith('#/')?h.slice(1):START};
-let VP=hashPath();
-function parse(h){h=(h||VP).replace(/^#?\/?/,'');const [path,qs]=h.split('?');const q=Object.fromEntries(new URLSearchParams(qs||''));const p=(path||'').split('/').filter(Boolean);
- if(!p.length)return{r:'home',q};if(p[0]==='pools'&&p[1])return{r:'model',id:p[1],q};if(p[0]==='learn'&&p[1])return{r:'article',id:p[1],q};
- return{r:TITLES[p[0]]?p[0]:'home',q}}
-function go(path){VP=path;try{history.pushState(null,'','#'+path)}catch(e){}route()}
+const LABEL={home:'Home',pools:'Pool models',model:'Model',studio:'3D studio',colours:'Colour lab',learn:'Pool school',article:'Pool school',cost:'Cost & financing',work:'Gallery',why:'Why iTop',quote:'Free 3D design',faq:'FAQ'};
+const SLUGS={'fiberglass-pools':'pools','3d-pool-design':'studio','pool-colors':'colours','pool-cost':'cost','pool-school':'learn','our-work':'work','why-itop':'why','free-3d-design':'quote','faq':'faq'};
+const norm=u=>{const [a,b]=u.split('?');const p=/\/$|\.html$/.test(a)?a:a+'/';return p+(b?'?'+b:'')};
+/* old #/ links from before real URLs still work */
+const fromHash=()=>{const m=location.hash.match(/^#\/([a-z]+)(\/[^?]*)?(\?.*)?$/);if(location.hash!=='#/'&&!m)return null;if(!m)return '/';const R2={pools:'fiberglass-pools',learn:'pool-school',studio:'3d-pool-design',colours:'pool-colors',cost:'pool-cost',work:'our-work',why:'why-itop',quote:'free-3d-design',faq:'faq'};return R2[m[1]]?norm('/'+R2[m[1]]+(m[2]||''))+(m[3]||''):'/'};
+const urlPath=()=>location.pathname+location.search;
+let VP=fromHash()||urlPath();
+if(location.hash.startsWith('#/')){try{history.replaceState(null,'',VP)}catch(e){}}
+function parse(h){const [path,qs]=(h||VP).split('?');const q=Object.fromEntries(new URLSearchParams(qs||''));const p=(path||'').split('/').filter(Boolean);
+ if(!p.length||p[0]==='index.html'||!SLUGS[p[0]])return{r:'home',q};const r=SLUGS[p[0]];if(r==='pools'&&p[1])return{r:'model',id:p[1],q};if(r==='learn'&&p[1])return{r:'article',id:p[1],q};return{r,q}}
+function pageMeta(){const m=META[VP.split('?')[0]]||META['/'];document.title=m.t;const d=$('meta[name=description]');d&&d.setAttribute('content',m.d);const c=$('link[rel=canonical]');c&&c.setAttribute('href',SITE.url+(VP.split('?')[0]))}
+function go(path){document.documentElement.classList.add('spa');VP=norm(path);try{history.pushState(null,'',VP)}catch(e){}route()}
 function portals(){['studio','lab'].forEach(n=>{const el=$('#'+n);const slot=$(`.route.on .portal[data-p="${n}"]`);(slot||$('#parking')).appendChild(el)});dispatchEvent(new Event('resize'))}
 function show(R){
  $$('.route').forEach(x=>x.classList.toggle('on',x.dataset.route===R.r));
  const root=R.r==='model'?'pools':R.r==='article'?'learn':R.r;$$('#navLinks a[data-r]').forEach(a=>a.classList.toggle('on',a.dataset.r===root));$$('#drawer [data-r]').forEach(a=>{const on=a.dataset.r===root;a.classList.toggle('on',on);if(on&&a.tagName==='A')a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});document.body.dataset.route=R.r;fpSheet(false);$('#cmpModal').classList.remove('on');$('#lb').classList.remove('on');window.heroArm&&setTimeout(window.heroArm,50);
- document.title=TITLES[R.r]||document.title;portals();
+ pageMeta();portals();
  if(R.r==='pools'){if(R.q.shape||R.q.feat){F.shape.clear();F.feat.clear();R.q.shape&&F.shape.add(R.q.shape);R.q.feat&&F.feat.add(R.q.feat)}fpSync()}
  if(R.r==='model')renderModel(R.id,R.q);
  if(R.r==='studio'||R.r==='home'){if(R.q.m&&byId(R.q.m)){pickModel(byId(R.q.m));st.touched=true}if(R.q.f&&FINISH[R.q.f])setFinish(R.q.f)}
@@ -400,9 +411,9 @@ function route(){const R=parse();const key=VP;
  c.classList.remove('go');void c.offsetWidth;c.classList.add('go');
  setTimeout(()=>{show(R);scrollTo({top:0,behavior:'instant'})},520);
  setTimeout(()=>c.classList.remove('go'),1200)}
-const onNav=()=>{if(location.hash&&!location.hash.startsWith('#/'))return;const h=hashPath();if(h!==VP){VP=h;route()}};
-addEventListener('hashchange',onNav);addEventListener('popstate',onNav);
-document.addEventListener('click',e=>{const fq=e.target.closest('a[data-faq]');if(fq&&!e.metaKey&&!e.ctrlKey){e.preventDefault();drClose();const at=(fq.getAttribute('href').split('#')[1]||'');go('/faq');if(at)setTimeout(()=>{const t=document.getElementById(at);t&&t.scrollIntoView({behavior:'smooth'})},cur.r==='faq'?50:800);return}const h=e.target.closest('a[href^="#"]:not([href^="#/"])');if(h&&!h.hasAttribute('data-scroll')){e.preventDefault();const id=h.getAttribute('href').slice(1);const t=id&&document.getElementById(id);t&&t.scrollIntoView({behavior:'smooth'});return}const a=e.target.closest('a[href^="#/"]');if(!a||e.metaKey||e.ctrlKey)return;e.preventDefault();drClose();const p=a.getAttribute('href').slice(1);if(p===VP&&cur.r!=='quote'){scrollTo({top:0,behavior:'smooth'});return}go(p)});
+addEventListener('popstate',()=>{const h=urlPath();if(h!==VP){VP=h;route()}});
+addEventListener('hashchange',()=>{if(location.hash.startsWith('#/')){const h=fromHash();if(h){VP=h;try{history.replaceState(null,'',VP)}catch(e){}route()}}});
+document.addEventListener('click',e=>{const tel=e.target.closest('a[href^="tel:"]');if(tel)track('phone_click');const h=e.target.closest('a[href^="#"]');if(h&&!h.hasAttribute('data-scroll')){e.preventDefault();const id=h.getAttribute('href').slice(1);const t=id&&document.getElementById(id);t&&t.scrollIntoView({behavior:'smooth'});return}const a=e.target.closest('a[href^="/"]');if(!a||e.metaKey||e.ctrlKey||e.shiftKey)return;e.preventDefault();drClose();const [p,anchor]=a.getAttribute('href').split('#');const np=norm(p);const toAnchor=delay=>{if(!anchor)return;setTimeout(()=>{const t=document.getElementById(anchor);t&&t.scrollIntoView({behavior:'smooth'})},delay)};if(np===VP&&cur.r!=='quote'){if(anchor)toAnchor(30);else scrollTo({top:0,behavior:'smooth'});return}go(np);toAnchor(800)});
 route();reveal();
 (function drain(){if(!laterQ.length){reveal();return}const fn=laterQ.shift();fn();setTimeout(drain,16)})();
-if(location.hash&&!location.hash.startsWith('#/')){const t=document.getElementById(location.hash.slice(1));if(t){const land=()=>t.scrollIntoView({behavior:'instant'});setTimeout(()=>{const qa=t.classList.contains('qa')&&t;if(qa&&!qa.classList.contains('open'))qa.querySelector('button').click();land()},300);setTimeout(land,1000)}}
+if(location.hash&&!location.hash.startsWith('#/')){const t=document.getElementById(location.hash.slice(1));if(t){const land=()=>t.scrollIntoView({behavior:'instant'});let moved=false;['wheel','touchstart'].forEach(ev=>addEventListener(ev,()=>moved=true,{once:true,passive:true}));setTimeout(()=>{const qa=t.classList.contains('qa')&&t;if(qa&&!qa.classList.contains('open'))qa.querySelector('button').click();land()},300);[1000,1800,2600].forEach(w=>setTimeout(()=>{if(!moved)land()},w))}}

@@ -14,9 +14,9 @@ const DIST = path.join(__dirname, '..', 'dist');
 const args = process.argv.slice(2);
 const CLICKS = args.includes('--clicks');
 const SHOTS = args.includes('--shots') ? args[args.indexOf('--shots') + 1] : null;
-const ROUTES = ['/', '/#/pools', '/#/pools/bondi', '/#/pools/whitsunday', '/#/pools/milano', '/#/studio', '/#/colours', '/#/cost', '/#/learn', '/#/learn/fiberglass-vs-concrete', '/#/work', '/#/why', '/#/quote', '/faq/'];
+const ROUTES = ['/', '/fiberglass-pools/', '/fiberglass-pools/bondi/', '/fiberglass-pools/whitsunday/', '/fiberglass-pools/milano/', '/3d-pool-design/', '/pool-colors/', '/pool-cost/', '/pool-school/', '/pool-school/fiberglass-vs-concrete/', '/our-work/', '/why-itop/', '/free-3d-design/', '/faq/'];
 const VIEWPORTS = [[360, 740], [375, 812], [390, 844], [414, 896], [768, 1024], [844, 390], [1440, 900]];
-const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.webp': 'image/webp', '.avif': 'image/avif', '.svg': 'image/svg+xml', '.txt': 'text/plain' };
+const TYPES = { '.html': 'text/html', '.css': 'text/css', '.woff2': 'font/woff2', '.js': 'text/javascript', '.webp': 'image/webp', '.avif': 'image/avif', '.svg': 'image/svg+xml', '.txt': 'text/plain' };
 
 const server = http.createServer((req, res) => {
   let p = decodeURIComponent(req.url.split('?')[0]);
@@ -55,10 +55,10 @@ const name = (r, w) => (r === '/' ? 'home' : r.replace(/[^a-z0-9]+/gi, '-').repl
         const lefts = s => new Set([...document.querySelectorAll(s)].filter(e => e.offsetParent).map(e => Math.round(e.getBoundingClientRect().left))).size;
         const misaligned = ['.route.on .vs-row>:nth-child(2)', '.route.on .vs-row>:nth-child(3)', '.route.on .mtx-r>:nth-child(2)'].filter(s => lefts(s) > 1);
         const fs = parseFloat(getComputedStyle(document.body).fontSize);
-        const h1 = document.querySelector('.route.on h1'); const h1over = h1 && h1.scrollWidth > h1.clientWidth + 1;
+        const h1 = document.querySelector('.route.on h1:not(.vh)'); const h1over = h1 && h1.scrollWidth > h1.clientWidth + 1;
         return { sw: de.scrollWidth, iw, wide, small, fs, h1over, offCenter, misaligned, route: document.querySelector('.route.on')?.dataset.route };
       });
-      if (m.sw > m.iw) note(where, `horizontal scroll ${m.sw} > ${m.iw} ${m.wide.join(', ')}`);
+      if (m.sw > w || m.iw > w) note(where, `horizontal scroll: content ${m.sw}, page ${m.iw}, screen ${w} ${m.wide.join(', ')}`);
       if (m.small.length) note(where, 'small tap targets: ' + m.small.join(' | '));
       if (m.h1over) note(where, 'h1 overflows');
       if (m.offCenter.length) note(where, 'button touches screen edge: ' + m.offCenter.join(' | '));

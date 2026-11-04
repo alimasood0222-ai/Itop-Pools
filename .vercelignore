@@ -3,3 +3,5 @@ screenshots
 .cache
 node_modules
 .env*
+qa
+tests
