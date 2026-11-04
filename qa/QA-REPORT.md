@@ -1,5 +1,79 @@
 # iTop Pools acceptance test
 
+## After fixes (4 November 2026, deployed from commit `e099cf9`)
+
+**Verdict: yes, ready to show Fabio as a preview. Not ready for customers or his domain.** The remaining launch blockers are his content, the GoHighLevel connection and phone speed. The original report follows below this section, unchanged, as the "before" evidence.
+
+| Section | PASS | PARTIAL | FAIL | BLOCKED |
+|---|---|---|---|---|
+| A. Client feedback | 3 | 3 | 0 | 1 |
+| B. Regression | 3 | 3 | 0 | 0 |
+| C. Mobile | 2 | 3 | 1 | 0 |
+| D. SEO and AEO | 5 | 4 | 0 | 1 |
+| E. Accuracy | 0 | 1 | 0 | 1 |
+| **Total (31)** | **13** | **14** | **1** | **3** |
+| *Before fixes* | *3* | *17* | *9* | *2* |
+
+### What changed in each grade
+
+| ID | Before | After | Evidence and what's left |
+|---|---|---|---|
+| A1 | PARTIAL | PARTIAL | Water scene code and leftover CSS removed; swipe no longer triggers Back. Left: no families, no locations in captions, hover over the photo doesn't pause (your request). |
+| A2 | PARTIAL | PARTIAL | Fabio's dropped question restored; 21 questions. Left: cost figures unconfirmed. |
+| A3 | PARTIAL | PARTIAL | Tags reworded to "Lounging ledge" and "Built-in seating"; Bondi's incorrect tag removed; all sizes now in a table on every model page. Left: some shape groups are based on Barrier Reef's descriptions. |
+| A4, A5 | PASS | PASS | 0 competitor names in `dist/`. |
+| A6 | BLOCKED | BLOCKED | Needs Fabio's photos and permission. "Our Work" relabelled "Gallery" until then. |
+| A7 | PARTIAL | PASS | Primary button wording unified; "90 seconds" and "six steps" now consistent. |
+| B1 | PARTIAL | PASS | 517 clicks on the final build: 0 errors, dead links or orphans. Sandbox: menus and form work. Fonts still fail in a local sandbox test; the header that allows them is confirmed live but untested inside a live sandbox. |
+| B2 | PASS | PASS | No failures in the re-run. |
+| B3 | PARTIAL | PARTIAL | Enter now advances on a selected tile; "We call you" stays hidden until something is sent. Payload with UTM, referrer and landing page verified against a mock webhook. Left: **not connected to GoHighLevel**; iOS keyboard untested. |
+| B4 | PARTIAL | PASS | Nothing under 12px on the 12 core pages at 390; sort menu 16px on phones; ◆ and ⏱ removed. |
+| B5 | PARTIAL | PARTIAL | First page now paints without an entrance animation. Left: smoothness can't be judged without a graphics card. |
+| B6 | PARTIAL | PARTIAL | Mouse drag fixed; click after drag works. Left: faint ring at the left edge on desktop, still unexplained (`screens/after-carousel-1440.png`). |
+| C1 | FAIL | PASS | 0 overflow across all pages and sizes tested. |
+| C2 | PARTIAL | PARTIAL | Swipe closes the drawer with no Back, tested on the home page. On the slow 3D page in this test setup, Back no longer fires, but the drawer didn't close. Check on a real phone. |
+| C3 | FAIL | PARTIAL | All non-inline controls on the core pages are 44px tall or more; sliders are now 44px. Left: links inside sentences, "Home" breadcrumb 36px wide, hero dots on phones (now indicators; swipe and pause are the controls). |
+| C4 | PARTIAL | PARTIAL | Article, Pool School and FAQ tables stack on phones; empty hero space removed. Left: the iTop comparison table stays 3 columns, as you asked for it aligned; stats row removed at your request. |
+| C5 | FAIL | PASS | Axe: 0 contrast failures. Lighthouse accessibility 100 on all 5 pages tested. |
+| C6 | PARTIAL | **FAIL** | See below. |
+| D1 | FAIL | PASS | 43 real pages, 0 `#/` links, every page shows its H1 and content with JS off. |
+| D2 | FAIL | PASS | All 43: title ≤60, description 140–155, one H1, canonical, OG, Twitter, no duplicates. |
+| D3 | FAIL | PASS | Sitemap with 43 URLs, `lastmod` and images; robots names all listed bots; `llms.txt`, `llms-full.txt`, IndexNow key and script; `X-Robots-Tag: noindex` confirmed on the preview. |
+| D4 | FAIL | PASS | Live: `/pool-models.html`, `/pool-models/`, `/get-a-quote.html`, `/get-a-quote/` and `/services/` return 301; custom 404 confirmed. `/pool-models` and `/services` are configured but weren't tested live. |
+| D5 | PARTIAL | PARTIAL | Organization, BreadcrumbList, Article and a Product on each model page added. Left: `sameAs` needs his URLs; no Service because there are no city pages; schema.org validator not re-run. |
+| D6 | PARTIAL | PASS | Address now consistent in the CTA, footer, schema and `llms.txt`. |
+| D7 | PARTIAL | PARTIAL | All 11 articles now have takeaways and an Updated date; question headings on all that have headings. Left: articles are still short; many FAQ openings are Fabio's own "Yes." wording. |
+| D8 | FAIL | BLOCKED | Not built on purpose. Without real local projects and details they'd be near-duplicates. |
+| D9 | PARTIAL | PARTIAL | No broken links or orphans. `KEYWORD-MAP.md` is a draft with no ranking data. |
+| D10 | FAIL | PARTIAL | `generate_lead`, `form_complete`, `phone_click`, `estimator_complete` and `design_3d_interaction` fire. Left: GA4/GTM IDs and verification tags needed. |
+| E1, E2 | | unchanged | See Section 9. |
+
+### Phone speed: the one remaining FAIL
+
+Live site, mobile, median of 3 runs. Best Practices 100 and accessibility 100 on all.
+
+| Page | Perf (3 runs) | Median | LCP | TBT | CLS | Weight | Before (one run) |
+|---|---|---|---|---|---|---|---|
+| Home | 65 / 69 / 64 | **65** | **3.0 s** | 888 ms | 0.013 | 463 KiB | 84 live |
+| Model (Bondi) | 74 / 80 / 81 | **80** | **3.0 s** | 417 ms | 0 | 364 KiB | 74 local |
+| Cost | 81 / 84 / 77 | **81** | 2.3 s | 493 ms | 0.075 | 233 KiB | 85 local |
+| FAQ | 85 / 76 / 71 | **76** | 2.3 s | 582 ms | 0.081 | 237 KiB | 89 live |
+| Form | 78 / 66 / 90 | **78** | 1.4 s | 540 ms | 0.028 | 235 KiB | 93 local |
+
+Target: performance 85 or more, LCP under 2.5 s. None of the 5 pages reaches 85, though LCP now passes on 3 of 5. Pages got lighter, but script work on load (TBT) rose, because the single 261 KB app script carries every page's markup. Home likely got slower for real. The test machine was also busy, with about 3 of 8 cores used by other Chrome windows, so these numbers are pessimistic and the before and after aren't a clean comparison.
+
+**Fix to propose:** load each other page's markup when it's first visited, not all at startup.
+
+### Test limits
+
+- Live checks used Safari's engine and Chrome on this computer, not physical phones.
+- `func.js` stops before its layout section because the 3D page responds too slowly to taps in this no-graphics-card setup. The same layout checks passed in `func2.js`.
+- The carousel "swipe back" check in `func.js` and `retest.js` can fail when the slideshow advances mid-test. With the slideshow paused, it passes.
+
+---
+
+# Original report (before fixes)
+
 Tested 4 November 2026, source commit `6572c7a` on branch `v3`. No source files were changed. All evidence is in `qa/`.
 
 ## 1. Verdict
