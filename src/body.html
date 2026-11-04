@@ -1,0 +1,753 @@
+<div id="loader"><div class="ld"><div class="ld-drop"></div><div class="ld-t">FILLING YOUR POOL…</div></div></div>
+<div class="cursor" id="cursor"></div>
+<div id="curtain" aria-hidden="true"><svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="cw t"><path d="M0 120V60c180-50 360-50 540 0s360 50 540 0 270-40 360-20v80z"/></svg><div class="cb"><div class="cl"><svg viewBox="0 0 48 48" fill="none"><path d="M4 21 24 6l20 15" stroke="#7dd3fc" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 19v21M38 19v21" stroke="#7dd3fc" stroke-width="3.2" stroke-linecap="round"/><path d="M17 22v18M24 18v22M31 22v18" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/><path d="M6 42h36" stroke="#1e9be0" stroke-width="3.2" stroke-linecap="round"/></svg><span id="curtainT">Home</span></div></div><svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="cw b"><path d="M0 0v60c180 50 360 50 540 0s360-50 540 0 270 40 360 20V0z"/></svg></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="bar">
+    <a href="#/" class="logo" aria-label="iTop Pools home">
+      <svg viewBox="0 0 48 48" fill="none"><path d="M4 21 24 6l20 15" stroke="#7dd3fc" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 19v21M38 19v21" stroke="#7dd3fc" stroke-width="3.2" stroke-linecap="round"/><path d="M17 22v18M24 18v22M31 22v18" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/><path d="M6 42h36" stroke="#1e9be0" stroke-width="3.2" stroke-linecap="round"/></svg>
+      <span><b>iTOP</b><small>POOLS</small></span>
+    </a>
+    <ul id="navLinks">
+      <li class="has-mega"><a href="#/pools" data-r="pools">Pools</a>
+        <div class="mega"><div class="mega-in">
+          <div class="mega-col"><h5>Browse by shape</h5><a href="#/pools?shape=rect">Rectangular</a><a href="#/pools?shape=free">Freeform</a><a href="#/pools?shape=kidney">Kidney</a><a href="#/pools?shape=plunge">Plunge &amp; compact</a><a href="#/pools?feat=spa">Pool + spa</a></div>
+          <div class="mega-col"><h5>Tools</h5><a href="#/pools">Model finder</a><a href="#/studio">3D design studio</a><a href="#/colours">Colour lab</a><a href="#/cost">Cost &amp; financing</a></div>
+          <a class="mega-card" href="#/pools/aussie"><span class="tag">New for 2026</span><b>The Aussie</b><small>35' × 15'9" · 6' deep · rectangular</small><svg viewBox="0 0 140 60" id="megaPlan"></svg></a>
+        </div></div></li>
+      <li><a href="#/studio" data-r="studio">3D Studio</a></li>
+      <li><a href="#/colours" data-r="colours">Colours</a></li>
+      <li><a href="#/learn" data-r="learn">Learn</a></li>
+      <li><a href="#/cost" data-r="cost">Cost</a></li>
+      <li><a href="#/work" data-r="work">Our Work</a></li>
+      <li><a href="#/why" data-r="why">Why iTop</a></li>
+    </ul>
+    <a class="phone" href="tel:+19046852555"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg></i><span>(904) 685-2555</span></a>
+    <a href="#/quote" class="btn">Free 3D Design <span class="arr">→</span></a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+<nav class="mmenu" id="mmenu">
+  <a class="l" href="#/pools">Pools</a><a class="l" href="#/studio">3D Studio</a><a class="l" href="#/colours">Colours</a><a class="l" href="#/learn">Learn</a><a class="l" href="#/cost">Cost</a><a class="l" href="#/work">Our Work</a><a class="l" href="#/why">Why iTop</a>
+  <a href="#/quote" class="btn">Get my free 3D design <span class="arr">→</span></a>
+  <a href="tel:+19046852555" class="btn ghost">Call (904) 685-2555 <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg></span></a>
+</nav>
+
+<main id="app">
+<!-- ================= HOME ================= -->
+<div class="route" data-route="home">
+<section class="hero" id="top">
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <div class="eyebrow">Authorized Barrier Reef dealer — Jacksonville, Florida</div>
+      <h1 class="h-title"><span class="ln"><span class="word"><span>Dive into</span></span></span><span class="ln"><span class="word"><span>your backyard,</span></span></span><span class="h-serif"><span class="word"><span>before we dig it<em>.</em></span></span></span></h1>
+      <p class="lead rv">Design your fiberglass pool in 3D, compare real finishes, see an honest price range — then one in-house crew permits it, sets it and finishes the deck.</p>
+      <div class="ctas rv d1">
+        <a href="#/quote" class="btn mag">Get my free 3D design <span class="arr">→</span></a>
+        <a href="#/studio" class="play"><i><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"/></svg></i><span>Try the 3D studio<small>Design it live</small></span></a>
+      </div>
+    </div>
+  </div>
+  <a href="#finder" data-scroll class="dive" aria-label="Scroll down"><svg viewBox="0 0 132 132"><defs><path id="dc" d="M66,66 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0"/></defs><text><textPath href="#dc">Scroll to explore · Scroll to explore · </textPath></text></svg><b>↓</b></a>
+  <div class="hero-foot">
+    <div class="wrap">
+      <div class="hf"><b>Lifetime</b><span>structural warranty*</span></div>
+      <div class="hf"><b>15-year</b><span>finish warranty*</span></div>
+      <div class="hf"><b>2–6 weeks</b><span>typical fiberglass install*</span></div>
+      <div class="hf"><b>One crew</b><span>pool, deck &amp; pavers</span></div>
+      <div class="hint">Move to make ripples</div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="mq">
+  <span>Fiberglass Pools</span><span class="o">Paver Decks</span><span>Spas &amp; Sundecks</span><span class="o">Outdoor Kitchens</span><span>Water Features</span><span class="o">Screen Enclosures</span><span>Lighting &amp; Automation</span><span class="o">Pool Remodels</span>
+  <span>Fiberglass Pools</span><span class="o">Paver Decks</span><span>Spas &amp; Sundecks</span><span class="o">Outdoor Kitchens</span><span>Water Features</span><span class="o">Screen Enclosures</span><span>Lighting &amp; Automation</span><span class="o">Pool Remodels</span>
+</div></div>
+
+<!-- trust band -->
+<section class="trust">
+  <div class="wrap trust-in">
+    <div class="tr-brand rv"><small>Shells manufactured by</small><b>Barrier Reef<span>Fiberglass Pools</span></b><p>Building fiberglass pools since 1984 · US plant in Timmonsville, South Carolina</p></div>
+    <div class="tr-items">
+      <div class="tri rv d1"><i>∞</i><b>Lifetime limited structural warranty</b><small>From the manufacturer, transferable once</small></div>
+      <div class="tri rv d2"><i>15</i><b>15-year finish warranty</b><small>Gelcoat finish, against blistering</small></div>
+      <div class="tri rv d3"><i>1</i><b>One iTop crew</b><small>Excavation, set, plumbing, deck</small></div>
+      <div class="tri rv d4"><i>✓</i><b>Permits &amp; HOA handled</b><small>Duval, St. Johns, Clay &amp; Nassau</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINDER QUIZ -->
+<section class="sec finder" id="finder">
+  <div class="wrap finder-grid">
+    <div class="fd-copy">
+      <div class="eyebrow rv">Pool finder</div>
+      <h2 class="rv d1" style="margin-top:18px">Three taps to <span class="serif grad-blue">your shortlist.</span></h2>
+      <p class="lead rv d2" style="margin-top:22px">Answer three questions and we'll rank all 15 Barrier Reef models for your yard and the way your family will actually use the water.</p>
+      <div class="fd-prog rv d3"><i id="fdBar"></i></div>
+    </div>
+    <div class="fd-card rv d2" id="fdCard">
+      <div class="fd-q on" data-q="0"><span class="fd-n">01 / 03</span><h3>How will you use it most?</h3><div class="fd-opts" data-k="use">
+        <button data-v="lounge"><b>Lounge &amp; entertain</b><small>Sun shelf, seating, evenings outside</small></button>
+        <button data-v="play"><b>Family play</b><small>Kids, games, lots of shallow water</small></button>
+        <button data-v="laps"><b>Swim laps</b><small>Long, straight and uninterrupted</small></button>
+        <button data-v="relax"><b>Soak &amp; relax</b><small>A spa is non-negotiable</small></button></div></div>
+      <div class="fd-q" data-q="1"><span class="fd-n">02 / 03</span><h3>How much yard do you have?</h3><div class="fd-opts" data-k="yard">
+        <button data-v="s"><b>Compact</b><small>Townhome or tight lot · under 30 ft</small></button>
+        <button data-v="m"><b>Average</b><small>Typical Jacksonville lot · 30–35 ft</small></button>
+        <button data-v="l"><b>Generous</b><small>Room to spare · 35–40 ft</small></button>
+        <button data-v="x"><b>Not sure</b><small>We'll measure on the free visit</small></button></div></div>
+      <div class="fd-q" data-q="2"><span class="fd-n">03 / 03</span><h3>Which look do you love?</h3><div class="fd-opts" data-k="look">
+        <button data-v="rect"><b>Clean &amp; modern</b><small>Rectangular, crisp lines</small></button>
+        <button data-v="free"><b>Natural &amp; resort</b><small>Freeform curves</small></button>
+        <button data-v="kidney"><b>Soft &amp; classic</b><small>Kidney shape</small></button>
+        <button data-v="any"><b>Show me everything</b><small>No preference</small></button></div></div>
+      <div class="fd-res" id="fdRes"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STUDIO -->
+<section class="sec config" id="design">
+  <div class="wrap">
+    <div class="studio-head">
+      <div><div class="eyebrow light rv">Free 3D design studio</div><h2 class="rv d1">Design it. <span class="grad">See it.</span> Then we build it.</h2></div>
+      <div class="rv d2"><p class="lead">Pick a model, a real Barrier Reef finish and a deck. Add a spa, switch on evening lighting, then walk around your backyard before a shovel touches the ground.</p>
+        <div class="feat-row"><span><i></i>15 real models</span><span><i></i>7 Barrier Reef finishes</span><span><i></i>Day · sunset · night</span></div></div>
+    </div>
+    <div class="portal" data-p="studio"></div>
+  </div>
+</section>
+
+<!-- COLOUR LAB -->
+<section class="sec labsec" id="colours">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow rv">Colour lab</div><h2 class="rv d1">Same pool. <span class="serif grad-blue">Two waters.</span></h2></div>
+      <p class="lead rv d2">Drag the line to compare any two of the seven Barrier Reef finishes side by side, in sun, shade or under LED light at night.</p>
+    </div>
+    <div class="portal" data-p="lab"></div>
+  </div>
+</section>
+
+<!-- MODELS RAIL -->
+<section class="sec rail" id="models">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow light rv">The collection</div><h2 class="rv d1">15 shells. <span class="grad">Drawn to scale.</span></h2></div>
+      <div class="rv d2" style="display:grid;gap:18px;justify-items:start"><p class="lead" style="color:rgba(235,248,255,.75)">Every plan shares one 40-foot grid, so you can compare sizes at a glance. Open any model for full specs, finishes and a 3D preview.</p><a href="#/pools" class="btn">Open the model finder <span class="arr">→</span></a></div>
+    </div>
+  </div>
+  <div class="r2" id="r2">
+    <div class="wrap r2-top">
+      <div class="r2-fil" id="r2Fil"></div>
+      <div class="r2-count"><b id="r2Cur">01</b><span id="r2Tot">/ 15</span></div>
+    </div>
+    <div class="r2-stage">
+      <div class="r2-bg" id="r2Bg" aria-hidden="true">Aussie</div>
+      <div class="r2-track" id="r2Track" tabindex="0" aria-label="Pool models carousel. Use arrow keys to browse."></div>
+      <button class="r2-nav prev" id="r2Prev" aria-label="Previous model"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="r2-nav next" id="r2Next" aria-label="Next model"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+    <div class="wrap r2-info" id="r2Info"></div>
+    <div class="wrap r2-ticks" id="r2Ticks"></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec steps" id="process">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow light rv">The process</div><h2 class="rv d1"><span class="grad">From sketch to swim</span> in seven steps.</h2></div>
+      <p class="lead rv d2">One team owns every step, so nothing waits between trades. Once permits clear, most fiberglass installs take 2 to 6 weeks.</p>
+    </div>
+    <div class="flow" id="flow"></div>
+    <div style="margin-top:40px" class="rv"><a href="#/why" class="btn ghost">See the full process &amp; warranty <span class="arr">→</span></a></div>
+  </div>
+</section>
+
+<!-- COST TEASER -->
+<section class="sec costt">
+  <div class="wrap costt-grid">
+    <div>
+      <div class="eyebrow rv">Honest numbers</div>
+      <h2 class="rv d1" style="margin-top:18px">What will it <span class="serif grad-blue">really</span> cost per month?</h2>
+      <p class="lead rv d2" style="margin-top:22px">Slide to a project budget and see an example monthly payment. Then build a full estimate (model, features, deck, site) and send it to us for a firm price.</p>
+      <div class="rv d3" style="margin-top:30px;display:flex;gap:14px;flex-wrap:wrap"><a href="#/cost" class="btn dark">Build my estimate <span class="arr">→</span></a><a href="#/learn/cost-guide" class="btn ghost-d">Read the cost guide <span class="arr">→</span></a></div>
+    </div>
+    <div class="mini rv d2">
+      <div class="mini-top"><small>Project budget</small><b id="miniAmt">$65,000</b></div>
+      <input type="range" min="35000" max="150000" step="1000" value="65000" id="miniR" class="rng">
+      <div class="mini-row"><div><small>Term</small><div class="seg" id="miniTerm"><button data-v="10">10 yr</button><button data-v="15" class="on">15 yr</button><button data-v="20">20 yr</button></div></div><div><small>Example APR</small><b>7.99%</b></div></div>
+      <div class="mini-out"><small>Example payment</small><b><span id="miniPay">$621</span><em>/mo</em></b></div>
+      <p class="fine">Example only, not a loan offer. Rates and terms depend on the lender and your credit.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LEARN TEASER -->
+<section class="sec learnt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow rv">Pool school</div><h2 class="rv d1">Know more <span class="serif grad-blue">than your neighbors.</span></h2></div>
+      <p class="lead rv d2">Straight answers for every stage, from the first daydream to your first summer as an owner. Written for Northeast Florida.</p>
+    </div>
+    <div class="stages rv" id="stagesHome"></div>
+    <div class="art-grid" id="artHome"></div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="sec why" id="why">
+  <div class="wrap why-grid">
+    <div>
+      <div class="eyebrow rv">Why iTop</div>
+      <h2 class="rv d1" style="margin-top:18px">Proven results. <span class="serif grad-blue" style="display:block;font-size:.6em;margin-top:8px">Why homeowners pick a local crew over the bigger names.</span></h2>
+      <div class="counters" style="margin-top:40px">
+        <div class="ct rv d1"><b><span class="count" data-to="15">0</span><em>+</em></b><span>Years in the trade across Northeast Florida</span></div>
+        <div class="ct dark rv d2"><b>Hundreds</b><span>of finished, fully permitted projects</span></div>
+        <div class="ct dark rv d3"><b><span class="count" data-to="2">0</span>–<span class="count" data-to="6">0</span><em>wk</em></b><span>Typical fiberglass install once permits clear</span></div>
+        <div class="ct rv d4"><b><span class="count" data-to="1">0</span><em> crew</em></b><span>Pool, deck and pavers, start to finish</span></div>
+      </div>
+    </div>
+    <div class="vs rv d2">
+      <div class="vs-row h"><span>What you get</span><span class="us">iTop</span><span>Typical builder</span></div>
+      <div class="vs-row"><span>Who's on your property</span><span class="us"><b class="ok">✓</b> Our own crew</span><span class="them"><b class="no">✕</b> Rotating subs</span></div>
+      <div class="vs-row"><span>Pricing</span><span class="us"><b class="ok">✓</b> No middleman markup</span><span class="them"><b class="no">✕</b> Markup per trade</span></div>
+      <div class="vs-row"><span>Pool + deck + pavers</span><span class="us"><b class="ok">✓</b> One team</span><span class="them"><b class="no">✕</b> 2–3 companies</span></div>
+      <div class="vs-row"><span>HOA, engineering, county</span><span class="us"><b class="ok">✓</b> We chase it all</span><span class="them">Often on you</span></div>
+      <div class="vs-row"><span>See it before you buy</span><span class="us"><b class="ok">✓</b> Free 3D design</span><span class="them">2D sketch</span></div>
+      <div class="vs-row" style="border:0"><span>A real phone number</span><span class="us"><b class="ok">✓</b> (904) 685-2555</span><span class="them">Web form only</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="sec gallery" id="work">
+  <div class="wrap"><div class="sec-head">
+    <div><div class="eyebrow light rv">Our work</div><h2 class="rv d1">Backyards <span class="grad">we've brought to life.</span></h2></div>
+    <div class="rv d2" style="display:grid;gap:14px;justify-items:start"><p class="lead" style="color:rgba(255,255,255,.72)">Real iTop projects across Jacksonville, Ponte Vedra, Nocatee and St. Johns.</p><a href="#/work" class="btn ghost">View all projects <span class="arr">→</span></a></div>
+  </div></div>
+  <div class="g-track" id="gTrack"></div>
+</section>
+
+<!-- REVIEWS -->
+<section class="sec reviews" id="reviews">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow rv">Reviews</div><h2 class="rv d1">Homeowners <span class="grad-blue">say it best.</span></h2></div>
+      <span class="mock-note rv d2" style="color:var(--azure)">● Layout preview: live Google reviews plug in here</span>
+    </div>
+    <div class="portal" data-p="reviews"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec faq" id="faq">
+  <div class="wrap faq-grid">
+    <div class="faq-side">
+      <div class="eyebrow rv">FAQ</div>
+      <h2 class="rv d1" style="margin-top:18px">Questions, <span class="serif grad-blue" style="display:block;font-size:.7em">answered.</span></h2>
+      <p class="lead rv d2" style="margin:22px 0 30px">The things homeowners ask us before they sign. Still curious? Talk to a real person on our crew.</p>
+      <a href="tel:+19046852555" class="btn dark rv d3">Call (904) 685-2555 <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg></span></a>
+    </div>
+    <div id="faqList"></div>
+  </div>
+</section>
+
+<section class="sec cta">
+  <div class="wrap cta-grid">
+    <div>
+      <div class="eyebrow light rv" style="color:#ffe2b8">Free visit · Free 3D design</div>
+      <h2 class="rv d1" style="margin:18px 0 22px"><span class="serif">Make room for better days.</span>Let's plan your pool.</h2>
+      <p class="lead rv d2">Tell us about your yard. You get a site visit, a 3D design and a firm price. It's free, with no obligation to build.</p>
+      <div class="chips rv d3" style="margin-top:30px">
+        <div class="chip"><i><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></i><div><b style="font-size:15px">6510 Columbia Park Dr, Ste 206</b><small>Jacksonville, FL 32258</small></div></div>
+        <div class="chip"><i><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg></i><div><b style="font-size:15px">(904) 685-2555</b><small>Mon–Fri · 9 AM – 6 PM</small></div></div>
+      </div>
+    </div>
+    <div class="cta-card rv d2">
+      <span class="tag">Takes about 60 seconds</span>
+      <h3>Start your free design</h3>
+      <p>Five quick steps. The first one is a single tap.</p>
+      <div class="cta-picks" id="ctaPicks"><a href="#/quote?p=pool">New pool</a><a href="#/quote?p=pavers">Pavers &amp; deck</a><a href="#/quote?p=spa">Spa</a><a href="#/quote?p=kitchen">Outdoor kitchen</a><a href="#/quote?p=enclosure">Screen enclosure</a><a href="#/quote?p=remodel">Remodel</a></div>
+      <a href="#/quote" class="btn" style="width:100%;justify-content:center">Start my free design <span class="arr">→</span></a>
+    </div>
+  </div>
+  <div class="waves" aria-hidden="true">
+    <svg viewBox="0 0 2880 140" preserveAspectRatio="none"><path d="M0 70c240 40 480 40 720 0s480-40 720 0 480 40 720 0 480-40 720 0v70H0z" fill="#04101f"/></svg>
+    <svg viewBox="0 0 2880 140" preserveAspectRatio="none"><path d="M0 90c240-40 480-40 720 0s480 40 720 0 480-40 720 0 480 40 720 0v50H0z" fill="#0b2545"/></svg>
+  </div>
+</section>
+</div>
+
+<!-- ================= POOLS (FINDER) ================= -->
+<div class="route" data-route="pools">
+  <section class="phero">
+    <div class="wrap">
+      <div class="crumbs"><a href="#/">Home</a><span>/</span><b>Pool models</b></div>
+      <div class="ph-grid">
+        <div><div class="eyebrow light">Model finder</div><h1>Find the shell that <span class="serif grad">fits your yard.</span></h1></div>
+        <p class="lead">15 Barrier Reef fiberglass models, every one drawn to the same 40-foot grid. Filter by size, shape and features, then compare up to three side by side.</p>
+      </div>
+    </div>
+  </section>
+  <section class="finder-page">
+    <div class="wrap fp-grid">
+      <aside class="fp-side" id="fpSide">
+        <div class="fp-h"><b>Filters</b><button id="fpClear">Clear all</button></div>
+        <div class="fp-g"><h6>Shape</h6><div class="fp-chips" data-f="shape"><button data-v="rect">Rectangular</button><button data-v="free">Freeform</button><button data-v="kidney">Kidney</button><button data-v="plunge">Plunge</button></div></div>
+        <div class="fp-g"><h6>Features</h6><div class="fp-chips" data-f="feat"><button data-v="ledge">Tanning ledge</button><button data-v="spa">Integrated spa</button><button data-v="bench">Bench seating</button><button data-v="deep">Deep end 6'+</button><button data-v="new">New for 2026</button></div></div>
+        <div class="fp-g"><h6>Max length <em id="fpLenV">40 ft</em></h6><input type="range" class="rng" id="fpLen" min="16" max="40" value="40"></div>
+        <div class="fp-g"><h6>Max width <em id="fpWidV">16 ft</em></h6><input type="range" class="rng" id="fpWid" min="10" max="16" step=".5" value="16"></div>
+        <div class="fp-g"><h6>Sort by</h6><select id="fpSort" class="sel"><option value="len">Length, largest first</option><option value="len-a">Length, smallest first</option><option value="name">Name A–Z</option><option value="gal">Water volume</option></select></div>
+        <div class="fp-help"><b>Not sure what fits?</b><p>We measure your yard on the free site visit and tell you exactly which shells clear your setbacks.</p><a href="#/quote">Book a free visit →</a></div>
+      </aside>
+      <div>
+        <div class="fp-bar"><span id="fpCount">15 models</span><div class="fp-active" id="fpActive"></div></div>
+        <div class="fp-grid-cards" id="fpCards"></div>
+        <div class="fp-empty" id="fpEmpty"><b>No shell matches every filter.</b><p>Try a longer length or fewer features, or let us recommend one.</p><button class="btn dark" id="fpReset">Reset filters <span class="arr">↺</span></button></div>
+      </div>
+    </div>
+  </section>
+  <div class="cmp-tray" id="cmpTray"><div class="wrap ct-in"><div class="ct-slots" id="ctSlots"></div><button class="btn" id="ctGo">Compare <span class="arr">→</span></button><button class="ct-x" id="ctClear">Clear</button></div></div>
+</div>
+
+<!-- ================= MODEL DETAIL ================= -->
+<div class="route" data-route="model">
+  <section class="md-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="#/">Home</a><span>/</span><a href="#/pools">Pool models</a><span>/</span><b id="mdCrumb">Model</b></div>
+      <div class="md-grid">
+        <div class="md-copy">
+          <div class="md-tags" id="mdTags"></div>
+          <h1 id="mdName">Model</h1>
+          <p class="lead" id="mdBlurb"></p>
+          <div class="md-sizes" id="mdSizes"></div>
+          <div class="md-ctas"><a href="#/studio" class="btn" id="md3d">Design this pool in 3D <span class="arr">→</span></a><a href="#/quote" class="btn ghost" id="mdQuote">Get a price <span class="arr">→</span></a></div>
+        </div>
+        <div class="md-plan" id="mdPlan"></div>
+      </div>
+    </div>
+  </section>
+  <section class="md-body">
+    <div class="wrap md-cols">
+      <div>
+        <div class="md-block rv"><h3>Specifications</h3><div class="spec" id="mdSpec"></div><p class="fine" id="mdSpecNote"></p></div>
+        <div class="md-block rv"><h3>Side profile</h3><div class="elev" id="mdElev"></div></div>
+        <div class="md-block rv"><h3>Built-in features</h3><ul class="feat-list" id="mdFeat"></ul></div>
+        <div class="md-block rv"><h3>Pick a finish</h3><p class="fine" style="margin:-6px 0 16px">Tap a colour to preview it on the plan above.</p><div class="md-sw" id="mdSw"></div></div>
+      </div>
+      <aside class="md-aside">
+        <div class="md-sticky">
+          <small>Your shortlist</small>
+          <b id="mdAsideName">Model</b>
+          <div class="md-a-row"><span>Size</span><b id="mdAsideSize">—</b></div>
+          <div class="md-a-row"><span>Finish</span><b id="mdAsideFin">Ocean</b></div>
+          <div class="md-a-row"><span>Typical install</span><b>2–6 weeks*</b></div>
+          <a href="#/quote" class="btn" id="mdAsideQ" style="width:100%;justify-content:center;margin-top:16px">Get my firm price <span class="arr">→</span></a>
+          <button class="btn ghost-d" id="mdCmp" style="width:100%;justify-content:center;margin-top:8px">+ Add to compare</button>
+          <a href="tel:+19046852555" class="md-call">or call (904) 685-2555</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+  <section class="sec md-sim"><div class="wrap"><div class="sec-head" style="margin-bottom:34px"><div><div class="eyebrow">You might also like</div><h2 style="margin-top:14px;font-size:clamp(32px,3.6vw,48px)">Similar shells</h2></div></div><div class="fp-grid-cards three" id="mdSim"></div></div></section>
+</div>
+
+<!-- ================= STUDIO PAGE ================= -->
+<div class="route" data-route="studio">
+  <section class="studio-page">
+    <div class="wrap">
+      <div class="crumbs"><a href="#/">Home</a><span>/</span><b>3D design studio</b></div>
+      <div class="sp-head"><h1>3D design studio <span class="serif grad">— your backyard, live.</span></h1><p>Drag to orbit, scroll to zoom. When it looks right, send it to us and we'll draw it to your yard's survey.</p></div>
+      <div class="portal" data-p="studio"></div>
+      <div class="sp-tips">
+        <div><b>01</b><span>Choose from 15 real Barrier Reef shells, drawn to scale.</span></div>
+        <div><b>02</b><span>Try all seven finishes. They're simulated, so see real samples on the visit.</span></div>
+        <div><b>03</b><span>Switch to night to preview LED lighting and the lanai glow.</span></div>
+        <div><b>04</b><span>Send the design and we'll bring the 3D drawing for your real yard.</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= COLOURS PAGE ================= -->
+<div class="route" data-route="colours">
+  <section class="phero">
+    <div class="wrap">
+      <div class="crumbs"><a href="#/">Home</a><span>/</span><b>Colour lab</b></div>
+      <div class="ph-grid">
+        <div><div class="eyebrow light">Barrier Reef finishes</div><h1>Seven finishes. <span class="serif grad">One is yours.</span></h1></div>
+        <p class="lead">Water colour comes from the shell finish, the depth, the sky and your deck. Compare finishes side by side here, then see real samples on your free site visit.</p>
+      </div>
+    </div>
+  </section>
+  <section class="sec" style="padding-top:60px;background:var(--mist)">
+    <div class="wrap">
+      <div class="portal" data-p="lab"></div>
+      <div class="sec-head" style="margin:100px 0 40px"><div><div class="eyebrow">The palette</div><h2 style="margin-top:14px">Every finish, <span class="serif grad-blue">up close.</span></h2></div><p class="lead">Tap any card to load it into the lab above.</p></div>
+      <div class="pal-grid" id="palGrid"></div>
+      <div class="note-box"><b>A note on colour.</b> Screens can't show shimmer finishes perfectly. These are simulations. Water looks lighter in shallow areas and darker in the deep end, and it shifts with clouds, screen enclosures and deck colour. Ask us to bring physical samples to your site visit.</div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= LEARN HUB ================= -->
+<div class="route" data-route="learn">
+  <section class="phero">
+    <div class="wrap">
+      <div class="crumbs"><a href="#/">Home</a><span>/</span><b>Pool school</b></div>
+      <div class="ph-grid">
+        <div><div class="eyebrow light">Pool school</div><h1>Every answer, <span class="serif grad">in the order you'll need it.</span></h1></div>
+        <p class="lead">Guides for every stage of owning a pool, from dreaming to your first season. Written by the crew that builds them in Northeast Florida.</p>
+      </div>
+    </div>
+  </section>
+  <section class="sec" style="padding-top:50px;background:var(--mist)">
+    <div class="wrap">
+      <div class="journey" id="journey"></div>
+      <div class="stages" id="stagesHub"></div>
+      <div class="art-grid" id="artHub"></div>
+      <div class="cmp-big rv" id="cmpBig">
+        <div class="sec-head" style="margin-bottom:30px"><div><div class="eyebrow">Side by side</div><h2 style="margin-top:14px;font-size:clamp(32px,3.8vw,52px)">Fiberglass vs concrete vs vinyl</h2></div><p class="lead">The question every Florida buyer asks first.</p></div>
+        <div class="mtx" id="mtx"></div>
+        <p class="fine" style="margin-top:14px">Sources: install times from Barrier Reef Pools USA and published industry guides. Cost and lifespan vary by project. iTop gives you a firm price after the site visit.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= ARTICLE ================= -->
+<div class="route" data-route="article">
+  <section class="art-hero" id="artHero"><div class="wrap"><div class="crumbs"><a href="#/">Home</a><span>/</span><a href="#/learn">Pool school</a><span>/</span><b id="artCrumb">Article</b></div><div class="ah-in"><span class="tag" id="artStage">Plan</span><h1 id="artTitle">Article</h1><p class="lead" id="artSub"></p><div class="ah-meta" id="artMeta"></div></div></div></section>
+  <section class="art-body"><div class="wrap ab-grid"><article class="prose" id="artBody"></article><aside class="ab-side"><div class="ab-card"><small>Next step</small><b>Get a free 3D design and a firm price.</b><a href="#/quote" class="btn" style="width:100%;justify-content:center;margin-top:14px">Start my design <span class="arr">→</span></a><a href="tel:+19046852555" class="md-call">or call (904) 685-2555</a></div><div class="ab-more"><small>Keep reading</small><div id="artMore"></div></div></aside></div></section>
+</div>
+
+<!-- ================= COST & FINANCING ================= -->
+<div class="route" data-route="cost">
+  <section class="phero">
+    <div class="wrap">
+      <div class="crumbs"><a href="#/">Home</a><span>/</span><b>Cost &amp; financing</b></div>
+      <div class="ph-grid">
+        <div><div class="eyebrow light">Estimator</div><h1>Build an estimate <span class="serif grad">in two minutes.</span></h1></div>
+        <p class="lead">Pick a shell, add the features you want and see a realistic range plus an example monthly payment. Send it to us and we'll come back with a firm, written price.</p>
+      </div>
+    </div>
+  </section>
+  <section class="est">
+    <div class="wrap est-grid">
+      <div class="est-steps">
+        <div class="es"><div class="es-h"><i>01</i><b>Choose a shell</b></div><div class="es-models" id="esModels"></div></div>
+        <div class="es"><div class="es-h"><i>02</i><b>Add features</b></div><div class="es-opts" id="esOpts"></div></div>
+        <div class="es"><div class="es-h"><i>03</i><b>Deck around the pool</b></div>
+          <div class="es-deck"><div class="seg big" id="esDeckType"><button data-v="pavers" class="on">Pavers</button><button data-v="travertine">Travertine</button><button data-v="porcelain">Porcelain</button></div>
+          <div class="es-sl"><span>Deck area</span><b id="esDeckV">600 sq ft</b></div><input type="range" class="rng" id="esDeck" min="0" max="1500" step="50" value="600"></div></div>
+        <div class="es"><div class="es-h"><i>04</i><b>Your site</b></div><div class="es-site"><div class="seg big" id="esSite"><button data-v="easy" class="on">Easy access</button><button data-v="tight">Tight access</button><button data-v="crane">Crane needed</button></div><p class="fine" style="margin-top:10px">Shells arrive on a truck. Narrow side yards, fences or pools behind the house can need a crane set. We confirm this on the site visit.</p></div></div>
+      </div>
+      <aside class="est-out">
+        <div class="eo-card">
+          <small>Estimated project range</small>
+          <div class="eo-range"><b id="eoLo">$0</b><span>–</span><b id="eoHi">$0</b></div>
+          <div class="eo-bars" id="eoBars"></div>
+          <div class="eo-fin">
+            <div class="eo-fh"><small>Example financing</small><div class="seg" id="eoTerm"><button data-v="10">10y</button><button data-v="15">15y</button><button data-v="20" class="on">20y</button></div></div>
+            <div class="eo-sl"><span>Down payment</span><b id="eoDownV">$10,000</b></div><input type="range" class="rng" id="eoDown" min="0" max="50000" step="1000" value="10000">
+            <div class="eo-sl"><span>Example APR</span><b id="eoAprV">7.99%</b></div><input type="range" class="rng" id="eoApr" min="4" max="14" step=".25" value="7.99">
+            <div class="eo-pay"><span>Example monthly payment</span><b id="eoPay">$0</b></div>
+          </div>
+          <a href="#/quote" class="btn" id="eoSend" style="width:100%;justify-content:center;margin-top:18px">Send estimate &amp; get a firm price <span class="arr">→</span></a>
+          <p class="fine" style="margin-top:12px">Demo pricing for this design mockup. iTop will replace these ranges with its real price book before launch. Payment examples are illustrative and are not a loan offer.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+  <section class="sec" style="background:#fff">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="eyebrow">Financing 101</div><h2 style="margin-top:14px">Four ways <span class="serif grad-blue">to pay for a pool.</span></h2></div><p class="lead">Most homeowners finance at least part of the build. Here's the plain-English version.</p></div>
+      <div class="loans" id="loans"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= OUR WORK ================= -->
+<div class="route" data-route="work">
+  <section class="phero">
+    <div class="wrap">
+      <div class="crumbs"><a href="#/">Home</a><span>/</span><b>Our work</b></div>
+      <div class="ph-grid">
+        <div><div class="eyebrow light">Portfolio</div><h1>Real yards. <span class="serif grad">Real families.</span></h1></div>
+        <p class="lead">A look at recent iTop builds around Jacksonville. Ask us and we'll arrange a visit to a finished pool near you.</p>
+      </div>
+    </div>
+  </section>
+  <section class="sec" style="padding-top:50px;background:var(--mist)">
+    <div class="wrap">
+      <div class="filters" id="wkFil"></div>
+      <div class="masonry" id="wkGrid"></div>
+      <div class="mock-note" style="color:var(--azure);margin-top:24px">● Mockup: Fabio's full project library and captions go here</div>
+    </div>
+  </section>
+  <section class="sec reviews" style="padding-top:20px">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="eyebrow">Reviews</div><h2 style="margin-top:14px">In their <span class="serif grad-blue">own words.</span></h2></div><span class="mock-note" style="color:var(--azure)">● Live Google reviews (with owner replies) plug in here</span></div>
+      <div class="portal" data-p="reviews"></div>
+    </div>
+  </section>
+  <div class="cta-band"><div class="wrap cb-in"><div><h3>Like what you see?</h3><p>Get a free site visit and a 3D design of your own backyard.</p></div><a href="#/quote" class="btn">Get my free 3D design <span class="arr">→</span></a></div></div>
+</div>
+
+<!-- ================= WHY / PROCESS / WARRANTY ================= -->
+<div class="route" data-route="why">
+  <section class="phero">
+    <div class="wrap">
+      <div class="crumbs"><a href="#/">Home</a><span>/</span><b>Why iTop</b></div>
+      <div class="ph-grid">
+        <div><div class="eyebrow light">Process &amp; warranty</div><h1>One crew. <span class="serif grad">Zero hand-offs.</span></h1></div>
+        <p class="lead">Here's how a Barrier Reef shell gets from the factory to your backyard, who does each step, and exactly what's covered afterwards.</p>
+      </div>
+    </div>
+  </section>
+  <section class="sec tl-sec">
+    <div class="wrap">
+      <div class="tl" id="tl"><div class="tl-line"><i id="tlFill"></i></div></div>
+    </div>
+  </section>
+  <section class="sec wty">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="eyebrow light">Warranty, explained</div><h2 style="margin-top:14px">Two warranties. <span class="serif grad">Both in writing.</span></h2></div><p class="lead" style="color:rgba(235,248,255,.75)">The manufacturer covers the shell. iTop covers the work. Here's who to call for what.</p></div>
+      <div class="wty-grid">
+        <div class="wcard rv"><span class="tag">Manufacturer · Barrier Reef</span><h3>The shell</h3>
+          <div class="wrow"><b>Lifetime Limited Structural Warranty</b><p>The shell stays structurally sound, meaning capable of containing water, for the life of the pool. Transferable once if you sell your home.</p></div>
+          <div class="wrow"><b>15-Year Finish Warranty</b><p>Covers the gelcoat finish against blistering.</p></div>
+          <p class="fine">Summary only. The written Barrier Reef warranty document governs, and it covers the pool shell only.</p></div>
+        <div class="wcard us rv d1"><span class="tag">Installer · iTop</span><h3>The workmanship</h3>
+          <div class="wrow"><b>Installation &amp; plumbing</b><p>Excavation, leveling, backfill, plumbing and equipment set by our own crew. <em class="ph">[iTop to confirm term]</em></p></div>
+          <div class="wrow"><b>Decking &amp; pavers</b><p>Paver, travertine and porcelain decks laid by the same team. <em class="ph">[iTop to confirm term]</em></p></div>
+          <div class="wrow"><b>Equipment</b><p>Pumps, heaters and automation carry their manufacturers' warranties. We register them for you.</p></div></div>
+        <div class="wcard rv d2"><span class="tag">You</span><h3>Keeping it valid</h3>
+          <div class="wrow"><b>Keep water balanced</b><p>Finish warranties assume water chemistry stays in range. We show you how at handover.</p></div>
+          <div class="wrow"><b>Never drain it yourself</b><p>Groundwater can push an empty shell upward. Always call us first.</p></div>
+          <div class="wrow"><b>Keep your paperwork</b><p>We hand you the serial number, warranty registration and as-built drawing.</p></div></div>
+      </div>
+    </div>
+  </section>
+  <section class="sec mfg">
+    <div class="wrap mfg-grid">
+      <div><div class="eyebrow rv">Why Barrier Reef</div><h2 class="rv d1" style="margin-top:14px">Shells built <span class="serif grad-blue">in a factory, not your backyard.</span></h2>
+        <p class="lead rv d2" style="margin-top:20px">A fiberglass shell is molded and quality-checked in controlled conditions, then delivered in one piece. That's why it goes in fast and stays smooth.</p></div>
+      <div class="mfg-stats">
+        <div class="ms rv d1"><b>1984</b><span>Barrier Reef founded</span></div>
+        <div class="ms rv d2"><b>2009</b><span>US plant opened in Timmonsville, SC</span></div>
+        <div class="ms rv d3"><b>3,500+</b><span>pools a year (manufacturer figure)</span></div>
+        <div class="ms rv d4"><b>1 piece</b><span>molded shell, delivered by truck</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="sec faq" style="background:#fff"><div class="wrap faq-grid"><div class="faq-side"><div class="eyebrow">Still deciding?</div><h2 style="margin-top:18px">Ask the <span class="serif grad-blue" style="display:block;font-size:.7em">crew directly.</span></h2><p class="lead" style="margin:22px 0 30px">Every call is answered by someone who builds pools.</p><a href="#/quote" class="btn dark">Book a free site visit <span class="arr">→</span></a></div><div id="faqList2"></div></div></section>
+</div>
+
+<!-- ================= QUOTE (multi-step) ================= -->
+<div class="route" data-route="quote">
+  <section class="q-page">
+    <div class="q-bg"><i class="orb o1"></i><i class="orb o2"></i></div>
+    <div class="wrap q-grid">
+      <div class="q-main">
+        <div class="crumbs"><a href="#/">Home</a><span>/</span><b>Free 3D design &amp; site visit</b></div>
+        <div class="q-intro" id="qIntro"><span class="q-pill"><i></i>Free · No obligation · About 90 seconds</span></div>
+        <div class="q-prog">
+          <div class="q-steps" id="qSteps"></div>
+          <div class="q-bar"><i id="qBar"></i></div>
+          <div class="q-meta"><span id="qStepN">Step 1 of 6</span><span id="qLeft">About 90 seconds left</span></div>
+        </div>
+        <div id="qForm" class="qform" role="form" aria-label="Free 3D design request">
+          <!-- 0 project -->
+          <div class="qs on" data-s="0">
+            <h2 class="q-h">What are we building <span class="serif">together?</span></h2>
+            <p class="q-sub">Pick everything that applies. You can change it later.</p>
+            <div class="q-tiles multi" data-k="project">
+              <button type="button" data-v="pool"><i><svg viewBox="0 0 24 24"><path d="M2 18c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5M2 14c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5M8 11V5a2 2 0 0 1 4 0M16 11V5a2 2 0 0 0-4 0M8 8h8"/></svg></i><b>New pool</b><small>Barrier Reef fiberglass</small></button>
+              <button type="button" data-v="spa"><i><svg viewBox="0 0 24 24"><path d="M3 13h18v3a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5zM8 9c0-1.5 1-1.5 1-3S8 4.5 8 3M12 9c0-1.5 1-1.5 1-3s-1-1.5-1-3M16 9c0-1.5 1-1.5 1-3s-1-1.5-1-3"/></svg></i><b>Spa</b><small>Raised or built-in</small></button>
+              <button type="button" data-v="pavers"><i><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg></i><b>Pavers &amp; deck</b><small>Travertine, porcelain, pavers</small></button>
+              <button type="button" data-v="kitchen"><i><svg viewBox="0 0 24 24"><path d="M3 11h18v10H3zM7 11V7a5 5 0 0 1 10 0v4M8 15h8"/></svg></i><b>Outdoor kitchen</b><small>Grill, sink, counters</small></button>
+              <button type="button" data-v="enclosure"><i><svg viewBox="0 0 24 24"><path d="M3 21V9l9-6 9 6v12M3 13h18M9 21V9M15 21V9"/></svg></i><b>Screen enclosure</b><small>Hurricane-code cage</small></button>
+              <button type="button" data-v="remodel"><i><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></i><b>Remodel</b><small>Resurface, deck, equipment</small></button>
+            </div>
+            <p class="q-err" data-for="project"></p>
+          </div>
+          <!-- 1 pool -->
+          <div class="qs" data-s="1">
+            <h2 class="q-h">Any pool <span class="serif">in mind?</span></h2>
+            <p class="q-sub">Tap a shell, or let us recommend one after we measure.</p>
+            <div class="q-models" id="qModels"></div>
+            <h6 class="q-l">Must-haves <em>optional</em></h6>
+            <div class="q-chips multi" data-k="musts">
+              <button type="button" data-v="Tanning ledge">Tanning ledge</button><button type="button" data-v="Spa">Spa</button><button type="button" data-v="Heat pump">Heat pump</button><button type="button" data-v="LED lighting">LED lighting</button><button type="button" data-v="Water features">Water features</button><button type="button" data-v="Automation">Automation</button><button type="button" data-v="Salt system">Salt system</button>
+            </div>
+          </div>
+          <!-- 2 timing -->
+          <div class="qs" data-s="2">
+            <h2 class="q-h">Timing &amp; <span class="serif">budget</span></h2>
+            <p class="q-sub">This helps us bring the right design to your visit. It's not a commitment.</p>
+            <h6 class="q-l">When would you like to swim?</h6>
+            <div class="q-tiles row" data-k="when"><button type="button" data-v="asap"><b>As soon as possible</b><small>Ready to start</small></button><button type="button" data-v="3-6"><b>3–6 months</b><small>This season</small></button><button type="button" data-v="6-12"><b>6–12 months</b><small>Planning ahead</small></button><button type="button" data-v="later"><b>Just exploring</b><small>Gathering ideas</small></button></div>
+            <h6 class="q-l">Total project budget</h6>
+            <div class="q-budget" id="qBudget">
+              <div class="qb-track"><i id="qbFill"></i></div>
+              <div class="q-tiles row" data-k="budget"><button type="button" data-v="u60"><b>Under $60k</b></button><button type="button" data-v="60-80"><b>$60k–$80k</b></button><button type="button" data-v="80-100"><b>$80k–$100k</b></button><button type="button" data-v="100+"><b>$100k+</b></button></div>
+              <p class="q-hint">Not sure? <a href="#/cost">Build an estimate</a> in two minutes, then come back. Your answers are kept.</p>
+            </div>
+          </div>
+          <!-- 3 yard -->
+          <div class="qs" data-s="3">
+            <h2 class="q-h">Tell us about <span class="serif">your yard</span></h2>
+            <p class="q-sub">We build across Northeast Florida.</p>
+            <div class="fr">
+              <div class="fi"><input id="qZip" placeholder=" " inputmode="numeric" maxlength="5" autocomplete="postal-code"><label for="qZip">ZIP code</label><p class="q-err" data-for="zip"></p></div>
+              <div class="q-zip" id="zipOk"><span>Enter your ZIP to check our service area</span></div>
+            </div>
+            <h6 class="q-l">Is there an HOA?</h6>
+            <div class="q-seg" data-k="hoa"><button type="button" data-v="Yes">Yes</button><button type="button" data-v="No">No</button><button type="button" data-v="Not sure">Not sure</button></div>
+            <h6 class="q-l">What's there today?</h6>
+            <div class="q-seg" data-k="existing"><button type="button" data-v="Open yard">Open yard</button><button type="button" data-v="Old pool">Existing pool</button><button type="button" data-v="Enclosure">Screen enclosure</button><button type="button" data-v="Patio">Patio / slab</button></div>
+            <h6 class="q-l">Yard photos <em>optional, but they help a lot</em></h6>
+            <label class="q-drop" id="qDrop"><input type="file" id="qFiles" accept="image/*" multiple hidden><span class="qd-ic"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span><span><b>Drop photos here or tap to upload</b><small>A wide shot from the back door and one from the far corner is perfect.</small></span></label>
+            <div class="q-thumbs" id="qThumbs"></div>
+          </div>
+          <!-- 4 visit -->
+          <div class="qs" data-s="4">
+            <h2 class="q-h">Pick a time for your <span class="serif">free site visit</span></h2>
+            <p class="q-sub">Choose what suits you. We'll confirm the exact time by phone or text.</p>
+            <h6 class="q-l">Preferred day</h6>
+            <div class="q-days" id="qDays"></div>
+            <h6 class="q-l">Time of day</h6>
+            <div class="q-seg" data-k="slot"><button type="button" data-v="Morning">Morning · 9–12</button><button type="button" data-v="Afternoon">Afternoon · 12–4</button><button type="button" data-v="Late afternoon">Late · 4–6</button></div>
+            <button type="button" class="q-skip" id="qCallFirst">I'd rather you call me to schedule →</button>
+          </div>
+          <!-- 5 contact -->
+          <div class="qs" data-s="5">
+            <h2 class="q-h">Last step. Where should we <span class="serif">reach you?</span></h2>
+            <p class="q-sub">A member of our own crew will call you. Not a call center.</p>
+            <div class="fr"><div class="fi"><input id="qFn" placeholder=" " autocomplete="given-name"><label for="qFn">First name</label><p class="q-err" data-for="fn"></p></div><div class="fi"><input id="qLn" placeholder=" " autocomplete="family-name"><label for="qLn">Last name</label></div></div>
+            <div class="fr"><div class="fi"><input id="qPh" placeholder=" " type="tel" autocomplete="tel" inputmode="tel"><label for="qPh">Mobile phone</label><p class="q-err" data-for="ph"></p></div><div class="fi"><input id="qEm" placeholder=" " type="email" autocomplete="email"><label for="qEm">Email (optional)</label><p class="q-err" data-for="em"></p></div></div>
+            <h6 class="q-l">Best way to reach you</h6>
+            <div class="q-seg" data-k="contact"><button type="button" data-v="Call">Call</button><button type="button" data-v="Text">Text</button><button type="button" data-v="Email">Email</button></div>
+            <div class="fi" style="margin-top:14px"><textarea id="qNotes" placeholder=" " rows="3"></textarea><label for="qNotes">Anything else we should know? (optional)</label></div>
+            <label class="consent"><input type="checkbox" id="qSms"> Text me appointment reminders. Msg &amp; data rates may apply. Reply STOP to opt out. Consent isn't required to get a quote.</label>
+            <p class="q-priv"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Your details go to iTop only. We never sell or share them.</p>
+          </div>
+          <!-- done -->
+          <div class="qs done" data-s="6">
+            <div class="q-done">
+              <div class="q-check"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" fill="none"/><path fill="none" d="M14 27l8 8 16-17"/></svg></div>
+              <h2 class="q-h">You're all set<span id="qDoneName"></span>.</h2>
+              <p class="q-sub">Here's what happens next.</p>
+              <div class="q-next">
+                <div><i>1</i><b>We call you</b><span>Within one business day, from our Jacksonville office.</span></div>
+                <div><i>2</i><b>Site visit</b><span id="qDoneVisit">We measure your yard, check access and talk options.</span></div>
+                <div><i>3</i><b>3D design &amp; firm price</b><span>Your pool, deck and features drawn to your yard, with a written price.</span></div>
+              </div>
+              <p class="fine" style="color:rgba(235,248,255,.5);margin:22px 0">Design mockup: nothing was sent. On the live site this goes straight into iTop's GoHighLevel CRM, with an instant text confirmation.</p>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><a href="#/studio" class="btn">Keep designing in 3D <span class="arr">→</span></a><a href="#/learn" class="btn ghost">Read Pool school <span class="arr">→</span></a></div>
+            </div>
+          </div>
+          <div class="q-nav" id="qNav"><button type="button" class="q-back" id="qBack">← Back</button><span class="q-enter">Press <kbd>Enter ↵</kbd></span><button type="button" class="btn" id="qNext">Continue <span class="arr">→</span></button></div>
+        </div>
+      </div>
+      <aside class="q-side">
+        <div class="q-card">
+          <div class="q-card-h"><small>Your project brief</small><span id="qPct">0%</span></div>
+          <div id="qSum"></div>
+          <div class="q-studio" id="qStudio"></div>
+        </div>
+        <a class="q-call" href="tel:+19046852555"><i><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg></i><span><small>Prefer to talk?</small><b>(904) 685-2555</b></span></a>
+        <div class="q-trust"><div><b>Free</b><span>site visit</span></div><div><b>3D</b><span>design</span></div><div><b>Firm</b><span>written price</span></div></div>
+      </aside>
+    </div>
+  </section>
+</div>
+</main>
+
+<!-- shared components (moved into portals) -->
+<div id="parking" hidden>
+  <div class="studio" id="studio">
+    <div class="stage">
+      <canvas id="cfgCanvas" aria-label="Interactive 3D backyard pool designer"></canvas>
+      <div class="st-top">
+        <div class="hud"><span class="live">Live 3D</span><span>Model <b id="hudModel">Whitsunday</b></span><span>Size <b id="hudSize">40' × 15'8"</b></span></div>
+        <div class="views" id="views"><button data-v="aerial">Aerial</button><button data-v="poolside" class="on">Poolside</button><button data-v="lanai">From the lanai</button><button class="fs" id="fsBtn" aria-label="Full screen"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div>
+      </div>
+      <div class="st-bot">
+        <div class="hint3d" id="cfgHint"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12m0-1.5v-2a1.5 1.5 0 0 1 3 0V12m0-1a1.5 1.5 0 0 1 3 0v1m0 0a1.5 1.5 0 0 1 3 0V16a6 6 0 0 1-6 6h-2a6 6 0 0 1-5-2.7L5 16.5a1.5 1.5 0 0 1 2.5-1.7L8 15.5"/></svg>Drag to walk around · scroll to zoom</div>
+        <div class="lightseg" id="lightSeg"><button data-v="day" class="on">Day</button><button data-v="sunset">Sunset</button><button data-v="night">Night</button></div>
+      </div>
+    </div>
+    <aside class="panel">
+      <div class="panel-h"><b>Your pool</b><small>Configuration</small></div>
+      <div class="panel-b">
+        <div class="stp"><div class="stp-h"><i>01</i>Model<em id="mName">Whitsunday</em></div><div class="mlist" id="mList"></div></div>
+        <div class="stp"><div class="stp-h"><i>02</i>Barrier Reef finish<em id="finName">Ocean</em></div><div class="swatches" id="optFinish"></div></div>
+        <div class="stp"><div class="stp-h"><i>03</i>Deck<em id="deckName">Travertine</em></div><div class="decks" id="optDeck">
+          <button class="dk on" data-v="travertine"><span></span><b>Travertine</b></button><button class="dk" data-v="porcelain"><span></span><b>Porcelain</b></button><button class="dk" data-v="pavers"><span></span><b>Pavers</b></button></div></div>
+        <div class="stp"><div class="stp-h"><i>04</i>Features</div><div class="toggles" id="optToggles">
+          <div class="tg on" data-k="spa" role="switch" aria-checked="true" tabindex="0"><span>Spillover spa<small>Raised spa with sheer descent</small></span><i class="sw-t"></i></div>
+          <div class="tg on" data-k="ledge" role="switch" aria-checked="true" tabindex="0"><span>Tanning ledge<small>Molded sun shelf for loungers</small></span><i class="sw-t"></i></div>
+          <div class="tg" data-k="cage" role="switch" aria-checked="false" tabindex="0"><span>Screen enclosure<small>Hurricane-code aluminum cage</small></span><i class="sw-t"></i></div>
+        </div></div>
+      </div>
+      <div class="panel-f"><div class="sum" id="sum"></div><a href="#/quote" class="btn" id="cfgBtn">Send this design to iTop <span class="arr">→</span></a><p>Illustrative preview · final design drawn to your yard's survey</p></div>
+    </aside>
+  </div>
+
+  <div class="lab" id="lab">
+    <div class="lab-stage" id="labStage">
+      <canvas id="labCanvas" aria-label="Pool finish colour comparison"></canvas>
+      <div class="lab-split" id="labSplit"><div class="lab-handle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m9 6-6 6 6 6M15 6l6 6-6 6"/></svg></div></div>
+      <span class="lab-tag l" id="labTagA">Ocean</span><span class="lab-tag r" id="labTagB">Arctic</span>
+      <div class="lab-light seg dark" id="labLight"><button data-v="0" class="on">Full sun</button><button data-v="1">Shade</button><button data-v="2">Night LED</button></div>
+    </div>
+    <div class="lab-side">
+      <div class="lab-pick"><small>Left side</small><div class="lab-sw" id="labSwA"></div></div>
+      <div class="lab-pick"><small>Right side</small><div class="lab-sw" id="labSwB"></div></div>
+      <div class="lab-info"><b id="labName">Ocean</b><p id="labDesc"></p><div class="lab-pair"><small>Pairs well with</small><span id="labPair"></span></div></div>
+      <a href="#/studio" class="btn blue" id="labTo3d" style="width:100%;justify-content:center">Try it in the 3D studio <span class="arr">→</span></a>
+      <p class="fine" style="color:rgba(235,248,255,.5);margin-top:10px">Simulated colours. See real finish samples on your free site visit.</p>
+    </div>
+  </div>
+
+  <div class="rv-grid" id="reviewsBlock">
+    <div class="rcard big"><div class="g-score"><b>5.0</b><div><div class="stars">★★★★★</div><small style="color:rgba(255,255,255,.7)">Google rating · sample</small></div></div><q>“Your customer's favorite review will be featured here, in big, beautiful type.”</q><div class="who"><i>G</i><div><b>Featured Google review</b><small>Pulled live from Google Business Profile</small></div></div></div>
+    <div class="rcard"><div class="stars">★★★★★</div><q>Review text from Google appears here, synced automatically.</q><div class="who"><i>R</i><div><b>Reviewer name</b><small>Neighborhood · Project type</small></div></div><div class="reply"><b>Reply from iTop</b>Owner replies show here, too.</div></div>
+    <div class="rcard"><div class="stars">★★★★★</div><q>Review text from Google appears here, synced automatically.</q><div class="who"><i>R</i><div><b>Reviewer name</b><small>Neighborhood · Project type</small></div></div></div>
+    <div class="rcard"><div class="stars">★★★★★</div><q>Review text from Google appears here, synced automatically.</q><div class="who"><i>R</i><div><b>Reviewer name</b><small>Neighborhood · Project type</small></div></div></div>
+    <div class="rcard"><div class="stars">★★★★★</div><q>Review text from Google appears here, synced automatically.</q><div class="who"><i>R</i><div><b>Reviewer name</b><small>Neighborhood · Project type</small></div></div><div class="reply"><b>Reply from iTop</b>Owner replies show here, too.</div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <a href="#/" class="logo"><svg viewBox="0 0 48 48" fill="none" width="40" height="40"><path d="M4 21 24 6l20 15" stroke="#7dd3fc" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 19v21M38 19v21" stroke="#7dd3fc" stroke-width="3.2" stroke-linecap="round"/><path d="M17 22v18M24 18v22M31 22v18" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/><path d="M6 42h36" stroke="#1e9be0" stroke-width="3.2" stroke-linecap="round"/></svg><span><b>iTOP</b><small>POOLS</small></span></a>
+        <p style="margin-top:18px;max-width:34ch">Barrier Reef fiberglass pools, decks and pavers. One crew, start to finish. Part of the iTop group with iTop Builder and iTop Pavers.</p>
+        <a href="#/quote" class="btn" style="margin-top:22px">Get my free 3D design <span class="arr">→</span></a>
+        <div class="soc"><a href="#" aria-label="Facebook">f</a><a href="#" aria-label="Instagram">◎</a><a href="#" aria-label="Google">G</a><a href="#" aria-label="YouTube">▶</a></div>
+      </div>
+      <div><h4>Pools</h4><ul><li><a href="#/pools">Model finder</a></li><li><a href="#/studio">3D design studio</a></li><li><a href="#/colours">Colour lab</a></li><li><a href="#/cost">Cost &amp; financing</a></li><li><a href="#/work">Our work</a></li><li><a href="#/why">Process &amp; warranty</a></li></ul></div>
+      <div><h4>Pool school</h4><ul id="fLearn"></ul></div>
+      <div><h4>Contact</h4><ul><li>6510 Columbia Park Drive,<br>Suite 206, Jacksonville, FL 32258</li><li><a href="tel:+19046852555">(904) 685-2555</a></li><li><a href="mailto:hello@itoppools.com">hello@itoppools.com</a></li><li>Mon–Fri · 9:00 AM – 6:00 PM</li></ul>
+        <h4 style="margin-top:26px">Service area</h4><div class="areas"><span>Jacksonville</span><span>Ponte Vedra</span><span>Nocatee</span><span>St. Johns</span><span>Mandarin</span><span>Orange Park</span><span>Fleming Island</span><span>St. Augustine</span></div></div>
+    </div>
+    <div class="f-big">iTop Pools</div>
+    <div class="f-bot"><span>© 2026 iTop Pools · Licensed &amp; insured · Lic. # CBC—— (to be added)</span><span>*Warranties are provided by Barrier Reef Fiberglass Pools and summarized here. Install times depend on permits, weather and site conditions.</span></div>
+  </div>
+</footer>
+
+<div class="mbar" id="mbar"><a href="tel:+19046852555"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg> Call</a><a href="#/quote" class="p">Free 3D Design →</a></div>
+<div class="lb" id="lb"><img alt=""></div>
+<div class="modal" id="cmpModal"><div class="mo-in"><button class="mo-x" id="moX" aria-label="Close">✕</button><h3>Compare models</h3><div class="mo-tbl" id="moTbl"></div></div></div>
+<div class="toast" id="toast"><span style="font-size:22px">✓</span><span id="toastT"></span></div>
+<div class="mock-flag">Design mockup · v2</div>
