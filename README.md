@@ -1,88 +1,122 @@
-# iTop Pools: website v2 (design mockup)
+# iTop Pools website v3
 
-A multi-page, single-file website for iTop Pools (Jacksonville, FL). It includes an underwater hero, a 3D pool design studio (three.js), a colour lab, a model finder and carousel, a cost estimator, Pool School articles and a 6-step enquiry form.
+A website for iTop Pools (Jacksonville, FL), an authorized Barrier Reef Pools USA dealer. It tells one story: **choose your Barrier Reef pool → see it in 3D → know the cost → book a free visit with iTop's own crew.**
 
-## Quick start (VS Code)
+It includes a photo hero, all 22 official models with their specs, a 3D pool design studio (three.js), a colour lab, a cost estimator, Pool School articles, a full FAQ and a 6-step enquiry form.
 
-1. Open this folder in VS Code.
-2. Install [Node.js](https://nodejs.org) (any recent version). There are no npm packages to install.
-3. In the terminal:
+## Quick start
+
+1. Install [Node.js](https://nodejs.org), then run `npm install` in this folder.
+2. Run one of these:
    ```bash
-   npm run dev      # builds dist/index.html and rebuilds whenever you save a file in src/
+   npm run dev      # builds dist/ and rebuilds whenever you save a file in src/
+   npm run build    # a single build
+   npm test         # checks every page at 7 screen sizes (needs Chrome installed)
+   npm test -- --clicks            # also clicks every button and link
+   npm test -- --shots screenshots # also saves screenshots
    ```
-4. Open `dist/index.html` in Chrome. The **Live Server** extension is handy: right-click the file and choose *Open with Live Server*. It reloads on every rebuild.
+3. Serve `dist/` with any static server, such as `npx serve dist` or VS Code's Live Server. Opening the file directly won't load everything.
 
-Run `npm run build` for a single build.
+> **Always edit files in `src/`.** `dist/` is generated, so changes made there are overwritten on the next build.
 
-> **Always edit files in `src/`.** `dist/index.html` is generated, so changes made there are overwritten on the next build.
+The first build takes under a minute because it generates all the photo sizes. Later builds reuse them from `.cache/` and take a second or two.
 
 ## Project structure
 
 ```
 src/
-  body.html                    All page markup (every route is a <div class="route" data-route="…">)
-  css/
-    01-base.css                Design tokens (colours, radii, fonts), buttons, nav, hero, home sections
-    02-pages.css               Inner pages: finder, model page, colour lab, learn, estimator, work, why, quote
-    03-type-motion-form.css    Typography polish, scroll animations, enquiry form
-    04-carousel.css            Home "collection" 3D carousel
-  js/                          Joined in name order into ONE scope (01 opens it, the build closes it)
-    01-engine.js               three.js scenes: 3D backyard (PoolScene), underwater hero, finishes
-    02-data-studio-lab.js      Data (models, articles, FAQ, pricing), studio + colour-lab UI
-    03-pages-router.js         Page logic, enquiry form, motion layer, hash router
-  assets/img/                  Photos. Reference one as {{IMG:filename}} in CSS/HTML, or IMG.filename in JS
-  assets/fonts/                Inter Tight, Inter, Instrument Serif (self-hosted, inlined at build)
-  vendor/three.min.js          three.js r149
-build.js                       Zero-dependency build: inlines everything into dist/index.html
-dist/index.html                The finished site (send this file / upload it)
+  body.html                All page markup (each page is a <div class="route" data-route="…">)
+  data/
+    models.json            The 22 official Barrier Reef models, with every size and spec
+    photos.json            Every photo: file, alt, caption, location, model, category, credit
+    faq.json               FAQ groups, questions, answers and the comparison table
+    site.json              Hero slides, lead webhook, business details for search engines
+  css/                     Joined in name order. 05-v3.css holds the hero, drawer, FAQ and mobile rules
+  js/                      Joined in name order into ONE scope
+    01-engine.js           Photo helpers and the three.js pool scene
+    02-data-studio-lab.js  Articles, pricing, studio and colour-lab UI
+    03-pages-router.js     Hero carousel, drawer, pages, enquiry form, hash router
+  assets/img/projects/     iTop's project photos
+  assets/img/models/       Official Barrier Reef model photos
+  assets/fonts/            Inter Tight, Inter, Instrument Serif (self-hosted)
+  vendor/three.min.js      three.js r149, loaded only when a 3D scene is about to be seen
+tests/check.js             Browser checks: overflow, JS errors, tap targets, click-everything
+build.js                   Builds dist/
+PHOTOS-NEEDED.md           Shot list for the real photos
+```
+
+The build produces:
+
+```
+dist/index.html        The app, with only the first hero photo inlined
+dist/faq/index.html    The same app opening on the FAQ, at a real URL search engines can read
+dist/img/              Each photo as WebP and AVIF at up to 3 widths
+dist/fonts/, dist/js/  Fonts and three.js
 ```
 
 ## Common edits
 
 | What | Where |
 |---|---|
-| Phone, address, email | `src/body.html` (search `685-2555`, `Columbia Park`) |
+| Hero slides | `hero` in `src/data/site.json` |
+| Photos | `src/data/photos.json`, see `PHOTOS-NEEDED.md` |
+| Pool models and specs | `src/data/models.json`. Counts across the site update automatically |
+| FAQ | `src/data/faq.json`. `top: true` shows it on the home page, `why: true` on the Why iTop page, `cost: true` adds the "Get my firm price" button |
+| Phone, address, email | `src/body.html` and `business` in `src/data/site.json` |
 | Brand colours | `:root` at the top of `src/css/01-base.css` |
-| Pool models and specs | `MODELS` in `src/js/02-data-studio-lab.js` |
-| Finish colours (3D + lab) | `FINISH` in `src/js/01-engine.js`, names/descriptions in `FIN_META` |
 | Estimator prices (**demo numbers**) | `PRICE` in `src/js/02-data-studio-lab.js` |
 | Pool School articles | `ARTS` in `src/js/02-data-studio-lab.js` |
-| FAQ | `FAQ` in `src/js/02-data-studio-lab.js` |
-| Gallery photos | add a file to `src/assets/img/`, then add it to `GAL` in `02-data-studio-lab.js` |
-| Enquiry form steps | `data-route="quote"` in `body.html` + the `QUOTE` section of `03-pages-router.js` |
+| Enquiry form steps | `data-route="quote"` in `body.html`, and the `QUOTE` section of `03-pages-router.js` |
 
-## Connecting the form to GoHighLevel
+## Connecting the enquiry form
 
-The form currently shows the success screen without sending anything. To connect it, open `src/js/03-pages-router.js` and find `function qGo`. When `Q.step` reaches `6`, POST the brief to a GHL inbound webhook (Automation, then Workflow, then trigger *Inbound Webhook*):
+Put a GoHighLevel inbound webhook URL in `leadWebhook` in `src/data/site.json`, then rebuild. The form posts its answers as JSON to that URL.
 
-```js
-fetch('YOUR_GHL_WEBHOOK_URL', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    first_name: $('#qFn').value, last_name: $('#qLn').value,
-    phone: $('#qPh').value, email: $('#qEm').value,
-    postal_code: $('#qZip').value,
-    project: [...Q.project].join(', '), model: Q.model, must_haves: [...Q.musts].join(', '),
-    timing: Q.when, budget: Q.budget, hoa: Q.hoa, existing: Q.existing,
-    visit_day: Q.day, visit_slot: Q.slot, call_first: Q.callFirst,
-    contact_pref: Q.contact, notes: $('#qNotes').value, sms_consent: $('#qSms').checked
-  })
-});
-```
+While `leadWebhook` is empty, nothing is sent automatically. The last screen asks the visitor to email their request or call instead, so nobody believes a request went through when it didn't. The same fallback appears if the webhook returns an error.
 
-Yard photos (`Q.files`) are data URLs held in the browser. Upload them to GHL media, or send them to a file endpoint, before including them.
+Yard photos stay in the visitor's browser and are not sent yet. They need a file upload endpoint first.
 
-## Before going live
+## Going live
 
-- Replace the demo pricing in `PRICE` with iTop's real price book.
-- Fill in the `[iTop to confirm term]` placeholders (workmanship warranty) and the license number in the footer.
-- Add real project photos and connect the Google reviews widget (the reviews section is a layout preview).
-- Remove the "Design mockup · v2" badge: `.mock-flag` in `body.html`.
-- Gallon figures marked "≈ est." are estimates. Only the Bondi's 17,600 gal comes from the Barrier Reef spec sheet.
+1. Build with `SITE_ENV=live`, for example as an environment variable in Vercel. This removes the `noindex` tag and adds `sitemap.xml`. Without it, search engines are told not to index the site, so a preview can't compete with the live itoppools.com.
+2. Keep `https://itoppools.com/#faq` working. The home page FAQ keeps the `#faq` anchor for this reason. Point the domain at this site only after checking it.
+3. Add redirects for the current site's `/pool-models/`, `/services/` and `/get-a-quote/` pages, which are in its sitemap, so existing search rankings aren't lost.
+
+## TODO before launch
+
+**Must have**
+- [ ] Connect the enquiry form (`leadWebhook`)
+- [ ] Replace the demo pricing in `PRICE` with iTop's real price book
+- [ ] Fabio to confirm the cost figures in `src/data/faq.json` (see below)
+- [ ] Fabio to confirm iTop may use the Barrier Reef and current-site photos
+- [ ] Real family and project photos (`PHOTOS-NEEDED.md`)
+
+**Fabio to confirm**
+- [ ] Installed cost ranges and ownership costs. They come from published guides of mixed quality, and the vinyl range is national rather than Florida-specific
+- [ ] Concrete resurfacing cost. No reliable Florida figure was found, so the site gives no number
+- [ ] FAQ wording: his current FAQ had placeholders for build time and energy options. Build time now uses Barrier Reef's 2–6 weeks. Energy options now name salt systems, variable-speed pumps and automation
+- [ ] Financing answer: the site describes common loan types and doesn't claim iTop offers financing directly
+- [ ] Workmanship warranty terms. The site says terms are "set out in your written agreement"
+- [ ] License number, then add it to the footer. The current site also has a placeholder for this
+- [ ] Pool types: the FAQ keeps his wording that iTop works with fiberglass and concrete/gunite, while the rest of the site focuses on Barrier Reef fiberglass
+
+**To add**
+- [ ] Google reviews. The sample review section was removed so visitors don't see fake reviews. Add it back once real reviews are connected
+- [ ] Social media links. The placeholder icons in the footer were removed
+
+**Barrier Reef data to double-check**
+
+`models.json` matches brpoolsusa.com as of November 2026, except for the first two corrections below.
+- Aussie 35 length was listed as `35` with no unit, and is stored as 35'
+- Sydney Harbour width was listed as `16"`, and is stored as 16'
+- Whitsunday "30" versions are listed at 31'2" long
+- Grande 23 and Laguna 23 are listed with different deep ends (5'10.5" and 5'1.5") but otherwise match
+- Oasis has no shallow depth listed, so the site shows "See spec sheet"
+- Spas, sundecks and tanning ledges have no published specs, so that section is descriptive only
 
 ## Notes
 
-- Routing uses `#/…` hashes (e.g. `#/pools/bondi`, `#/quote?m=bondi`). Clicks are handled in JS, so it also works inside sandboxed previews.
-- Adding `?test` to the URL slows the render loop. It's used for automated screenshots.
-- Animations respect the visitor's *reduce motion* setting.
+- Routing uses `#/…` hashes (e.g. `#/pools/bondi`, `#/quote?m=bondi`). Clicks are handled in JS, so it also works inside sandboxed previews. The exception is `/faq/`, a real URL.
+- Plan drawings and 3D shapes are to scale for length and width, but the outlines are simplified. Exact shapes are on the Barrier Reef spec sheets.
+- Adding `?test` to the URL slows the 3D render loop. It's used for automated screenshots.
+- Animations respect the visitor's *reduce motion* setting. The hero then stops auto-advancing and doesn't zoom.

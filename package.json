@@ -1,10 +1,16 @@
 {
   "name": "itop-pools-website",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
-  "description": "iTop Pools website v2 — single-file build with 3D studio, colour lab, model finder and enquiry form",
+  "description": "iTop Pools website v3: photo hero, 3D studio, colour lab, official Barrier Reef model data, FAQ and enquiry form",
   "scripts": {
     "build": "node build.js",
-    "dev": "node build.js --watch"
+    "dev": "node build.js --watch",
+    "test": "node tests/check.js"
+  },
+  "devDependencies": {
+    "lighthouse": "^13.6.0",
+    "playwright-core": "^1.64.1",
+    "sharp": "^0.35.5"
   }
 }

@@ -1,0 +1,1012 @@
+[
+ {
+  "id": "aussie",
+  "n": "Aussie",
+  "s": "rect",
+  "cat": "rect",
+  "t": "Rectangular",
+  "feats": [
+   "ledge",
+   "bench",
+   "deep",
+   "new"
+  ],
+  "spa": 0,
+  "blurb": "Wide entry steps built with families in mind, in a durable fiberglass shell with smooth, low-maintenance surfaces.",
+  "fl": [
+   "Comfortable deep-end seating",
+   "Perimeter safety ledge for added peace of mind",
+   "Spacious lounging ledge",
+   "Wide, textured entry steps"
+  ],
+  "sizes": [
+   {
+    "label": "Aussie 30",
+    "Ls": "30'",
+    "Ws": "15'9\"",
+    "Ss": "4'2\"",
+    "Ds": "6'",
+    "L": 30,
+    "W": 15.75,
+    "S": 4.167,
+    "D": 6,
+    "lounger": "6' 2\"",
+    "gal": 10175
+   },
+   {
+    "label": "Aussie 35",
+    "Ls": "35'",
+    "Ws": "15'9\"",
+    "Ss": "3'8\"",
+    "Ds": "6'",
+    "L": 35,
+    "W": 15.75,
+    "S": 3.667,
+    "D": 6,
+    "lounger": "6' 2\"",
+    "gal": 12335
+   }
+  ]
+ },
+ {
+  "id": "billabong-cove",
+  "n": "Billabong Cove",
+  "s": "free",
+  "cat": "free",
+  "t": "Freeform",
+  "feats": [
+   "ledge",
+   "bench",
+   "deep"
+  ],
+  "spa": 0,
+  "blurb": "A modern freeform pool that feels like a natural retreat at home, with lounge seating for all-day comfort.",
+  "fl": [
+   "Comfortable deep-end lounge seating",
+   "Wide, textured entry steps for safety and convenience",
+   "Perimeter safety ledge for added peace of mind",
+   "Spacious lounging ledge"
+  ],
+  "sizes": [
+   {
+    "label": "Billabong Cove",
+    "Ls": "35'3\"",
+    "Ws": "16'",
+    "Ss": "3'4\"",
+    "Ds": "6'5\"",
+    "L": 35.25,
+    "W": 16,
+    "S": 3.333,
+    "D": 6.417,
+    "lounger": null,
+    "gal": 17400
+   }
+  ]
+ },
+ {
+  "id": "billabong-splash",
+  "n": "Billabong Splash",
+  "s": "free",
+  "cat": "free",
+  "t": "Freeform",
+  "feats": [
+   "ledge",
+   "bench"
+  ],
+  "spa": 0,
+  "blurb": "A stylish freeform design for smaller spaces, with a lounging ledge and a perimeter safety ledge.",
+  "fl": [
+   "Comfortable deep-end lounge seating",
+   "Lounging ledge",
+   "Perimeter safety ledge for added peace of mind"
+  ],
+  "sizes": [
+   {
+    "label": "Billabong Splash",
+    "Ls": "27'",
+    "Ws": "13'",
+    "Ss": "3'7\"",
+    "Ds": "5'6\"",
+    "L": 27,
+    "W": 13,
+    "S": 3.583,
+    "D": 5.5,
+    "lounger": null,
+    "gal": 10400
+   }
+  ]
+ },
+ {
+  "id": "bondi",
+  "n": "Bondi",
+  "s": "rect",
+  "cat": "rect",
+  "t": "Rectangular",
+  "feats": [
+   "ledge",
+   "bench",
+   "deep"
+  ],
+  "spa": 0,
+  "blurb": "A classic design with deep-end seating that suits families and fitness lovers alike. Built for laps, games and everything in between.",
+  "fl": [
+   "Comfortable deep-end seating",
+   "Perimeter safety ledge for added peace of mind",
+   "Sloped entry ledge for easy access",
+   "Wide, textured entry steps"
+  ],
+  "sizes": [
+   {
+    "label": "Bondi 40",
+    "Ls": "40'",
+    "Ws": "15'8\"",
+    "Ss": "3'8\"",
+    "Ds": "6'3\"",
+    "L": 40,
+    "W": 15.667,
+    "S": 3.667,
+    "D": 6.25,
+    "lounger": "Walk-in 11'",
+    "gal": 17600
+   },
+   {
+    "label": "Bondi 35",
+    "Ls": "35'",
+    "Ws": "15'8\"",
+    "Ss": "3'6\"",
+    "Ds": "6'1.5\"",
+    "L": 35,
+    "W": 15.667,
+    "S": 3.5,
+    "D": 6.125,
+    "lounger": "Walk-in 8'",
+    "gal": 12832
+   }
+  ]
+ },
+ {
+  "id": "castaway",
+  "n": "Castaway",
+  "s": "rect",
+  "cat": "rect",
+  "t": "Rectangular + spa",
+  "feats": [
+   "ledge",
+   "spa",
+   "bench",
+   "deep"
+  ],
+  "spa": 1,
+  "blurb": "The all-in-one rectangular pool for families who want it all, with an integrated spa, lounging ledge and swim-outs built in.",
+  "fl": [
+   "Comfortable deep-end lounge seating",
+   "Integrated spa",
+   "Lounging ledge",
+   "Perimeter safety ledge for added peace of mind",
+   "Wide, textured entry steps"
+  ],
+  "sizes": [
+   {
+    "label": "Castaway 35",
+    "Ls": "35'",
+    "Ws": "15'8\"",
+    "Ss": "4'4\"",
+    "Ds": "6'4\"",
+    "L": 35,
+    "W": 15.667,
+    "S": 4.333,
+    "D": 6.333,
+    "lounger": null,
+    "gal": 18000
+   },
+   {
+    "label": "Castaway 30",
+    "Ls": "30'",
+    "Ws": "15'8\"",
+    "Ss": "4'4\"",
+    "Ds": "5'9\"",
+    "L": 30,
+    "W": 15.667,
+    "S": 4.333,
+    "D": 5.75,
+    "lounger": null,
+    "gal": 12480
+   }
+  ]
+ },
+ {
+  "id": "coral-cay",
+  "n": "Coral Cay Plunge",
+  "s": "rect",
+  "cat": "plunge",
+  "t": "Plunge · rectangular",
+  "feats": [
+   "bench"
+  ],
+  "spa": 0,
+  "blurb": "The style and comfort of a full-size pool without needing the space, in a streamlined plunge footprint.",
+  "fl": [
+   "Auto-cover ready for safety and convenience",
+   "Generous built-in seating bench",
+   "Perimeter safety ledge for added peace of mind"
+  ],
+  "sizes": [
+   {
+    "label": "Coral Cay 30 Plunge",
+    "Ls": "30'",
+    "Ws": "11'3\"",
+    "Ss": "3'6\"",
+    "Ds": "5'3\"",
+    "L": 30,
+    "W": 11.25,
+    "S": 3.5,
+    "D": 5.25,
+    "lounger": null,
+    "gal": 9125
+   },
+   {
+    "label": "Coral Cay 26 Plunge",
+    "Ls": "26'",
+    "Ws": "9'6\"",
+    "Ss": "3'6\"",
+    "Ds": "5'1.5\"",
+    "L": 26,
+    "W": 9.5,
+    "S": 3.5,
+    "D": 5.125,
+    "lounger": null,
+    "gal": 7327
+   },
+   {
+    "label": "Coral Cay 20 Plunge",
+    "Ls": "20'",
+    "Ws": "9'6\"",
+    "Ss": "3'6\"",
+    "Ds": "4'9.75\"",
+    "L": 20,
+    "W": 9.5,
+    "S": 3.5,
+    "D": 4.813,
+    "lounger": null,
+    "gal": 5346
+   }
+  ]
+ },
+ {
+  "id": "coral-sea",
+  "n": "Coral Sea",
+  "s": "free",
+  "cat": "free",
+  "t": "Freeform",
+  "feats": [
+   "ledge",
+   "bench",
+   "deep"
+  ],
+  "spa": 0,
+  "blurb": "Freeform curves with generous entry steps and a perimeter safety ledge designed for the whole family.",
+  "fl": [
+   "Deep end seat and swim outs",
+   "Generous entry steps in a textured finish",
+   "Perimeter safety ledge for added peace of mind"
+  ],
+  "sizes": [
+   {
+    "label": "Coral Sea 40",
+    "Ls": "40'",
+    "Ws": "15'2\"",
+    "Ss": "3'7\"",
+    "Ds": "6'9.5\"",
+    "L": 40,
+    "W": 15.167,
+    "S": 3.583,
+    "D": 6.792,
+    "lounger": null,
+    "gal": 19200
+   },
+   {
+    "label": "Coral Sea 35",
+    "Ls": "35'",
+    "Ws": "15'2\"",
+    "Ss": "3'7\"",
+    "Ds": "6'4\"",
+    "L": 35,
+    "W": 15.167,
+    "S": 3.583,
+    "D": 6.333,
+    "lounger": null,
+    "gal": 16000
+   },
+   {
+    "label": "Coral Sea 35 Lounger",
+    "Ls": "35'",
+    "Ws": "15'2\"",
+    "Ss": "3'7\"",
+    "Ds": "6'4\"",
+    "L": 35,
+    "W": 15.167,
+    "S": 3.583,
+    "D": 6.333,
+    "lounger": "9' x 6'5\"",
+    "gal": 15800
+   },
+   {
+    "label": "Coral Sea 31",
+    "Ls": "31'2\"",
+    "Ws": "15'2\"",
+    "Ss": "4'",
+    "Ds": "6'4\"",
+    "L": 31.167,
+    "W": 15.167,
+    "S": 4,
+    "D": 6.333,
+    "lounger": null,
+    "gal": 13700
+   },
+   {
+    "label": "Coral Sea 31 Lounger",
+    "Ls": "31'2\"",
+    "Ws": "15'2\"",
+    "Ss": "4'",
+    "Ds": "6'4\"",
+    "L": 31.167,
+    "W": 15.167,
+    "S": 4,
+    "D": 6.333,
+    "lounger": "9' x 6'5\"",
+    "gal": 13400
+   }
+  ]
+ },
+ {
+  "id": "crispin",
+  "n": "Crispin Plunge",
+  "s": "kidney",
+  "cat": "plunge",
+  "t": "Plunge · kidney",
+  "feats": [
+   "bench"
+  ],
+  "spa": 0,
+  "blurb": "Big enjoyment in a small backyard: a durable, low-maintenance plunge pool with wrap-around seating.",
+  "fl": [
+   "Durable compact fiberglass pool construction",
+   "Generous entry steps in a textured finish",
+   "Perimeter safety ledge for added peace of mind",
+   "Wrap-around seating ledge for relaxation"
+  ],
+  "sizes": [
+   {
+    "label": "Crispin Plunge",
+    "Ls": "16'6\"",
+    "Ws": "10'",
+    "Ss": "3'11\"",
+    "Ds": "3'11\"",
+    "L": 16.5,
+    "W": 10,
+    "S": 3.917,
+    "D": 3.917,
+    "lounger": null,
+    "gal": 3100
+   }
+  ]
+ },
+ {
+  "id": "outback-escape",
+  "n": "Escape Plunge",
+  "s": "rect",
+  "cat": "plunge",
+  "t": "Plunge · rectangular",
+  "feats": [
+   "bench"
+  ],
+  "spa": 0,
+  "blurb": "A compact pool for small yards, patios or courtyards, compatible with swim jets for a genuine fitness pool experience.",
+  "fl": [
+   "Compact design ideal for small yards, patios, or courtyards",
+   "Built-in lounging and deep end swim-out seating",
+   "Perimeter safety ledge for added comfort and security",
+   "Wide entry steps for easy access",
+   "Compatible with swim jets or fitness accessories",
+   "Fast, efficient installation compared to traditional pools"
+  ],
+  "sizes": [
+   {
+    "label": "Escape Plunge",
+    "Ls": "17'",
+    "Ws": "8'6\"",
+    "Ss": "4'7\"",
+    "Ds": "4'7\"",
+    "L": 17,
+    "W": 8.5,
+    "S": 4.583,
+    "D": 4.583,
+    "lounger": null,
+    "gal": 3400
+   }
+  ]
+ },
+ {
+  "id": "grande",
+  "n": "Grande",
+  "s": "rect",
+  "cat": "rect",
+  "t": "Rectangular",
+  "feats": [
+   "bench"
+  ],
+  "spa": 0,
+  "blurb": "Timeless, understated design for any outdoor living space, suited to exercise, play and family fun.",
+  "fl": [
+   "Bench seating in the shallow and deep ends",
+   "Perimeter safety ledge for added peace of mind",
+   "Spacious swim lane for exercise and fun",
+   "Wide, textured entry steps"
+  ],
+  "sizes": [
+   {
+    "label": "Grande 29",
+    "Ls": "29'",
+    "Ws": "13'9\"",
+    "Ss": "3'5\"",
+    "Ds": "5'10\"",
+    "L": 29,
+    "W": 13.75,
+    "S": 3.417,
+    "D": 5.833,
+    "lounger": null,
+    "gal": 12200
+   },
+   {
+    "label": "Grande 23",
+    "Ls": "23'",
+    "Ws": "11'3\"",
+    "Ss": "3'5.5\"",
+    "Ds": "5'10.5\"",
+    "L": 23,
+    "W": 11.25,
+    "S": 3.458,
+    "D": 5.875,
+    "lounger": null,
+    "gal": 7400
+   }
+  ]
+ },
+ {
+  "id": "laguna",
+  "n": "Laguna",
+  "s": "rect",
+  "cat": "rect",
+  "t": "Rectangular",
+  "feats": [
+   "bench"
+  ],
+  "spa": 0,
+  "blurb": "A clean, contemporary shape that works equally well as a cocktail pool or a family swimming pool.",
+  "fl": [
+   "Wide, textured entry stairs",
+   "Comfortable deep-end seating",
+   "Perimeter safety ledge",
+   "Spacious swim lane"
+  ],
+  "sizes": [
+   {
+    "label": "Laguna 29",
+    "Ls": "29'",
+    "Ws": "13'9\"",
+    "Ss": "3'5\"",
+    "Ds": "5'10.5\"",
+    "L": 29,
+    "W": 13.75,
+    "S": 3.417,
+    "D": 5.875,
+    "lounger": null,
+    "gal": 12200
+   },
+   {
+    "label": "Laguna 23",
+    "Ls": "23'",
+    "Ws": "11'3\"",
+    "Ss": "3'5.5\"",
+    "Ds": "5'1.5\"",
+    "L": 23,
+    "W": 11.25,
+    "S": 3.458,
+    "D": 5.125,
+    "lounger": null,
+    "gal": 7400
+   }
+  ]
+ },
+ {
+  "id": "milano",
+  "n": "Milano",
+  "s": "roman",
+  "cat": "roman",
+  "t": "Roman",
+  "feats": [
+   "bench"
+  ],
+  "spa": 0,
+  "blurb": "A European-influenced pool that elevates any modern outdoor space, with all the style and no need for a large yard.",
+  "fl": [
+   "Durable fiberglass pool design built to last",
+   "Perimeter safety ledge for added peace of mind",
+   "Wrap-around seating ledge for relaxation",
+   "Wide, textured entry steps"
+  ],
+  "sizes": [
+   {
+    "label": "Milano",
+    "Ls": "23'",
+    "Ws": "11'",
+    "Ss": "4'4.5\"",
+    "Ds": "4'4.5\"",
+    "L": 23,
+    "W": 11,
+    "S": 4.375,
+    "D": 4.375,
+    "lounger": null,
+    "gal": 5500
+   }
+  ]
+ },
+ {
+  "id": "oasis",
+  "n": "Oasis",
+  "s": "rect",
+  "cat": "rect",
+  "t": "Rectangular",
+  "feats": [
+   "ledge",
+   "bench"
+  ],
+  "spa": 0,
+  "blurb": "A smart, efficient 30-foot footprint that suits a wide range of backyard layouts, effortless to maintain and designed to last.",
+  "fl": [
+   "Comfortable deep-end seating",
+   "Deep end seat and swim outs",
+   "Perimeter safety ledge for added peace of mind",
+   "Tanning ledge",
+   "Wide swim lane"
+  ],
+  "sizes": [
+   {
+    "label": "Oasis",
+    "Ls": "30'",
+    "Ws": "11'3\"",
+    "Ss": null,
+    "Ds": "4'3\"",
+    "L": 30,
+    "W": 11.25,
+    "S": null,
+    "D": 4.25,
+    "lounger": null,
+    "gal": 7600
+   }
+  ]
+ },
+ {
+  "id": "opal",
+  "n": "Opal",
+  "s": "kidney",
+  "cat": "kidney",
+  "t": "Kidney",
+  "feats": [
+   "bench"
+  ],
+  "spa": 0,
+  "blurb": "A modified kidney shape that maximises comfort in a smaller footprint, with a smooth, non-porous surface that is gentle on skin.",
+  "fl": [
+   "Comfortable bench seating",
+   "Wide, textured entry steps for safe access",
+   "Perimeter safety ledge for added peace of mind",
+   "Durable, modern fiberglass pool design for smaller spaces"
+  ],
+  "sizes": [
+   {
+    "label": "Opal",
+    "Ls": "21'2\"",
+    "Ws": "11'4\"",
+    "Ss": "3'8\"",
+    "Ds": "5'",
+    "L": 21.167,
+    "W": 11.333,
+    "S": 3.667,
+    "D": 5,
+    "lounger": null,
+    "gal": 5000
+   }
+  ]
+ },
+ {
+  "id": "outback-dundee",
+  "n": "Outback Dundee",
+  "s": "rect",
+  "cat": "rect",
+  "t": "Rectangular",
+  "feats": [
+   "ledge",
+   "bench"
+  ],
+  "spa": 0,
+  "blurb": "Rugged Outback character meets refined backyard design, with lounger versions that build in post-swim relaxation.",
+  "fl": [
+   "Spacious, textured entry steps",
+   "Perimeter safety ledge for added confidence",
+   "Deep-end seating with swim-outs",
+   "Lounger models available with built-in lounge pad"
+  ],
+  "sizes": [
+   {
+    "label": "Outback Dundee",
+    "Ls": "30'",
+    "Ws": "14'",
+    "Ss": "3'8\"",
+    "Ds": "5'10\"",
+    "L": 30,
+    "W": 14,
+    "S": 3.667,
+    "D": 5.833,
+    "lounger": null,
+    "gal": 12400
+   },
+   {
+    "label": "Outback Dundee Lounger",
+    "Ls": "30'",
+    "Ws": "14'",
+    "Ss": "3'8\"",
+    "Ds": "5'10\"",
+    "L": 30,
+    "W": 14,
+    "S": 3.667,
+    "D": 5.833,
+    "lounger": "8'6\" x 4'6\"",
+    "gal": 12200
+   }
+  ]
+ },
+ {
+  "id": "outback",
+  "n": "Outback Lounger",
+  "s": "rect",
+  "cat": "rect",
+  "t": "Rectangular · lounger",
+  "feats": [
+   "ledge",
+   "bench"
+  ],
+  "spa": 0,
+  "blurb": "A blend of pool function and resort-style lounge comfort, with a generous swim lane in a clean rectangular layout.",
+  "fl": [
+   "Spacious built-in lounge pad",
+   "Wide swim lane for exercise and fun",
+   "Perimeter safety ledge for added confidence",
+   "Deep-end seat and swim-outs",
+   "Modern built-in lounger pool design"
+  ],
+  "sizes": [
+   {
+    "label": "Outback Lounger",
+    "Ls": "30'",
+    "Ws": "14'",
+    "Ss": "4'3\"",
+    "Ds": "4'3\"",
+    "L": 30,
+    "W": 14,
+    "S": 4.25,
+    "D": 4.25,
+    "lounger": null,
+    "gal": 14000
+   }
+  ]
+ },
+ {
+  "id": "oyster",
+  "n": "Oyster",
+  "s": "free",
+  "cat": "free",
+  "t": "Freeform",
+  "feats": [
+   "bench",
+   "deep"
+  ],
+  "spa": 0,
+  "blurb": "A calm, curved design with a smooth shallow-to-deep transition for all ages.",
+  "fl": [
+   "Built-in seating ledge",
+   "Spacious swim lane from shallow to deep end",
+   "Wide, textured entry steps for safe access",
+   "Perimeter safety ledge for added peace of mind"
+  ],
+  "sizes": [
+   {
+    "label": "Oyster 30",
+    "Ls": "30'",
+    "Ws": "14'9\"",
+    "Ss": "3'4\"",
+    "Ds": "6'3\"",
+    "L": 30,
+    "W": 14.75,
+    "S": 3.333,
+    "D": 6.25,
+    "lounger": null,
+    "gal": 11000
+   },
+   {
+    "label": "Oyster 27",
+    "Ls": "27'",
+    "Ws": "13'7\"",
+    "Ss": "3'5.5\"",
+    "Ds": "5'1.5\"",
+    "L": 27,
+    "W": 13.583,
+    "S": 3.458,
+    "D": 5.125,
+    "lounger": null,
+    "gal": 8600
+   }
+  ]
+ },
+ {
+  "id": "pixie",
+  "n": "Pixie Plunge",
+  "s": "kidney",
+  "cat": "plunge",
+  "t": "Plunge · freeform",
+  "feats": [
+   "bench"
+  ],
+  "spa": 0,
+  "blurb": "Good things really do come in small packages: a durable plunge pool with low upkeep and lasting value.",
+  "fl": [
+   "Wrap-around seating ledge for comfort",
+   "Wide, textured entry steps for easy access",
+   "Perimeter safety ledge for added confidence",
+   "Strong, low-maintenance fiberglass pool design"
+  ],
+  "sizes": [
+   {
+    "label": "Pixie Plunge",
+    "Ls": "16'6\"",
+    "Ws": "10'",
+    "Ss": "3'11\"",
+    "Ds": "3'11\"",
+    "L": 16.5,
+    "W": 10,
+    "S": 3.917,
+    "D": 3.917,
+    "lounger": null,
+    "gal": 3100
+   }
+  ]
+ },
+ {
+  "id": "southport",
+  "n": "Southport",
+  "s": "free",
+  "cat": "free",
+  "t": "Freeform",
+  "feats": [
+   "bench",
+   "deep"
+  ],
+  "spa": 0,
+  "blurb": "A family-sized fiberglass pool designed for years of backyard memories, with bench seating and a perimeter safety ledge.",
+  "fl": [
+   "Deep-end ledge and stairs",
+   "Wide swim lane for exercise and fun",
+   "Textured entry steps for safe access",
+   "Perimeter safety ledge for added peace of mind",
+   "Built-in bench seating for comfort"
+  ],
+  "sizes": [
+   {
+    "label": "Southport",
+    "Ls": "28'",
+    "Ws": "14'1\"",
+    "Ss": "3'7\"",
+    "Ds": "6'",
+    "L": 28,
+    "W": 14.083,
+    "S": 3.583,
+    "D": 6,
+    "lounger": null,
+    "gal": 11500
+   }
+  ]
+ },
+ {
+  "id": "sudbury",
+  "n": "Sudbury",
+  "s": "free",
+  "cat": "free",
+  "t": "Freeform",
+  "feats": [
+   "bench"
+  ],
+  "spa": 0,
+  "blurb": "Barrier Reef's most popular freeform model, with deep-end lounge seating and a generous swim lane.",
+  "fl": [
+   "Built-in deep-end lounge seating",
+   "Wide swim lane for swimming or games",
+   "Textured entry steps for safe access",
+   "Perimeter safety ledge for confidence"
+  ],
+  "sizes": [
+   {
+    "label": "Sudbury 29",
+    "Ls": "29'",
+    "Ws": "14'4\"",
+    "Ss": "3'11.5\"",
+    "Ds": "5'11.5\"",
+    "L": 29,
+    "W": 14.333,
+    "S": 3.958,
+    "D": 5.958,
+    "lounger": null,
+    "gal": 13800
+   },
+   {
+    "label": "Sudbury 25",
+    "Ls": "25'",
+    "Ws": "14'4\"",
+    "Ss": "3'11.5\"",
+    "Ds": "5'7.5\"",
+    "L": 25,
+    "W": 14.333,
+    "S": 3.958,
+    "D": 5.625,
+    "lounger": null,
+    "gal": 11500
+   }
+  ]
+ },
+ {
+  "id": "sydney-harbour",
+  "n": "Sydney Harbour",
+  "s": "rect",
+  "cat": "rect",
+  "t": "Rectangular + spa",
+  "feats": [
+   "ledge",
+   "spa",
+   "deep"
+  ],
+  "spa": 1,
+  "blurb": "A large fiberglass pool for families who want to entertain in style, with an integrated spa, lounging ledge and sundeck.",
+  "fl": [
+   "Integrated spa",
+   "Lounging ledge and sundeck",
+   "Perimeter safety ledge for added peace of mind"
+  ],
+  "sizes": [
+   {
+    "label": "Sydney Harbour 40",
+    "Ls": "39'10.5\"",
+    "Ws": "16'",
+    "Ss": "3'6\"",
+    "Ds": "6'6\"",
+    "L": 39.875,
+    "W": 16,
+    "S": 3.5,
+    "D": 6.5,
+    "lounger": "9'.5\" x 5'7\" & 11'11\" x 5'7\"",
+    "gal": 17500
+   },
+   {
+    "label": "Sydney Harbour 35",
+    "Ls": "35'",
+    "Ws": "16'",
+    "Ss": "3'6\"",
+    "Ds": "6'1\"",
+    "L": 35,
+    "W": 16,
+    "S": 3.5,
+    "D": 6.083,
+    "lounger": "9'.5\" x 5'7\" & 8'8.75\" x 5'7\"",
+    "gal": 13987
+   }
+  ]
+ },
+ {
+  "id": "whitsunday",
+  "n": "Whitsunday",
+  "s": "rect",
+  "cat": "rect",
+  "t": "Rectangular",
+  "feats": [
+   "ledge",
+   "bench",
+   "deep"
+  ],
+  "spa": 0,
+  "blurb": "Barrier Reef's most versatile rectangular pool, built for families who want options, including rare depth in a fiberglass pool.",
+  "fl": [
+   "Wide, textured entry steps",
+   "Perimeter safety ledge for added confidence",
+   "Deep-end seat and swim-outs",
+   "Spacious swim lane for exercise and play"
+  ],
+  "sizes": [
+   {
+    "label": "Whitsunday 40 Deep",
+    "Ls": "40'",
+    "Ws": "15'8\"",
+    "Ss": "3'6\"",
+    "Ds": "8'6\"",
+    "L": 40,
+    "W": 15.667,
+    "S": 3.5,
+    "D": 8.5,
+    "lounger": null,
+    "gal": 28350
+   },
+   {
+    "label": "Whitsunday 40",
+    "Ls": "40'",
+    "Ws": "15'8\"",
+    "Ss": "3'6\"",
+    "Ds": "6'10\"",
+    "L": 40,
+    "W": 15.667,
+    "S": 3.5,
+    "D": 6.833,
+    "lounger": null,
+    "gal": 22000
+   },
+   {
+    "label": "Whitsunday 35",
+    "Ls": "35'",
+    "Ws": "15'8\"",
+    "Ss": "3'6\"",
+    "Ds": "6'4\"",
+    "L": 35,
+    "W": 15.667,
+    "S": 3.5,
+    "D": 6.333,
+    "lounger": null,
+    "gal": 18000
+   },
+   {
+    "label": "Whitsunday 35 Lounger",
+    "Ls": "35'",
+    "Ws": "15'8\"",
+    "Ss": "3'6\"",
+    "Ds": "6'4\"",
+    "L": 35,
+    "W": 15.667,
+    "S": 3.5,
+    "D": 6.333,
+    "lounger": "9' x 5'3\"",
+    "gal": 17800
+   },
+   {
+    "label": "Whitsunday 30",
+    "Ls": "31'2\"",
+    "Ws": "15'8\"",
+    "Ss": "3'6\"",
+    "Ds": "6'1\"",
+    "L": 31.167,
+    "W": 15.667,
+    "S": 3.5,
+    "D": 6.083,
+    "lounger": null,
+    "gal": 15000
+   },
+   {
+    "label": "Whitsunday 30 Lounger",
+    "Ls": "31'2\"",
+    "Ws": "15'8\"",
+    "Ss": "3'6\"",
+    "Ds": "6'1\"",
+    "L": 31.167,
+    "W": 15.667,
+    "S": 3.5,
+    "D": 6.083,
+    "lounger": "9' x 5'3\"",
+    "gal": 14700
+   }
+  ]
+ }
+]
