@@ -17,18 +17,19 @@ drawer.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const f=$$('a[href
  drawer.addEventListener('touchmove',e=>{if(sx===null)return;dx=e.touches[0].clientX-sx;if(Math.abs(e.touches[0].clientY-sy)>Math.abs(dx)){sx=null;drawer.style.transform='';return}if(dx>0)drawer.style.transform='translateX('+dx+'px)'},{passive:true});
  drawer.addEventListener('touchend',()=>{if(sx!==null&&dx>70)drClose();else drawer.style.transform='';sx=null},{passive:true})})();
 /* hero photo carousel */
-(()=>{const hero=$('#top'),slides=$$('#hsStage .hs');if(!slides.length)return;let i=0,timer=0,userPaused=reduce,hover=false;const DUR=6500;
+(()=>{const hero=$('#top'),slides=$$('#hsStage .hs');if(!slides.length)return;let i=0,timer=0,userPaused=reduce,overUi=false,kbUi=false,seen=true;const DUR=6500;
  const fill=s=>{if(s&&!s.querySelector('picture'))s.innerHTML=pic(s.dataset.id,{eager:true})};
  $('#hsDots').innerHTML=slides.map((s,n)=>'<button aria-label="Show photo '+(n+1)+': '+s.dataset.cap.replace(/"/g,'&quot;')+'"><i></i></button>').join('');
  const dots=$$('#hsDots button');
- const running=()=>!userPaused&&!hover&&!document.hidden&&!!hero.offsetParent;
+ const running=()=>!userPaused&&!overUi&&!kbUi&&seen&&!document.hidden&&!!hero.offsetParent;
  function arm(){clearTimeout(timer);hero.classList.toggle('hs-run',running());if(running())timer=setTimeout(()=>show(i+1),DUR)}
  function show(n,first){i=(n+slides.length)%slides.length;fill(slides[i]);if(!first)fill(slides[(i+1)%slides.length]);slides.forEach((s,k)=>{s.classList.toggle('on',k===i);s.setAttribute('aria-hidden',k!==i)});dots.forEach((d,k)=>{d.classList.toggle('on',k===i);if(k===i)d.setAttribute('aria-current','true');else d.removeAttribute('aria-current')});$('#hsCap').textContent=slides[i].dataset.cap;arm()}
  dots.forEach((d,k)=>d.onclick=()=>show(k));$('#hsPrev').onclick=()=>show(i-1);$('#hsNext').onclick=()=>show(i+1);
  const syncPause=()=>{hero.classList.toggle('hs-paused',userPaused);$('#hsPause').setAttribute('aria-label',userPaused?'Play slideshow':'Pause slideshow');arm()};
  $('#hsPause').onclick=()=>{userPaused=!userPaused;syncPause()};
- hero.addEventListener('mouseenter',()=>{hover=true;arm()});hero.addEventListener('mouseleave',()=>{hover=false;arm()});
- hero.addEventListener('focusin',e=>{if(e.target.closest('.hs-ui')){hover=true;arm()}});hero.addEventListener('focusout',()=>{hover=false;arm()});
+ const ui=$('#hsUi');ui.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'){overUi=true;arm()}});ui.addEventListener('pointerleave',()=>{overUi=false;arm()});
+ ui.addEventListener('focusin',e=>{kbUi=e.target.matches(':focus-visible');arm()});ui.addEventListener('focusout',()=>{kbUi=false;arm()});
+ new IntersectionObserver(es=>{seen=es[0].isIntersecting;arm()}).observe(hero);
  hero.addEventListener('keydown',e=>{if(e.target.closest('input,textarea'))return;if(e.key==='ArrowLeft'){show(i-1)}else if(e.key==='ArrowRight'){show(i+1)}});
  document.addEventListener('visibilitychange',arm);
  let sx=null,sy=0;hero.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
@@ -359,7 +360,7 @@ function imgRev(root=document){$$('.ac .im,.mi,.stack .ph,.step .im',root).forEa
 // scroll progress + hero parallax
 const prog=document.createElement('div');prog.id='prog';document.body.appendChild(prog);
 addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-innerHeight;prog.style.transform=`scaleX(${h>0?scrollY/h:0})`;
- if(reduce)return;const ph=$('.route.on .phero .wrap,.route.on .md-hero .md-copy');if(ph){const y=Math.min(scrollY,600);ph.style.transform=`translateY(${y*.16}px)`;ph.style.opacity=Math.max(0,1-y/700)}},{passive:true});
+ if(reduce||innerWidth<1100)return;const ph=$('.route.on .phero .wrap,.route.on .md-hero .md-copy');if(ph){const y=Math.min(scrollY,600);ph.style.transform=`translateY(${y*.16}px)`;ph.style.opacity=Math.max(0,1-y/700)}},{passive:true});
 // magnetic buttons
 if(!isTouch&&!reduce){document.addEventListener('pointermove',e=>{const b=e.target.closest&&e.target.closest('.btn');$$('.btn.magon').forEach(x=>{if(x!==b){x.classList.remove('magon');x.style.transform=''}});if(!b||b.closest('.panel-f,.q-nav,.lab-side'))return;const r=b.getBoundingClientRect();b.classList.add('magon');b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.12}px,${(e.clientY-r.top-r.height/2)*.18}px)`},{passive:true})}
 const _reveal=reveal;reveal=function(root){stagger(root);imgRev(root);_reveal(root)};

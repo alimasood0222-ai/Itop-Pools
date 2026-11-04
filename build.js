@@ -93,7 +93,7 @@ function compareTable(c) {
 
 function faqPage(faq) {
   const nav = faq.groups.map(g => `<a href="#g-${g.id}" data-scroll>${g.title}</a>`).join('');
-  const groups = faq.groups.map(g => `<section class="fq-g" id="g-${g.id}"><h2>${g.title}</h2>${g.intro ? `<p class="lead">${g.intro}</p>` : ''}${g.compare ? compareTable(faq.compare) : ''}<div class="fq-list">${g.items.map((it, i) => qaHTML(it, i === 0)).join('')}</div></section>`).join('');
+  const groups = faq.groups.map((g, gi) => `<section class="fq-g" id="g-${g.id}"><h2>${g.title}</h2>${g.intro ? `<p class="lead">${g.intro}</p>` : ''}${g.compare ? compareTable(faq.compare) : ''}<div class="fq-list">${g.items.map((it, i) => qaHTML(it, gi === 0 && i === 0)).join('')}</div></section>`).join('');
   return `<aside class="fq-nav" aria-label="FAQ topics">${nav}</aside><div class="fq-main">${groups}</div>`;
 }
 
