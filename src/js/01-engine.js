@@ -3,13 +3,18 @@
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const isTouch=matchMedia('(hover:none)').matches;
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const IMG={{IMGJSON}};
+const ROOT=document.documentElement.dataset.root||'';
+const START=document.documentElement.dataset.start||'/';
+const PHOTOS={{PHOTOSJSON}};
+const SITE={{SITEJSON}};
+const imgSrc=(id,w=1200)=>{const p=PHOTOS[id];if(!p)return '';const use=p.w.filter(x=>x<=w).pop()||p.w[0];return ROOT+'img/'+id+'-'+use+'.webp'};
+function pic(id,o={}){const p=PHOTOS[id];if(!p)return '<div class="ph-slot"><span>Photo: '+(o.alt||id)+'</span></div>';const ss=f=>p.w.map(w=>ROOT+'img/'+id+'-'+w+'.'+f+' '+w+'w').join(', ');const sizes=o.sizes||'100vw';const alt=String(o.alt===undefined?p.alt:o.alt).replace(/"/g,'&quot;');
+ return '<picture><source type="image/avif" srcset="'+ss('avif')+'" sizes="'+sizes+'"><source type="image/webp" srcset="'+ss('webp')+'" sizes="'+sizes+'"><img src="'+imgSrc(id,1200)+'" alt="'+alt+'"'+(o.eager?'':' loading="lazy"')+' decoding="async" style="background:url('+p.lq+') center/cover"></picture>'}
 
 /* =========================================================
    3D POOL SCENE
    ========================================================= */
-const T=THREE;
-if(T.ColorManagement) T.ColorManagement.legacyMode=false;
+let T=null; // three.js loads on demand, see load3D()
 const C=h=>new T.Color(h);
 
 const TIMES={
@@ -116,19 +121,25 @@ function skyMat(){
 }
 
 /* shapes (2D: x right, y = toward house) */
+const v2=(x,y)=>T?new T.Vector2(x,y):{x,y};
 function poolPts(kind,sx,sy){
  let pts=[];
- if(kind==='rect'){const w=6,h=2.4,r=.55,seg=10;const corner=(cx,cy,a0)=>{for(let i=0;i<=seg;i++){const a=a0+i/seg*Math.PI/2;pts.push([cx+Math.cos(a)*r,cy+Math.sin(a)*r])}};
+ if(kind==='roman'){const w=4.9,h=2.4,r=.5,seg=10,cap=1.1;const corner=(cx,cy,a0)=>{for(let i=0;i<=seg;i++){const a=a0+i/seg*Math.PI/2;pts.push([cx+Math.cos(a)*r,cy+Math.sin(a)*r])}};
+   for(let i=0;i<=20;i++){const a=-Math.PI/2+i/20*Math.PI;pts.push([w+Math.cos(a)*cap,Math.sin(a)*cap])}
+   corner(w-r,h-r,0);corner(-w+r,h-r,Math.PI/2);
+   for(let i=0;i<=20;i++){const a=Math.PI/2+i/20*Math.PI;pts.push([-w+Math.cos(a)*cap,Math.sin(a)*cap])}
+   corner(-w+r,-h+r,Math.PI);corner(w-r,-h+r,-Math.PI/2);}
+ else if(kind==='rect'){const w=6,h=2.4,r=.55,seg=10;const corner=(cx,cy,a0)=>{for(let i=0;i<=seg;i++){const a=a0+i/seg*Math.PI/2;pts.push([cx+Math.cos(a)*r,cy+Math.sin(a)*r])}};
    corner(w-r,-h+r,-Math.PI/2);corner(w-r,h-r,0);corner(-w+r,h-r,Math.PI/2);corner(-w+r,-h+r,Math.PI);}
  else{const ctrl=kind==='free'?[[-6,.2],[-5.4,1.9],[-3.3,2.45],[-.6,2.15],[2,2.55],[4.6,2.45],[6.05,1.1],[5.85,-1.3],[4.1,-2.45],[1.6,-2.35],[-.6,-1.85],[-3.1,-2.45],[-5.3,-1.95]]
    :[[-6,0],[-5.5,1.85],[-3.6,2.55],[-1.6,2.1],[.05,1.05],[1.6,1.85],[3.3,2.55],[5.2,2.3],[6.15,.55],[5.6,-1.6],[3.6,-2.55],[.5,-2.55],[-3,-2.4],[-5.4,-1.65]];
-   const curve=new T.CatmullRomCurve3(ctrl.map(p=>new T.Vector3(p[0],p[1],0)),true,'centripetal');pts=curve.getSpacedPoints(160).slice(0,-1).map(v=>[v.x,v.y]);}
- return pts.map(p=>new T.Vector2(p[0]*sx,p[1]*sy));
+   const n=ctrl.length,seg=12;for(let i=0;i<n;i++){const a=ctrl[(i-1+n)%n],b=ctrl[i],c=ctrl[(i+1)%n],d=ctrl[(i+2)%n];for(let j=0;j<seg;j++){const t=j/seg,t2=t*t,t3=t2*t;pts.push([0,1].map(k=>.5*(2*b[k]+(c[k]-a[k])*t+(2*a[k]-5*b[k]+4*c[k]-d[k])*t2+(3*b[k]-a[k]-3*c[k]+d[k])*t3)))}}}
+ return pts.map(p=>v2(p[0]*sx,p[1]*sy));
 }
 function offsetPts(pts,d){
  let area=0;for(let i=0;i<pts.length;i++){const a=pts[i],b=pts[(i+1)%pts.length];area+=a.x*b.y-b.x*a.y}
  const s=area>0?1:-1;
- return pts.map((p,i)=>{const a=pts[(i-1+pts.length)%pts.length],b=pts[(i+1)%pts.length];const tx=b.x-a.x,ty=b.y-a.y,l=Math.hypot(tx,ty)||1;return new T.Vector2(p.x+ty/l*d*s,p.y-tx/l*d*s)});
+ return pts.map((p,i)=>{const a=pts[(i-1+pts.length)%pts.length],b=pts[(i+1)%pts.length];const tx=b.x-a.x,ty=b.y-a.y,l=Math.hypot(tx,ty)||1;return v2(p.x+ty/l*d*s,p.y-tx/l*d*s)});
 }
 const shapeFrom=pts=>new T.Shape(pts);
 const pathFrom=pts=>new T.Path(pts);
@@ -337,112 +348,5 @@ function PoolScene(canvas,opts){
   sky.material.uniforms.uTime.value=t0;
   S.palms.forEach((p,i)=>p.children.forEach((c,j)=>{if(j>0&&j<12)c.rotation.z=Math.sin(t0*1.1+i+j)*.035}));
   R.render(scene,cam)};
-}
-
-/* ---------- UNDERWATER HERO ---------- */
-function Underwater(canvas,host){
- const S=this;const mobile=innerWidth<700;
- const R=new T.WebGLRenderer({canvas,antialias:false,alpha:false,powerPreference:'high-performance'});
- R.setPixelRatio(Math.min(devicePixelRatio,mobile?1.5:1.6));
- if(T.LinearEncoding!==undefined)R.outputEncoding=T.LinearEncoding;
- const cam=new T.OrthographicCamera(-1,1,1,-1,0,1);const quad=new T.PlaneGeometry(2,2);
- const VS=`varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}`;
- const rtOpt={type:T.HalfFloatType,format:T.RGBAFormat,minFilter:T.LinearFilter,magFilter:T.LinearFilter,depthBuffer:false,stencilBuffer:false};
- let A,B,Cc,simW=2,simH=2;
- const simMat=new T.ShaderMaterial({uniforms:{uCur:{value:null},uPrev:{value:null},uTexel:{value:new T.Vector2()},uDrop:{value:new T.Vector4(-9,-9,.02,0)},uAspect:{value:1}},vertexShader:VS,
-  fragmentShader:`uniform sampler2D uCur,uPrev;uniform vec2 uTexel;uniform vec4 uDrop;uniform float uAspect;varying vec2 vUv;
-  void main(){vec2 uv=vUv;float c=(texture2D(uCur,uv+vec2(uTexel.x,0.)).r+texture2D(uCur,uv-vec2(uTexel.x,0.)).r+texture2D(uCur,uv+vec2(0.,uTexel.y)).r+texture2D(uCur,uv-vec2(0.,uTexel.y)).r)*.5-texture2D(uPrev,uv).r;
-   c*=.985;vec2 d=(uv-uDrop.xy)*vec2(uAspect,1.);c+=uDrop.w*smoothstep(uDrop.z,0.,length(d));gl_FragColor=vec4(c,0.,0.,1.);}`});
- const simScene=new T.Scene();simScene.add(new T.Mesh(quad,simMat));
- const mat=new T.ShaderMaterial({uniforms:{uSim:{value:null},uSimTexel:{value:new T.Vector2()},uTime:{value:0},uAspect:{value:1},uScroll:{value:0},uMob:{value:mobile?1:0}},vertexShader:VS,
-  fragmentShader:`
-  uniform sampler2D uSim;uniform vec2 uSimTexel;uniform float uTime,uAspect,uScroll,uMob;varying vec2 vUv;
-  float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-  float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
-  float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*noise(p);p*=2.02;a*=.5;}return v;}
-  float caustic(vec2 uv,float t){vec2 p=mod(uv*6.28318,6.28318)-250.;vec2 i=p;float c=1.;float inten=.005;
-    for(int n=0;n<4;n++){float tt=t*(1.-(3.5/float(n+1)));i=p+vec2(cos(tt-i.x)+sin(tt+i.y),sin(tt-i.y)+cos(tt+i.x));c+=1./length(vec2(p.x/(sin(i.x+tt)/inten),p.y/(cos(i.y+tt)/inten)));}
-    c/=4.;c=1.17-pow(c,1.4);return clamp(pow(abs(c),8.),0.,1.);}
-  void main(){
-    float t=uTime;vec2 uv=vUv;float A=uAspect;vec2 p=vec2(uv.x*A,uv.y);
-    float hx=texture2D(uSim,uv+vec2(uSimTexel.x,0.)).r-texture2D(uSim,uv-vec2(uSimTexel.x,0.)).r;
-    float hy=texture2D(uSim,uv+vec2(0.,uSimTexel.y)).r-texture2D(uSim,uv-vec2(0.,uSimTexel.y)).r;
-    vec2 rip=vec2(hx,hy);
-    float sc=uScroll;
-    float hs=.66+sc*.25;          // far edge of the surface (horizon) 
-    float fh=.30-sc*.22;          // far edge of the floor
-    vec2 sun=vec2(A*(uMob>.5?.62:.74),1.08);
-    vec3 haze=vec3(.06,.40,.62);
-    vec3 col;
-    // water volume
-    float mid=clamp((uv.y-fh)/max(hs-fh,.01),0.,1.);
-    col=haze*mix(.82,1.,smoothstep(0.,1.,mid));col*=mix(1.,.86,smoothstep(.2,.55,abs(mid-.5)*-1.+.7));
-    // surface seen from below
-    if(uv.y>hs){
-      float v=(uv.y-hs)/(1.-hs);float z=1./(v+.07);
-      vec2 s=vec2((p.x-A*.6)*z*.5,z)+rip*3.;
-      s+=vec2(sin(s.y*3.+t*.7),cos(s.x*2.6-t*.6))*.05;
-      float c1=caustic(s*.42,t*.5),c2=caustic(s*.85+1.7,t*.65);
-      float win=exp(-length((p-sun)*vec2(.8,1.6))*1.15);
-      vec3 tir=vec3(.04,.30,.50);
-      vec3 sky=vec3(.70,.93,1.);
-      vec3 surf=mix(tir,sky,clamp(win*1.25,0.,1.));
-      surf+=(c1*.55+c2*.25)*vec3(.85,.98,1.)*(.35+win*.9);
-      surf+=vec3(1.,.98,.9)*pow(win,6.)*1.4;
-      float fadeH=smoothstep(0.,.35,v);
-      col=mix(haze,surf,fadeH);
-    }
-    // floor
-    if(uv.y<fh){
-      float v=(fh-uv.y)/max(fh,.01);float z=1./(v+.055);
-      vec2 f=vec2((p.x-A*.55)*z*.55,z*1.05)+rip*1.2;
-      vec2 g=fract(f*2.6);float gr=smoothstep(0.,.035,g.x)*smoothstep(1.,.965,g.x)*smoothstep(0.,.035,g.y)*smoothstep(1.,.965,g.y);
-      vec3 tile=vec3(.62,.86,.94)*mix(.80,1.,gr)*(.94+.08*noise(floor(f*2.6)*3.1));
-      float lane=smoothstep(.13,.1,abs(f.x+.75));tile=mix(tile,vec3(.04,.18,.40),lane*.9);
-      float cs=caustic(f*.38+rip*2.,t*.42)*1.25+caustic(f*.62+2.3,t*.55)*.45;
-      tile+=cs*vec3(.92,1.,1.)*.6;
-      tile*=mix(vec3(.30,.62,.78),vec3(.62,.88,.97),smoothstep(0.,1.,v));
-      col=mix(haze*.82,tile,smoothstep(0.,.4,v));
-    }
-    // god rays from the sun on the surface
-    vec2 dv=p-sun;float ang=atan(dv.x,-dv.y);float dist=length(dv);
-    float r1=pow(fbm(vec2(ang*9.,t*.08)),2.2),r2=pow(fbm(vec2(ang*23.+3.,t*.13)),3.);
-    float rays=(r1*1.6+r2*.9)*smoothstep(1.9,.1,dist)*smoothstep(fh-.05,hs,uv.y+.25);
-    col+=vec3(.55,.9,1.)*rays*.32*(1.-sc*.6);
-    // depth haze & glow near the sun
-    col+=vec3(.5,.85,1.)*exp(-dist*1.6)*.22;
-    // suspended particles
-    vec2 mq=p*vec2(70.,70.)+vec2(t*.3,t*.5);float mh=hash(floor(mq));col+=step(.997,mh)*smoothstep(.45,0.,length(fract(mq)-.5))*.35;
-    vec2 mq2=p*vec2(28.,28.)+vec2(-t*.15,t*.25);float mh2=hash(floor(mq2)+7.);col+=step(.994,mh2)*smoothstep(.4,0.,length(fract(mq2)-.5))*.18;
-    // a few rising bubbles
-    vec2 q=p*vec2(7.,3.5)+vec2(0.,-t*.45);vec2 id=floor(q);float r=hash(id);
-    if(r>.9){vec2 c=fract(q)-.5-vec2(sin(t*1.8+r*30.)*.12,(r-.95)*2.);float rad=.035+.035*fract(r*17.);float d2=length(c*vec2(1.,2.));
-      float ring=smoothstep(rad,rad-.012,d2)-smoothstep(rad-.016,rad-.03,d2);float hl=smoothstep(rad*.45,0.,length((c-vec2(-rad*.3,rad*.25))*vec2(1.,2.)));
-      col+=(ring*.3+hl*.35)*vec3(.85,.97,1.);}
-    float vig=smoothstep(1.45,.25,length((uv-vec2(.62,.55))*vec2(A*.55,1.)));col*=mix(.7,1.04,vig);
-    gl_FragColor=vec4(col,1.);
-  }`});
- const scene=new T.Scene();scene.add(new T.Mesh(quad,mat));
- function makeRT(){[A,B,Cc].forEach(r=>r&&r.dispose());A=new T.WebGLRenderTarget(simW,simH,rtOpt);B=A.clone();Cc=A.clone();
-   [A,B,Cc].forEach(r=>{R.setRenderTarget(r);R.setClearColor(0x000000,1);R.clear()});R.setRenderTarget(null)}
- function resize(){const w=host.clientWidth,h=host.clientHeight;R.setSize(w,h,false);const asp=w/h;
-   simW=mobile?160:260;simH=Math.max(64,Math.round(simW/asp));makeRT();
-   simMat.uniforms.uTexel.value.set(1/simW,1/simH);simMat.uniforms.uAspect.value=asp;
-   mat.uniforms.uSimTexel.value.set(1/simW,1/simH);mat.uniforms.uAspect.value=asp}
- new ResizeObserver(resize).observe(host);resize();
- const drops=[];S.drop=(x,y,r,s)=>{if(drops.length<6)drops.push([x,y,r,s])};
- let last=null;
- host.addEventListener('pointermove',e=>{const b=host.getBoundingClientRect();if(last&&Math.hypot(e.clientX-last[0],e.clientY-last[1])<7)return;last=[e.clientX,e.clientY];
-   S.drop((e.clientX-b.left)/b.width,1-(e.clientY-b.top)/b.height,.022,.009)},{passive:true});
- host.addEventListener('pointerdown',e=>{const b=host.getBoundingClientRect();S.drop((e.clientX-b.left)/b.width,1-(e.clientY-b.top)/b.height,.035,.07)});
- S.visible=true;new IntersectionObserver(es=>es.forEach(e=>S.visible=e.isIntersecting)).observe(host);
- const clock=new T.Clock();let t0=0,auto=.6;
- function step(){const d=drops.shift()||[-9,-9,.02,0];simMat.uniforms.uDrop.value.set(d[0],d[1],d[2],d[3]);
-   simMat.uniforms.uCur.value=B.texture;simMat.uniforms.uPrev.value=A.texture;R.setRenderTarget(Cc);R.render(simScene,cam);const tmp=A;A=B;B=Cc;Cc=tmp}
- S.frame=function(){if(!S.visible)return;const dt=Math.min(clock.getDelta(),.05);t0+=dt;auto-=dt;
-   if(auto<0&&!reduce){auto=1.8+Math.random()*1.8;S.drop(.4+Math.random()*.55,.62+Math.random()*.35,.02,.03)}
-   step();step();R.setRenderTarget(null);
-   mat.uniforms.uSim.value=B.texture;mat.uniforms.uTime.value=t0;mat.uniforms.uScroll.value=Math.min(scrollY/innerHeight,1);
-   R.render(scene,cam)};
 }
 

@@ -5,28 +5,12 @@
 const ft=x=>{if(x==null)return '—';const f=Math.floor(x+1e-6);const i=Math.round((x-f)*12);return i===12?(f+1)+"'":(i?f+"'"+i+'"':f+"'")};
 const money=n=>'$'+Math.round(n).toLocaleString('en-US');
 const k$=n=>'$'+(Math.round(n/1000)).toLocaleString('en-US')+'k';
-const MODELS=[
- {id:'aussie',n:'Aussie',s:'rect',cat:'rect',L:35,W:15.75,D:6,feats:['deep','new'],sizes:['35','30'],t:'Rectangular',blurb:'New for 2026. A 6-foot-deep rectangle in 30 and 35-foot lengths, with a generous 15\'9" width for real swimming room.',fl:['New Barrier Reef model for 2026','30 and 35-foot lengths','6 ft deep end','Clean rectangular lines']},
- {id:'whitsunday',n:'Whitsunday',s:'rect',cat:'rect',L:40,W:15.67,D:8.5,feats:['ledge','deep'],sizes:['40 Deep','40','35','35 Lounger','30','30 Lounger'],t:'Rectangular',blurb:'The most versatile rectangle in the range. It comes in standard, lounger and deep versions across several lengths. Pick the deep version if diving or water volleyball is on the list.',fl:['Standard, Lounger and Deep versions','Lengths from 30 to 40 ft','Deep version reaches 8\'6"','Lounger versions add a molded sun shelf']},
- {id:'bondi',n:'Bondi',s:'rect',cat:'rect',L:40,W:15.67,S:3.67,D:6.25,gal:17600,walk:11,feats:['bench','ledge','deep'],sizes:['40','35'],t:'Rectangular',blurb:'A clean 40-foot rectangle with comfortable deep-end seating and wide, textured entry steps. Also made in a 35-foot size.',fl:['Comfortable deep-end seating','Perimeter safety ledge','Sloped entry ledge for easy access','Wide, textured entry steps']},
- {id:'sydney-harbour',n:'Sydney Harbour',s:'rect',cat:'rect',L:40,W:16,D:6.5,feats:['spa','deep'],spa:1,sizes:['40'],t:'Pool + spa',blurb:'Pool and spa in a single shell, so the spa sits exactly where you\'ll use it and goes in on the same day as the pool.',fl:['Integrated spa','Pool and spa in one shell','40 ft long, 16 ft wide','One install day for both']},
- {id:'coral-sea',n:'Coral Sea',s:'free',cat:'free',L:40,W:15.17,D:6.75,feats:['ledge','deep'],sizes:['Standard','Lounger'],t:'Freeform',blurb:'Freeform curves with a resort feel, in standard and lounger versions. A natural match for tropical planting and natural stone.',fl:['Freeform resort shape','Lounger version with sun shelf','Up to 40 ft long','Natural-stone friendly coping line']},
- {id:'daydream',n:'Daydream',s:'free',cat:'free',L:40,W:14.08,D:6.25,feats:['deep'],sizes:['40'],t:'Freeform',blurb:'A long, narrow freeform. You get room to swim without giving up the whole yard.',fl:['Long, narrow footprint','40 ft of swimming length','Gentle freeform curves','Works beside a long lanai']},
- {id:'billabong-cove',n:'Billabong Cove',s:'free',cat:'free',L:35.25,W:16,D:null,feats:[],sizes:['35\'3"'],t:'Freeform',blurb:'A 35-foot freeform at 16 feet wide, one of the widest shapes in the range. Lots of room for family play.',fl:['16 ft wide','Freeform shape','Room for games and floats','Mid-length footprint']},
- {id:'castaway',n:'Castaway',s:'free',cat:'free',L:35,W:15.67,D:6.33,feats:['deep'],sizes:['35'],t:'Freeform',blurb:'A freeform shell that never gets shallower than 4\'4", so there\'s more swimmable water for older kids and adults.',fl:['Never shallower than 4\'4"','More swimmable water','Freeform curves','35 ft long']},
- {id:'grande',n:'Grande',s:'rect',cat:'rect',L:35.08,W:13.75,D:6.42,feats:['deep'],sizes:['Large','Medium','Small'],t:'Rectangular',blurb:'A rectangle made in three sizes, so it adapts to the yard you actually have.',fl:['Three sizes','Classic rectangle','Up to 35\'1" long','Fits narrower lots']},
- {id:'oyster',n:'Oyster',s:'kidney',cat:'kidney',L:30,W:14.75,D:6.25,feats:['deep'],sizes:['30','Smaller size'],t:'Kidney',blurb:'A soft kidney shape in two sizes. The curves frame a lanai or a garden corner.',fl:['Two sizes','Soft kidney curves','30 ft long','Frames a lanai or corner']},
- {id:'outback-dundee',n:'Outback Dundee',s:'rect',cat:'rect',L:30,W:14,D:5.83,feats:['ledge'],sizes:['Standard','Lounger'],t:'Tanning ledge',blurb:'A 30-foot rectangle built around a tanning ledge. Put the lounge chairs in the water and the kids in the shallows.',fl:['Built around a tanning ledge','Standard and Lounger versions','30 ft long','Great for entertaining']},
- {id:'billabong-splash',n:'Billabong Splash',s:'free',cat:'free',L:27,W:13,D:null,feats:[],sizes:['27'],t:'Freeform',blurb:'A 27-foot freeform that brings resort curves to a mid-sized yard.',fl:['27 ft long','Freeform resort curves','Mid-size footprint','Easy to landscape around']},
- {id:'milano',n:'Milano',s:'rect',cat:'plunge',L:23,W:11,S:4.33,D:4.33,feats:[],sizes:['23'],t:'Plunge · Roman',blurb:'A Roman-style plunge pool with a flat floor. Great for cooling off, water exercise and tight lots.',fl:['Flat floor throughout','Roman-style ends','Ideal for water exercise','Fits tight lots']},
- {id:'opal',n:'Opal',s:'kidney',cat:'kidney',L:21.17,W:11.33,D:5,feats:[],sizes:['21\'2"'],t:'Kidney · compact',blurb:'A compact kidney with a full 5-foot depth. A small yard doesn\'t have to mean a shallow pool.',fl:['Compact footprint','Full 5 ft depth','Kidney shape','Fits small yards']},
- {id:'crispin',n:'Crispin',s:'kidney',cat:'plunge',L:16.5,W:10,D:3.92,feats:[],sizes:['16\'6"'],t:'Plunge · kidney',blurb:'The smallest shell in the range: a kidney plunge for courtyards and townhomes.',fl:['Smallest shell in the range','Kidney plunge','Courtyard and townhome friendly','Quick to install']}
-];
-MODELS.forEach(m=>{m.Ws=ft(m.W);m.Ls=ft(m.L);
- if(m.gal){m.galEst=false}else if(m.D){const f=m.s==='rect'?.76:.66;m.gal=Math.round(m.L*m.W*(((m.S||3.5)+m.D)/2)*7.48*f/100)*100;m.galEst=true}else m.gal=null});
+/* Official Barrier Reef Pools USA list and specs: src/data/models.json. The largest version is the model's headline size. */
+const MODELS={{MODELSJSON}};
+MODELS.forEach(m=>{const z=m.sizes.reduce((a,b)=>b.L>a.L?b:a,m.sizes[0]);m.def=m.sizes.indexOf(z);Object.assign(m,{L:z.L,W:z.W,S:z.S,D:z.D,gal:z.gal,Ls:z.Ls,Ws:z.Ws,photo:'m-'+m.id})});
 const byId=id=>MODELS.find(m=>m.id===id);
 const FT_LBL={ledge:'Tanning ledge',spa:'Integrated spa',bench:'Bench seating',deep:'Deep end 6\'+',new:'New 2026'};
-const CAT_LBL={rect:'Rectangular',free:'Freeform',kidney:'Kidney',plunge:'Plunge'};
+const CAT_LBL={rect:'Rectangular',free:'Freeform',kidney:'Kidney',roman:'Roman',plunge:'Plunge'};
 
 const FIN_META={
  aquamarine:{n:'Aquamarine',d:'Classic resort blue. Bright and clear in full Florida sun.',p:'Travertine, white coping'},
@@ -118,16 +102,8 @@ const ARTS=[
   <h2>Don't</h2><ul><li><strong>Never drain a fiberglass pool.</strong> High groundwater after heavy rain can push an empty shell up.</li><li>Don't restart equipment until it's dry and debris is cleared.</li></ul>
   <div class="callout">After the storm, call us if anything looks off. We'd rather check than have you guess.</div>`}
 ];
-const FAQ=[
- ['What does the free consultation actually include?','A site visit, real measurements and a 3D design of your backyard, free and with no obligation. You see exactly what you\'re buying before you commit a dollar.'],
- ['Why are your prices better than other builders I\'ve quoted?','Because we don\'t subcontract. Most builders hire out the shell, the deck and the pavers, and each layer adds its own markup. Our own crew does all of it, so you pay for the work instead of the middlemen.'],
- ['How long does a pool take, start to finish?','Once permits and HOA approvals are final, Barrier Reef puts a typical fiberglass install at 2–6 weeks, depending on size, site and weather. You get a firm timeline before we break ground.'],
- ['Do I need permits, and will you handle them?','Yes, and yes. HOA approvals, engineering and county permitting are all ours to chase, including the safety feature Florida law requires.'],
- ['What warranty comes with the pool?','Barrier Reef provides a Lifetime Limited Structural Warranty on the shell, transferable once, plus a 15-year finish warranty against blistering. iTop separately warrants our installation work.'],
- ['Who is actually on my property during the build?','Our own crew: the same specialized team on every iTop job, for both pools and pavers. No rotating subcontractors, and no one you haven\'t met.'],
- ['Can I see a pool you already built?','Absolutely. Browse our work, or ask and we\'ll arrange a visit to a finished project near you. We\'d rather you stand next to the real thing.']
-];
-const GAL=[['screen','Screened pool','Ponte Vedra','enclosure'],['pavilion','Pool + pavilion','St. Johns','fiberglass'],['falls','Sheer descents','Nocatee','features'],['aerial','Fiberglass install','Jacksonville','fiberglass'],['spa','Spa & fire feature','Mandarin','features'],['sunset','Sunset swim','Julington Creek','fiberglass'],['lounge','Sun shelf & pavers','Fleming Island','pavers']];
+const GAL=Object.keys(PHOTOS).filter(id=>id.startsWith('p-')).map(id=>[id,PHOTOS[id].cap,PHOTOS[id].cat]);
+const ART_IMG={aerial:'m-bondi',lounge:'m-outback',pavilion:'m-castaway',screen:'p-grande-1',sunset:'m-whitsunday',falls:'m-coral-cay',spa:'p-whitsunday-1'};
 const STEPS=[
  ['Dream','Tell us how you\'ll use the yard. Take the pool finder or explore in 3D.','You','You'],
  ['Design','Free site visit, measurements and a 3D design drawn to your survey.','iTop',''],
@@ -162,7 +138,8 @@ const pmt=(P,apr,yrs)=>{const r=apr/100/12,n=yrs*12;return P<=0?0:r?P*r/(1-Math.
 /* =========================================================
    HELPERS
    ========================================================= */
-function planPath(s,L,Wd){const sx=L/40,sy=Wd/16;const pts=poolPts(s,sx,sy);return 'M'+pts.map(p=>`${(p.x*10+70).toFixed(1)},${(-p.y*10+30).toFixed(1)}`).join('L')+'Z'}
+const planMemo={};
+function planPath(s,L,Wd){const k=s+L+'x'+Wd;if(planMemo[k])return planMemo[k];const sx=L/40,sy=Wd/16;const pts=poolPts(s,sx,sy);return planMemo[k]='M'+pts.map(p=>`${(p.x*10+70).toFixed(1)},${(-p.y*10+30).toFixed(1)}`).join('L')+'Z'}
 let gid=0;
 function planSVG(m,o={}){const id='pg'+(gid++);const p=planPath(m.s,m.L,m.W);const fin=FINISH[o.fin||'california'];const dark=o.dark;
  const ledge=m.feats.includes('ledge')?`<rect x="${(70-60*m.L/40+2.2).toFixed(1)}" y="${(30-10*m.W/16*2.4+3).toFixed(1)}" width="${(9*m.L/40+4).toFixed(1)}" height="${(10*m.W/16*4.8-6).toFixed(1)}" rx="2" fill="rgba(255,255,255,.32)"/>`:'';
@@ -174,8 +151,10 @@ function setP(r){const p=(r.value-r.min)/(r.max-r.min)*100;r.style.setProperty('
 /* =========================================================
    ENGINES
    ========================================================= */
-let hero=null,cfg=null,lab=null;
-const TEST=window.__TEST=/test/.test(location.search);
+let cfg=null,lab=null;
+/* Content for sections that aren't on screen yet is built in small slices after first paint */
+const laterQ=[];const later=fn=>laterQ.push(fn);
+const TEST=window.__TEST=/[?&]test\b/.test(location.search);
 
 function Lab(canvas,host){
  const S=this;const R=new T.WebGLRenderer({canvas,antialias:false});R.setPixelRatio(Math.min(devicePixelRatio,1.6));
@@ -255,22 +234,26 @@ function Lab(canvas,host){
  S.frame=()=>{if(!S.visible||!canvas.clientWidth)return;const dt=Math.min(clock.getDelta(),.05);t0+=dt;U.uTime.value=t0;U.uLightT.value+=(U.uLight.value-U.uLightT.value)*Math.min(1,dt*(TEST?40:4));R.render(scene,cam)};
 }
 
-try{
- hero=new Underwater($('#heroCanvas'),$('#top'));
- cfg=new PoolScene($('#cfgCanvas'),{interactive:true,time:'day'});cfg.autospin=true;
- cfg.onInteract=()=>{cfg.autospin=false;st.touched=true;const h=$('#cfgHint');if(h)h.style.opacity=0};
- lab=new Lab($('#labCanvas'),$('#labStage'));
- (function loop(){hero.frame();cfg.frame();lab.frame();TEST?setTimeout(loop,700):requestAnimationFrame(loop)})();
-}catch(err){console.warn('WebGL unavailable',err);document.body.classList.add('no3d');$('#heroCanvas').style.background=`url(${IMG.spa}) center/cover`;}
+/* 3D loads on demand: three.js is only fetched when a scene is about to be seen */
+let looping=false,failed3D=false;
+function load3D(){if(!load3D.p)load3D.p=new Promise((res,rej)=>{if(window.THREE)return res();const s=document.createElement('script');s.src=ROOT+'js/three.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s)}).then(()=>{T=window.THREE;if(T.ColorManagement)T.ColorManagement.legacyMode=false});return load3D.p}
+function loop3D(){if(looping)return;looping=true;(function tick(){if(!document.hidden){cfg&&cfg.frame();lab&&lab.frame()}TEST?setTimeout(tick,700):requestAnimationFrame(tick)})()}
+function fail3D(err){if(failed3D)return;failed3D=true;console.warn('WebGL unavailable',err);document.body.classList.add('no3d');$$('.stage,.lab-stage').forEach(s=>s.insertAdjacentHTML('beforeend','<p class="no3d-msg">This device cannot show the 3D preview. <a href="#/quote">Ask us for your free 3D design</a>.</p>'))}
+function initStudio3D(){if(cfg||failed3D)return;load3D().then(()=>{if(cfg)return;cfg=new PoolScene($('#cfgCanvas'),{interactive:true,time:'day'});cfg.autospin=true;
+  cfg.onInteract=()=>{cfg.autospin=false;st.touched=true;const h=$('#cfgHint');if(h)h.style.opacity=0};
+  $$('#optDeck .dk').forEach(b=>{try{b.querySelector('span').style.backgroundImage=`url(${deckTex(b.dataset.v).image.toDataURL('image/jpeg',.7)})`}catch(e){}});
+  pickModel(st.model);setFinish(st.finish);const dk=$('#optDeck .dk.on');dk&&cfg.set({deck:dk.dataset.v});loop3D()}).catch(fail3D)}
+function initLab3D(){if(lab||failed3D)return;load3D().then(()=>{if(lab)return;lab=new Lab($('#labCanvas'),$('#labStage'));lab.set('a',LS.a);lab.set('b',LS.b);loop3D()}).catch(fail3D)}
+const near3D=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;near3D.unobserve(e.target);e.target.id==='studio'?initStudio3D():initLab3D()}),{rootMargin:'400px'});
 
 /* =========================================================
    STUDIO UI
    ========================================================= */
-const st={model:MODELS[1],finish:'ocean',deck:'Travertine',touched:false};
+const st={model:byId('whitsunday'),finish:'ocean',deck:'Travertine',touched:false};
 const ml=$('#mList');
-MODELS.forEach((m,i)=>{const b=document.createElement('button');b.className='mbtn';b.dataset.id=m.id;
+later(()=>{MODELS.forEach((m,i)=>{const b=document.createElement('button');b.className='mbtn';b.dataset.id=m.id;
  b.innerHTML=`<svg viewBox="0 0 140 60"><path d="${planPath(m.s,m.L,m.W)}" fill="#1e9be0" stroke="#bfe9fd" stroke-width="4"/></svg><span><b>${m.n}</b><small>${m.Ls} × ${m.Ws}</small></span>`;
- b.onclick=()=>{pickModel(m);st.touched=true};ml.appendChild(b)});
+ b.onclick=()=>{pickModel(m);st.touched=true};ml.appendChild(b)});$$('.mbtn',ml).forEach(b=>b.classList.toggle('on',b.dataset.id===st.model.id))});
 function pickModel(m){st.model=m;if(cfg)cfg.set({shape:m.s,sx:m.L/40,sy:m.W/16,ledge:m.feats.includes('ledge'),spa:m.spa?true:cfg.state.spa});
  $$('.mbtn',ml).forEach(b=>b.classList.toggle('on',b.dataset.id===m.id));$('#mName').textContent=m.n;$('#hudModel').textContent=m.n;$('#hudSize').textContent=m.Ls+' × '+m.Ws;syncToggles();sum()}
 function syncToggles(){if(!cfg)return;$$('#optToggles .tg').forEach(t=>{const on=!!cfg.state[t.dataset.k];t.classList.toggle('on',on);t.setAttribute('aria-checked',on)})}
@@ -278,7 +261,7 @@ function sum(){const f=[];if(cfg){cfg.state.spa&&f.push('spa');cfg.state.ledge&&
  $('#sum').innerHTML=`<b>${st.model.n}</b> · ${st.model.Ls} × ${st.model.Ws} · ${FIN_META[st.finish].n} finish · ${st.deck} deck${f.length?' · '+f.join(', '):''}`}
 function setFinish(k){st.finish=k;cfg&&cfg.set({finish:k});$$('#optFinish .sw').forEach(x=>x.classList.toggle('on',x.dataset.v===k));$('#finName').textContent=FIN_META[k].n;sum()}
 const of=$('#optFinish');FIN_KEYS.forEach(k=>{const b=document.createElement('button');b.className='sw';b.dataset.v=k;b.dataset.n=FIN_META[k].n;b.style.background=swBg(k);b.setAttribute('aria-label',FIN_META[k].n);b.onclick=()=>{setFinish(k);st.touched=true};of.appendChild(b)});
-$$('#optDeck .dk').forEach(b=>{try{b.querySelector('span').style.backgroundImage=`url(${deckTex(b.dataset.v).image.toDataURL('image/jpeg',.7)})`}catch(e){}
+$$('#optDeck .dk').forEach(b=>{
  b.onclick=()=>{$$('#optDeck .dk').forEach(x=>x.classList.remove('on'));b.classList.add('on');cfg&&cfg.set({deck:b.dataset.v});st.deck=b.querySelector('b').textContent;$('#deckName').textContent=st.deck;st.touched=true;sum()}});
 $$('#optToggles .tg').forEach(t=>{const fn=()=>{const on=!t.classList.contains('on');t.classList.toggle('on',on);t.setAttribute('aria-checked',on);cfg&&cfg.set({[t.dataset.k]:on});st.touched=true;sum()};t.onclick=fn;t.onkeydown=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();fn()}}});
 $$('#lightSeg button').forEach(b=>b.onclick=()=>{$$('#lightSeg button').forEach(x=>x.classList.remove('on'));b.classList.add('on');cfg&&cfg.setTime(b.dataset.v)});
@@ -296,6 +279,7 @@ function labSet(side,k){LS[side]=k;LS.focus=side;lab&&lab.set(side,k);
  $('#labTag'+side.toUpperCase()).textContent=FIN_META[k].n;const m=FIN_META[k];$('#labName').textContent=m.n;$('#labDesc').textContent=m.d;$('#labPair').textContent=m.p}
 ['a','b'].forEach(s=>{const box=$('#labSw'+s.toUpperCase());FIN_KEYS.forEach(k=>{const b=document.createElement('button');b.dataset.v=k;b.style.background=swBg(k);b.title=FIN_META[k].n;b.setAttribute('aria-label',FIN_META[k].n);b.onclick=()=>labSet(s,k);box.appendChild(b)})});
 labSet('b','arctic');labSet('a','ocean');
+near3D.observe($('#studio'));near3D.observe($('#lab'));
 (()=>{const stg=$('#labStage'),sp=$('#labSplit');let drag=false;
  const mv=e=>{const r=stg.getBoundingClientRect();const x=Math.min(.97,Math.max(.03,(e.clientX-r.left)/r.width));sp.style.left=x*100+'%';lab&&lab.split(x)};
  stg.addEventListener('pointerdown',e=>{if(e.target.closest('.lab-light'))return;drag=true;$('#lab').classList.add('touched');stg.setPointerCapture(e.pointerId);mv(e)});

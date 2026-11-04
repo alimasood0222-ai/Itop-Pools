@@ -385,7 +385,7 @@ section{position:relative}
 
 /* cta */
 .cta{position:relative;overflow:hidden;color:#fff;background:linear-gradient(160deg,#ff9a3c 0%,#f76b6b 30%,#5b4fb5 62%,var(--navy-900) 100%)}
-.cta::before{content:"";position:absolute;inset:0;background:url({{IMG:sunset}}) center/cover;opacity:.28;mix-blend-mode:overlay}
+.cta::before{content:"";position:absolute;inset:0;background:url({{ROOT}}img/m-whitsunday-1200.webp) center/cover;opacity:.28;mix-blend-mode:overlay}
 .cta .waves{position:absolute;left:0;right:0;bottom:0;height:140px;overflow:hidden}
 .cta .waves svg{position:absolute;bottom:0;width:200%;height:100%;animation:wave 14s linear infinite}
 .cta .waves svg:nth-child(2){animation-duration:22s;opacity:.5}
