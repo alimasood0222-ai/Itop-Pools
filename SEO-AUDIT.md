@@ -1,6 +1,6 @@
 # iTop Pools SEO and AEO audit
 
-Audited 5 November 2026 against the live preview (commit `e099cf9`) and the current itoppools.com. Raw results are in `qa/logs/seo-audit.json`. An "after" section will be added once the work is done.
+Audited 5 November 2026 against the live preview (commit `e099cf9`) and the current itoppools.com. Raw results are in `qa/logs/seo-audit.json`. Sections 1–7 describe the site **before** the work. Results after it are in [section 8](#8-after-the-work).
 
 ## Summary
 
@@ -148,5 +148,70 @@ These can't be written honestly from here, and the brief rules out inventing the
 - **FAQ rich results won't appear in Google**, as the brief notes. The markup is still useful for machine reading.
 - **`llms.txt` is low cost and low certainty.** I'm not aware of evidence that major engines rely on it, so treat it as a small extra.
 - **The launch itself is the riskiest step.** It's when the old URLs move, so it needs a checklist and monitoring.
+
+## 8. After the work
+
+Measured 5 November 2026 on the live preview. **None of this affects search results yet**, because the preview stays `noindex` until launch.
+
+### Phone speed
+
+Mobile Lighthouse on the live site. Home, model and form are medians of 3 runs, cost and FAQ of 5.
+
+| Page | Performance | LCP | TBT | CLS | Weight |
+|---|---|---|---|---|---|
+| Home | 65 → **93** | 3.0 → **2.4 s** | 888 → **182 ms** | 0.013 → **0.014** | 463 → **330 KiB** |
+| Model | 80 → **97** | 3.0 → **2.1 s** | 417 → **111 ms** | 0 → **0.016** | 364 → **227 KiB** |
+| Cost | 81 → **97** | 2.3 → **1.2 s** | 493 → **161 ms** | 0.075 → **0.001** | 233 → **175 KiB** |
+| FAQ | 76 → **90** | 2.3 → **1.5 s** | 582 → **360 ms** | 0.081 → **0.002** | 237 → **163 KiB** |
+| Form | 78 → **98** | 1.4 → **1.1 s** | 540 → **98 ms** | 0.028 → **0.043** | 235 → **177 KiB** |
+
+| Target | Result |
+|---|---|
+| LCP under 2.5 s | Met on all five. Home has little margin |
+| CLS under 0.1 | Met on all five |
+| Performance 85 or higher | Met on all five medians, but single runs vary: home scored 80 once, cost 84 |
+| Accessibility 95 or higher | 100 on all five |
+| Best Practices 95 or higher | 100 on all five |
+| SEO 100 | 100 on home, model, cost and FAQ, on a go-live build run locally. The preview itself scores lower because it's `noindex` |
+| INP under 200 ms | **Not measured.** It needs real visitors, so check it in Search Console after launch. TBT is only a rough stand-in |
+
+How far to trust these:
+
+- Scores swing with machine load, and this machine was busy during both rounds. Cost and FAQ first measured 82 and 83, and 5-run re-tests gave 97 and 90.
+- Speed was last measured one deployment before the final one, which only changed FAQ link text and the schema type.
+- Lighthouse simulates a slow phone. Real-phone testing hasn't been done.
+
+### Checks
+
+| Check | Result |
+|---|---|
+| `validator.schema.org`, all 55 live pages | 0 errors, 0 warnings |
+| `npm run seo-check`, all 55 pages | 0 errors, 1 harmless warning (same alt text on the hero and a model image) |
+| Function checks (`qa/scripts/seo-func.js`) | 52 of 52 passed |
+| Layout at 7 screen sizes (`npm test`) | No problems |
+| All 55 live pages on the iPhone engine and Chrome | No errors |
+
+The validator found one defect that the build's own lint missed: `PoolAndSpaContractor` isn't a schema.org type, and it was on every page. The business is now `HomeAndConstructionBusiness`. Google's Rich Results Test wasn't run.
+
+### Against the gaps in section 5
+
+| Item | Status |
+|---|---|
+| Pages the brief requires | All built: 55 pages, including shape hubs, cost, comparison, financing, about, service areas, privacy and terms |
+| Text without JavaScript, model copy, FAQs (39, as headings), answer-first openings | Done |
+| Structured data: business, Product, FAQPage, Article, HowTo, Service, breadcrumbs | Done, except `sameAs`, `founder`, `geo` and a named author, which need Fabio |
+| Image sizes and filenames, `<address>`, map embed (service areas page), icons, security headers, event tracking | Done |
+| Script per page, 3D code loaded on demand | Done |
+| Old URL redirects | Done. Old `.html` URLs take two permanent hops (308, then 301) because of `cleanUrls`. `/#faq` goes to `/faq/` by script |
+
+### Not done
+
+| Item | Why |
+|---|---|
+| City pages | No local material yet. See `CONTENT-PLAN.md` |
+| 16 guides (13 published) | The rest need iTop's own figures or experience. See `CONTENT-PLAN.md` |
+| Named author and reviewer | Needs Fabio |
+| Critical CSS inlining | Targets were met without it, so the full stylesheet still blocks rendering |
+| Rankings and AI citations | Can't be measured until launch. Record a baseline first (`OFF-SITE-CHECKLIST.md`) |
 
 Sources for the search notes: [BuildZoom: iTop Builder LLC](https://www.buildzoom.com/contractor/itop-builder-llc)

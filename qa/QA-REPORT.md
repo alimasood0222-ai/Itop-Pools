@@ -1,5 +1,7 @@
 # iTop Pools acceptance test
 
+> **Written before the multi-page rebuild.** Some page addresses and script names below have changed, and the older scripts in `qa/scripts` that target the old routes no longer apply. For current results, see section 8 of `SEO-AUDIT.md`.
+
 ## After fixes (4 November 2026, deployed from commit `e099cf9`)
 
 **Verdict: yes, ready to show Fabio as a preview. Not ready for customers or his domain.** The remaining launch blockers are his content, the GoHighLevel connection and phone speed. The original report follows below this section, unchanged, as the "before" evidence.
