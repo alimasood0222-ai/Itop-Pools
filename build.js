@@ -25,7 +25,7 @@ const DIST = path.join(__dirname, 'dist');
 const CACHE = path.join(__dirname, '.cache', 'img');
 const SITE = 'https://itoppools.com';
 const LIVE = process.env.SITE_ENV === 'live';
-const WIDTHS = [640, 1200, 1920];
+const WIDTHS = [640, 828, 1200, 1920];
 const errors = [];
 
 const read = p => fs.readFileSync(path.join(SRC, p), 'utf8').replace(/\r\n/g, '\n');
@@ -90,8 +90,6 @@ async function build() {
   const srcset = (id, widths, fmt) => widths.map(w => `/img/${photos[id].f}-${w}.${fmt} ${w}w`).join(', ');
   const pic = (id, alt, sizes, eager) => { const p = photos[id]; if (!p) return ''; return `<picture><source type="image/avif" srcset="${srcset(id, p.w, 'avif')}" sizes="${sizes}"><source type="image/webp" srcset="${srcset(id, p.w, 'webp')}" sizes="${sizes}"><img src="${src(id, p.w.filter(w => w <= 1200).pop() || p.w[0])}" width="${p.nw}" height="${p.nh}" alt="${esc(alt === undefined ? p.alt : alt)}"${eager ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async" draggable="false"></picture>`; };
   const heroIds = site.hero.filter(id => photos[id]);
-  const first = await sharp(path.join(SRC, 'assets/img', photoList.find(p => p.id === heroIds[0]).file)).rotate().resize({ width: 828 }).webp({ quality: 62 }).toBuffer();
-  const firstData = 'data:image/webp;base64,' + first.toString('base64');
 
   // ---------- Articles
   const ARTS = [...json('data/articles.json').map(a => ({ ...a, b: (AX.answers[a.id] ? `<p class="answer">${AX.answers[a.id]}</p>` : '') + a.b, answer: AX.answers[a.id] })), ...AX.newArticles.map(a => ({ ...a, b: `<p class="answer">${a.answer}</p><div class="takeaways"><b>Key takeaways</b><ul>${a.take.map(x => `<li>${x}</li>`).join('')}</ul></div>${a.b}` }))];
@@ -202,8 +200,8 @@ ${LIVE ? '' : '<meta name="robots" content="noindex">\n'}<link rel="canonical" h
 <meta property="og:type" content="website"><meta property="og:site_name" content="iTop Pools"><meta property="og:title" content="${esc(m.t)}"><meta property="og:description" content="${esc(m.d)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${img}">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(m.t)}"><meta name="twitter:description" content="${esc(m.d)}"><meta name="twitter:image" content="${img}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preload" as="font" type="font/woff2" href="/fonts/inter-tight-var.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="/fonts/inter-var.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/inter-tight-var.woff2" media="(min-width:700px)" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/inter-var.woff2" media="(min-width:700px)" crossorigin>
 ${preload}${inlineHead}<link rel="stylesheet" href="${cssAsset.f}">
 ${noscript}
 ${tracking}
@@ -222,12 +220,13 @@ ${shellBottom}
 
   // ---------- Home
   const large = photos[heroIds[0]].w.filter(w => w >= 1200);
-  const slides = heroIds.map((id, i) => { const p = photos[id], m = models.find(x => x.id === p.model), cap = m ? m.n : p.cap; const inner = i === 0 ? `<picture><source media="(min-width:700px)" type="image/avif" srcset="${srcset(id, large, 'avif')}" sizes="100vw"><source media="(min-width:700px)" type="image/webp" srcset="${srcset(id, large, 'webp')}" sizes="100vw"><img src="${firstData}" width="${p.nw}" height="${p.nh}" alt="${esc(p.alt)}" fetchpriority="high" decoding="async"></picture>` : ''; return `<div class="hs${i === 0 ? ' on' : ''}" data-id="${id}" data-cap="${esc(cap)}" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${heroIds.length}: ${esc(cap)}">${inner}</div>`; }).join('\n    ');
+  const small = photos[heroIds[0]].w.filter(w => w <= 828);
+  const slides = heroIds.map((id, i) => { const p = photos[id], m = models.find(x => x.id === p.model), cap = m ? m.n : p.cap; const inner = i === 0 ? `<picture><source media="(min-width:700px)" type="image/avif" srcset="${srcset(id, large, 'avif')}" sizes="100vw"><source media="(min-width:700px)" type="image/webp" srcset="${srcset(id, large, 'webp')}" sizes="100vw"><source media="(max-width:699px)" type="image/avif" srcset="${srcset(id, small, 'avif')}" sizes="100vw"><source media="(max-width:699px)" type="image/webp" srcset="${srcset(id, small, 'webp')}" sizes="100vw"><img src="${src(id, small[small.length - 1])}" width="${p.nw}" height="${p.nh}" alt="${esc(p.alt)}" fetchpriority="high" decoding="async"></picture>` : ''; return `<div class="hs${i === 0 ? ' on' : ''}" data-id="${id}" data-cap="${esc(cap)}" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${heroIds.length}: ${esc(cap)}">${inner}</div>`; }).join('\n    ');
   let home = portals(FRAG.home.replace('{{HEROSLIDES}}', () => slides));
   home = setEmpty(home, 'flow', STEPS.map((s, i) => `<div class="fl"><div class="dot">${String(i + 1).padStart(2, '0')}</div><h3>${s[0]}</h3><p>${s[1]}</p><span class="who ${s[3]}">${s[2]}</span></div>`).join(''));
   home = setEmpty(home, 'artHome', ARTS.filter(a => ['fiberglass-pros-and-cons', 'best-pool-size', 'permits'].includes(a.id)).map(artCard).join(''));
   home = setEmpty(home, 'gTrack', Object.keys(photos).filter(id => id.startsWith('p-')).map(id => `<figure class="g-it" data-full="${src(id, photos[id].w[photos[id].w.length - 1])}">${pic(id, photos[id].cap, '(max-width:680px) 80vw,420px')}<figcaption>${photos[id].cap}</figcaption></figure>`).join(''));
-  page({ url: '/', route: 'home', js: 'home', content: home, inlineHead: legacyHash + '\n', preload: `<link rel="preload" as="image" media="(min-width:700px)" type="image/avif" imagesrcset="${srcset(heroIds[0], large, 'avif')}" imagesizes="100vw">\n`, graph: [{ '@type': 'ItemList', name: 'Barrier Reef fiberglass pool models', numberOfItems: models.length, itemListElement: models.map((m, i) => ({ '@type': 'ListItem', position: i + 1, name: m.n, url: `${SITE}/fiberglass-pools/${m.id}/` })) }, faqLd(allItems.filter(it => it.top), `${SITE}/#faq`)] });
+  page({ url: '/', route: 'home', js: 'home', content: home, inlineHead: legacyHash + '\n', preload: `<link rel="preload" as="image" media="(min-width:700px)" type="image/avif" imagesrcset="${srcset(heroIds[0], large, 'avif')}" imagesizes="100vw">\n<link rel="preload" as="image" media="(max-width:699px)" type="image/avif" imagesrcset="${srcset(heroIds[0], small, 'avif')}" imagesizes="100vw" fetchpriority="high">\n`, graph: [{ '@type': 'ItemList', name: 'Barrier Reef fiberglass pool models', numberOfItems: models.length, itemListElement: models.map((m, i) => ({ '@type': 'ListItem', position: i + 1, name: m.n, url: `${SITE}/fiberglass-pools/${m.id}/` })) }, faqLd(allItems.filter(it => it.top), `${SITE}/#faq`)] });
 
   // ---------- Finder, hubs, models
   page({ url: '/fiberglass-pools/', route: 'pools', js: 'pools', content: setEmpty(withCTA(FRAG.pools), 'fpCards', models.map(m => card(m)).join('')), graph: [crumbsLd([['Pool models', '/fiberglass-pools/']]), { '@type': 'ItemList', name: 'Barrier Reef fiberglass pool models', numberOfItems: models.length, itemListElement: models.map((m, i) => ({ '@type': 'ListItem', position: i + 1, item: product(m) })) }] });
