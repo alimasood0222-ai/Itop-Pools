@@ -14,7 +14,7 @@ const DIST = path.join(__dirname, '..', 'dist');
 const args = process.argv.slice(2);
 const CLICKS = args.includes('--clicks');
 const SHOTS = args.includes('--shots') ? args[args.indexOf('--shots') + 1] : null;
-const ROUTES = ['/', '/fiberglass-pools/', '/fiberglass-pools/bondi/', '/fiberglass-pools/whitsunday/', '/fiberglass-pools/milano/', '/3d-pool-design/', '/pool-colors/', '/pool-cost/', '/pool-school/', '/pool-school/fiberglass-vs-concrete/', '/our-work/', '/why-itop/', '/free-3d-design/', '/faq/'];
+const ROUTES = ['/', '/fiberglass-pools/', '/fiberglass-pools/plunge/', '/fiberglass-pools/bondi/', '/fiberglass-pools/whitsunday/', '/fiberglass-pools/milano/', '/3d-pool-design/', '/pool-colors/', '/pool-cost-jacksonville/', '/pool-financing/', '/fiberglass-vs-concrete-vs-vinyl/', '/pool-school/', '/pool-school/permits/', '/our-work/', '/process-and-warranty/', '/about/', '/service-areas/', '/free-3d-design/', '/faq/', '/privacy/'];
 const VIEWPORTS = [[360, 740], [375, 812], [390, 844], [414, 896], [768, 1024], [844, 390], [1440, 900]];
 const TYPES = { '.html': 'text/html', '.css': 'text/css', '.woff2': 'font/woff2', '.js': 'text/javascript', '.webp': 'image/webp', '.avif': 'image/avif', '.svg': 'image/svg+xml', '.txt': 'text/plain' };
 
@@ -50,7 +50,7 @@ const name = (r, w) => (r === '/' ? 'home' : r.replace(/[^a-z0-9]+/gi, '-').repl
       const m = await page.evaluate(() => {
         const iw = innerWidth, de = document.documentElement;
         const wide = [...document.querySelectorAll('body *')].filter(e => { if (!e.offsetParent || e.closest('.hs-stage,.r2-track,.g-track,.mq,.fq-nav,.r2-fil,.drawer,.fp-side,canvas,svg,.q-steps,.chips')) return false; const r = e.getBoundingClientRect(); return r.width > 0 && r.right > iw + 1 && r.left < iw; }).slice(0, 3).map(e => e.tagName + '.' + String(e.className).slice(0, 30));
-        const small = innerWidth < 1000 ? [...document.querySelectorAll('.route.on a[href], .route.on button, #nav button')].filter(e => { if (!e.offsetParent || e.closest('.ans p,.crumbs,.prose,footer,.r2-ticks,.fine,.q-hint')) return false; const r = e.getBoundingClientRect(); return r.width > 0 && (r.height < 30 || r.width < 24); }).slice(0, 4).map(e => (e.textContent.trim() || e.getAttribute('aria-label') || e.tagName).slice(0, 24)) : [];
+        const small = innerWidth < 1000 ? [...document.querySelectorAll('.route.on a[href], .route.on button, #nav button')].filter(e => { if (!e.offsetParent || e.closest('.ans p,.crumbs,.prose,footer,.r2-ticks,.fine,.q-hint,.guide-w p,.guide-w li,.nap-card,#mdAbout p')) return false; const r = e.getBoundingClientRect(); return r.width > 0 && (r.height < 30 || r.width < 24); }).slice(0, 4).map(e => (e.textContent.trim() || e.getAttribute('aria-label') || e.tagName).slice(0, 24)) : [];
         const offCenter = innerWidth < 700 ? [...document.querySelectorAll('.route.on .btn')].filter(e => { if (!e.offsetParent) return false; const r = e.getBoundingClientRect(); return r.width > 0 && (r.left < 10 || r.right > iw - 10); }).slice(0, 3).map(e => e.textContent.trim().slice(0, 28)) : [];
         const lefts = s => new Set([...document.querySelectorAll(s)].filter(e => e.offsetParent).map(e => Math.round(e.getBoundingClientRect().left))).size;
         const misaligned = ['.route.on .vs-row>:nth-child(2)', '.route.on .vs-row>:nth-child(3)', '.route.on .mtx-r>:nth-child(2)'].filter(s => lefts(s) > 1);

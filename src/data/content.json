@@ -1,0 +1,220 @@
+{
+ "STAGES": [
+  [
+   "dream",
+   "Dream",
+   "Picture it"
+  ],
+  [
+   "plan",
+   "Plan",
+   "Budget & rules"
+  ],
+  [
+   "design",
+   "Design",
+   "Shape & finish"
+  ],
+  [
+   "build",
+   "Build",
+   "Dig to swim"
+  ],
+  [
+   "own",
+   "Own",
+   "Enjoy & maintain"
+  ]
+ ],
+ "STEPS": [
+  [
+   "Dream",
+   "Tell us how you'll use the yard. Take the pool finder or explore in 3D.",
+   "You",
+   "You"
+  ],
+  [
+   "Design",
+   "Free site visit, measurements and a 3D design drawn to your survey.",
+   "iTop",
+   ""
+  ],
+  [
+   "Approve",
+   "HOA, engineering and county permits, including Florida's required safety feature.",
+   "iTop",
+   ""
+  ],
+  [
+   "Manufacture",
+   "Your shell is molded and quality-checked at Barrier Reef's plant in South Carolina.",
+   "Barrier Reef",
+   "mf"
+  ],
+  [
+   "Dig & set",
+   "Excavation, delivery, leveling and plumbing by our own crew.",
+   "iTop",
+   ""
+  ],
+  [
+   "Deck",
+   "Coping, pavers or travertine, enclosure and lighting. Same crew, no hand-off.",
+   "iTop",
+   ""
+  ],
+  [
+   "Swim",
+   "Start-up, water balance and a walkthrough of everything you own.",
+   "iTop",
+   ""
+  ]
+ ],
+ "TL": [
+  [
+   "Discovery call",
+   "A real crew member asks about your yard, goals, timing and budget, and books your visit.",
+   "iTop",
+   "Day 1"
+  ],
+  [
+   "Site visit & 3D design",
+   "We measure, check access and soil, and design the pool, deck and enclosure in 3D.",
+   "iTop",
+   "About 1 week"
+  ],
+  [
+   "Firm price & agreement",
+   "A written, line-by-line price. No allowances that turn into surprises.",
+   "iTop",
+   "You decide"
+  ],
+  [
+   "Permits & HOA",
+   "We prepare drawings and submit to your HOA and county, and track every approval.",
+   "iTop",
+   "Varies by county"
+  ],
+  [
+   "Shell manufactured",
+   "Barrier Reef molds your shell in Timmonsville, SC, and quality-checks it before shipping.",
+   "Barrier Reef",
+   "Scheduled with permits"
+  ],
+  [
+   "Excavation & set",
+   "Locates, excavation, delivery, then leveling, plumbing and backfill while the pool fills.",
+   "iTop",
+   "Typically days"
+  ],
+  [
+   "Deck, enclosure & finish",
+   "Coping, pavers or travertine, lighting, enclosure and equipment by the same crew.",
+   "iTop",
+   "Typically 1–3 weeks"
+  ],
+  [
+   "Start-up & handover",
+   "Water balanced, equipment registered, warranty paperwork in your hand.",
+   "iTop",
+   "Your first swim"
+  ]
+ ],
+ "LOANS": [
+  [
+   "Unsecured pool loan",
+   "A personal loan for home projects. Your house isn't collateral.",
+   [
+    "Fast approval",
+    "No home equity needed"
+   ],
+   [
+    "Higher rates",
+    "Shorter terms"
+   ]
+  ],
+  [
+   "Home equity loan",
+   "A fixed amount borrowed against the equity in your home.",
+   [
+    "Lower fixed rates",
+    "Longer terms"
+   ],
+   [
+    "Home is collateral",
+    "Closing costs"
+   ]
+  ],
+  [
+   "HELOC",
+   "A credit line you draw from as the build progresses.",
+   [
+    "Pay interest on what you use",
+    "Flexible draws"
+   ],
+   [
+    "Variable rates",
+    "Home is collateral"
+   ]
+  ],
+  [
+   "Cash-out refinance",
+   "Refinance your mortgage for more than you owe.",
+   [
+    "One payment",
+    "Potentially lowest rate"
+   ],
+   [
+    "Resets your mortgage",
+    "Depends on current rates"
+   ]
+  ]
+ ],
+ "ART_IMG": {
+  "aerial": "m-bondi",
+  "lounge": "m-outback",
+  "pavilion": "m-castaway",
+  "screen": "p-grande-1",
+  "sunset": "m-whitsunday",
+  "falls": "m-coral-cay",
+  "spa": "p-whitsunday-1"
+ },
+ "MTX": [
+  [
+   "Typical install",
+   "2–6 weeks",
+   "3–6 months",
+   "Several weeks"
+  ],
+  [
+   "Surface feel",
+   "Smooth gelcoat",
+   "Textured plaster or pebble",
+   "Soft vinyl"
+  ],
+  [
+   "Algae resistance",
+   "High (non-porous)",
+   "Lower (porous)",
+   "Medium"
+  ],
+  [
+   "Shape freedom",
+   "Choose from molds",
+   "Unlimited",
+   "Many shapes"
+  ],
+  [
+   "Big future cost",
+   "Rare",
+   "Resurfacing",
+   "Liner replacement"
+  ],
+  [
+   "Best for",
+   "Fast, low-upkeep family pools",
+   "Fully custom designs",
+   "Lowest upfront price"
+  ]
+ ]
+}

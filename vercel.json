@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "trailingSlash": true,
   "redirects": [
     { "source": "/pool-models.html", "destination": "/fiberglass-pools/", "statusCode": 301 },
@@ -7,12 +8,24 @@
     { "source": "/get-a-quote.html", "destination": "/free-3d-design/", "statusCode": 301 },
     { "source": "/get-a-quote", "destination": "/free-3d-design/", "statusCode": 301 },
     { "source": "/get-a-quote/", "destination": "/free-3d-design/", "statusCode": 301 },
-    { "source": "/services.html", "destination": "/why-itop/", "statusCode": 301 },
-    { "source": "/services", "destination": "/why-itop/", "statusCode": 301 },
-    { "source": "/services/", "destination": "/why-itop/", "statusCode": 301 },
-    { "source": "/index.html", "destination": "/", "statusCode": 301 }
+    { "source": "/services.html", "destination": "/process-and-warranty/", "statusCode": 301 },
+    { "source": "/services", "destination": "/process-and-warranty/", "statusCode": 301 },
+    { "source": "/services/", "destination": "/process-and-warranty/", "statusCode": 301 },
+    { "source": "/index.html", "destination": "/", "statusCode": 301 },
+    { "source": "/pool-cost/", "destination": "/pool-cost-jacksonville/", "statusCode": 301 },
+    { "source": "/why-itop/", "destination": "/process-and-warranty/", "statusCode": 301 },
+    { "source": "/pool-school/cost-guide/", "destination": "/pool-cost-jacksonville/", "statusCode": 301 },
+    { "source": "/pool-school/fiberglass-vs-concrete/", "destination": "/fiberglass-vs-concrete-vs-vinyl/", "statusCode": 301 },
+    { "source": "/pool-school/financing/", "destination": "/pool-financing/", "statusCode": 301 },
+    { "source": "/pool-school/colours/", "destination": "/pool-school/choosing-a-color/", "statusCode": 301 }
   ],
   "headers": [
+    { "source": "/(.*)", "headers": [
+      { "key": "X-Content-Type-Options", "value": "nosniff" },
+      { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+      { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+      { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+    ] },
     { "source": "/(.*)", "has": [{ "type": "host", "value": ".*\\.vercel\\.app" }], "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }] },
     { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
     { "source": "/img/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }] },

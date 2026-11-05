@@ -1,12 +1,28 @@
 {
   "pages": {
     "/": {
-      "t": "Fiberglass Pools in Jacksonville, FL | iTop Pools",
+      "t": "Fiberglass Pool Builder in Jacksonville, FL | iTop Pools",
       "d": "Choose your Barrier Reef fiberglass pool, see it in 3D, know the cost and book a free site visit with iTop Pools' own crew in Jacksonville, Florida."
     },
     "/fiberglass-pools/": {
-      "t": "Barrier Reef Fiberglass Pool Models | iTop Pools",
+      "t": "Barrier Reef Pools in Jacksonville: 22 Models | iTop Pools",
       "d": "Compare all 22 Barrier Reef fiberglass pool models with official sizes, depths and gallons. Filter by shape and features, then get a free 3D design."
+    },
+    "/fiberglass-pools/rectangular/": {
+      "t": "Rectangular Fiberglass Pools | iTop Pools Jacksonville",
+      "d": "Compare rectangular Barrier Reef fiberglass pools with official sizes and depths, from compact shells to 40-foot lap pools. Get a free 3D design from iTop."
+    },
+    "/fiberglass-pools/freeform/": {
+      "t": "Freeform Fiberglass Pools | iTop Pools Jacksonville",
+      "d": "Compare freeform Barrier Reef fiberglass pools with curved, resort-style shapes, official sizes and depths. Get a free 3D design from iTop Pools in FL."
+    },
+    "/fiberglass-pools/kidney/": {
+      "t": "Kidney-Shaped Fiberglass Pools | iTop Pools Jacksonville",
+      "d": "See kidney-shaped and rounded Barrier Reef fiberglass pools for smaller yards, with official sizes and depths. Get a free 3D design from iTop Pools."
+    },
+    "/fiberglass-pools/plunge/": {
+      "t": "Plunge Fiberglass Pools | iTop Pools Jacksonville",
+      "d": "Compare compact Barrier Reef plunge pools for small yards and courtyards, with official sizes and depths. Get a free 3D design from iTop Pools in Florida."
     },
     "/3d-pool-design/": {
       "t": "3D Pool Design Studio | iTop Pools Jacksonville",
@@ -16,53 +32,65 @@
       "t": "Fiberglass Pool Colors & Finishes | iTop Pools",
       "d": "Compare all seven Barrier Reef fiberglass pool finishes side by side in sun, shade and LED light, then see real samples on a free iTop Pools site visit."
     },
-    "/pool-cost/": {
-      "t": "Fiberglass Pool Cost Estimator | iTop Pools Jacksonville",
-      "d": "Build an example fiberglass pool budget with features, deck and site costs, and see sample monthly payments. Then get a firm written price from iTop Pools."
+    "/pool-cost-jacksonville/": {
+      "t": "Fiberglass Pool Cost in Jacksonville, FL | iTop Pools",
+      "d": "What a fiberglass pool costs in Jacksonville vs concrete and vinyl, what's included, 25-year costs and an estimator. Then get a firm written price."
+    },
+    "/pool-financing/": {
+      "t": "Fiberglass Pool Financing Options | iTop Pools",
+      "d": "Pool loans, home equity loans, HELOCs and cash-out refinancing explained in plain English, with an example payment calculator from iTop Pools."
+    },
+    "/fiberglass-vs-concrete-vs-vinyl/": {
+      "t": "Fiberglass vs Concrete vs Vinyl Pools in Florida | iTop",
+      "d": "Compare fiberglass, concrete and vinyl liner pools for Florida: install time, costs over time, upkeep and which to choose, from iTop Pools in Jacksonville."
+    },
+    "/faq/": {
+      "t": "Fiberglass Pool FAQ: Cost & Warranty | iTop Pools",
+      "d": "Fiberglass vs concrete vs vinyl costs, install time, Florida soil and hurricanes, maintenance and warranty, answered by iTop Pools in Jacksonville, FL."
     },
     "/pool-school/": {
       "t": "Pool School: Fiberglass Pool Guides | iTop Pools",
-      "d": "Plain-English guides to buying and owning a fiberglass pool in Northeast Florida, covering cost, permits, financing, finishes, installation and storm prep."
+      "d": "Plain-English guides to buying and owning a fiberglass pool in Northeast Florida, covering sizing, permits, finishes, installation and storm preparation."
     },
     "/our-work/": {
       "t": "Fiberglass Pool Gallery | iTop Pools Jacksonville",
       "d": "See Barrier Reef fiberglass pools with decks, spas and outdoor living ideas for your backyard. Ask iTop Pools in Jacksonville about a free 3D design today."
     },
-    "/why-itop/": {
-      "t": "Process & Warranty | iTop Pools Jacksonville",
+    "/process-and-warranty/": {
+      "t": "Pool Process & Warranty | iTop Pools Jacksonville",
       "d": "See how iTop Pools takes a Barrier Reef pool from site visit to first swim with one in-house crew, plus what the lifetime and 15-year warranties cover."
+    },
+    "/about/": {
+      "t": "About iTop Pools | Fiberglass Pools in Jacksonville, FL",
+      "d": "iTop Pools is an authorized Barrier Reef fiberglass dealer in Jacksonville, FL, with one in-house crew for pools, decks and pavers. Meet us and call."
+    },
+    "/service-areas/": {
+      "t": "Pool Builder Service Areas in NE Florida | iTop Pools",
+      "d": "iTop Pools builds fiberglass pools across Northeast Florida, including Jacksonville, Ponte Vedra Beach, Nocatee, St. Johns, St. Augustine and Orange Park."
     },
     "/free-3d-design/": {
       "t": "Free 3D Pool Design & Site Visit | iTop Pools",
       "d": "Request a free site visit and 3D pool design from iTop Pools in Jacksonville, FL. Tell us about your yard in about 90 seconds, with no obligation to build."
     },
-    "/faq/": {
-      "t": "Fiberglass Pool FAQ: Cost & Warranty | iTop Pools",
-      "d": "Fiberglass vs concrete vs vinyl costs, install time, Florida soil and hurricanes, maintenance and warranty, answered by iTop Pools in Jacksonville, FL."
+    "/privacy/": {
+      "t": "Privacy Policy | iTop Pools",
+      "d": "How iTop Pools collects, uses and protects the details you share through our website and enquiry form, and how to ask about or remove your information."
+    },
+    "/terms/": {
+      "t": "Website Terms | iTop Pools",
+      "d": "The terms for using the iTop Pools website, covering estimates, payment examples, 3D designs, on-screen colors, pool specifications and warranties."
     }
   },
   "articles": {
-    "fiberglass-vs-concrete": {
-      "t": "Fiberglass vs Concrete vs Vinyl Pools in Florida",
-      "d": "Compare fiberglass, concrete and vinyl liner pools for Florida: install time, upkeep, surface feel and long-term costs, explained by iTop Pools."
-    },
     "shapes": {
       "t": "Rectangle, Freeform or Kidney Pool? | iTop Pools",
       "d": "How pool shape changes the way you swim, lounge and landscape, with Barrier Reef models to try in each style. A plain-English guide from iTop Pools."
-    },
-    "cost-guide": {
-      "t": "Fiberglass Pool Cost in Jacksonville | iTop Pools",
-      "d": "What a fiberglass pool costs in Jacksonville, what drives the price, what a complete quote should include and how to compare bids, from iTop Pools."
     },
     "permits": {
       "t": "Florida Pool Permits, HOAs & Safety Rules | iTop",
       "d": "What needs approval before a Northeast Florida pool build: building permits, HOA review and Florida's pool safety law, and who handles each one."
     },
-    "financing": {
-      "t": "Pool Financing 101: Loan Options | iTop Pools",
-      "d": "Pool loans, home equity loans, HELOCs and cash-out refinancing explained in plain English, with the main pros and cons of each from iTop Pools."
-    },
-    "colours": {
+    "choosing-a-color": {
       "t": "How to Choose a Fiberglass Pool Color | iTop Pools",
       "d": "Why the same fiberglass shell can look different in your yard, and how depth, shade and deck color affect the water. A finish guide from iTop Pools."
     },
@@ -85,6 +113,26 @@
     "hurricane": {
       "t": "Hurricane Prep for Your Pool in Florida | iTop",
       "d": "What to do before and after a storm if you own a fiberglass pool in Florida, including why you should never drain it. Practical advice from iTop Pools."
+    },
+    "fiberglass-pros-and-cons": {
+      "t": "Fiberglass Pool Pros and Cons | iTop Pools",
+      "d": "The real advantages and drawbacks of a fiberglass pool, and who should choose something else. An honest guide from iTop Pools in Jacksonville, Florida."
+    },
+    "best-pool-size": {
+      "t": "Best Pool Size for a Florida Backyard | iTop Pools",
+      "d": "How to choose a pool length and width that leave room for your deck, lawn and setbacks, with Barrier Reef models to compare, from iTop Pools in Florida."
+    },
+    "saltwater-vs-chlorine": {
+      "t": "Saltwater vs Chlorine Pools | iTop Pools",
+      "d": "How a salt system really works, the pros and cons compared with chlorine, and which suits a fiberglass pool. A plain-English guide from iTop Pools."
+    },
+    "screen-enclosures": {
+      "t": "Pool Screen Enclosures in Florida | iTop Pools",
+      "d": "What a pool screen enclosure does, what drives its cost, how it changes water color and what to plan for storms, from iTop Pools in Jacksonville, Florida."
+    },
+    "high-water-table": {
+      "t": "Fiberglass Pools and High Water Tables | iTop Pools",
+      "d": "Why groundwater matters for pools in Northeast Florida, how installers deal with it, and the one rule every fiberglass owner must follow, from iTop Pools."
     }
   }
 }

@@ -1,14 +1,16 @@
 {
   "name": "itop-pools-website",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "private": true,
-  "description": "iTop Pools website v3: photo hero, 3D studio, colour lab, official Barrier Reef model data, FAQ and enquiry form",
+  "description": "iTop Pools website: real pages, per-page scripts, 3D studio, color lab, official Barrier Reef data, FAQ and enquiry form",
   "scripts": {
     "build": "node build.js",
     "dev": "node build.js --watch",
-    "test": "node tests/check.js"
+    "test": "node tests/check.js",
+    "seo-check": "node scripts/seo-check.js"
   },
   "devDependencies": {
+    "esbuild": "^0.28.2",
     "lighthouse": "^13.6.0",
     "playwright-core": "^1.64.1",
     "sharp": "^0.35.5"

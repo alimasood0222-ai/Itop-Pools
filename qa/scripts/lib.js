@@ -19,7 +19,7 @@ function serve(port = 0, extra = {}) {
 }
 const models = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/data/models.json'), 'utf8'));
 const ARTICLES = ['fiberglass-vs-concrete', 'shapes', 'cost-guide', 'permits', 'financing', 'colours', 'features', 'timeline', 'access', 'first-30', 'hurricane'];
-const CORE = { home: '/', pools: '/fiberglass-pools/', 'model-bondi': '/fiberglass-pools/bondi/', studio: '/3d-pool-design/', colours: '/pool-colors/', cost: '/pool-cost/', learn: '/pool-school/', 'article-cost-guide': '/pool-school/cost-guide/', work: '/our-work/', why: '/why-itop/', quote: '/free-3d-design/', faq: '/faq/' };
+const CORE = { home: '/', pools: '/fiberglass-pools/', 'model-bondi': '/fiberglass-pools/bondi/', studio: '/3d-pool-design/', colours: '/pool-colors/', cost: '/pool-cost-jacksonville/', learn: '/pool-school/', 'article-permits': '/pool-school/permits/', work: '/our-work/', why: '/process-and-warranty/', quote: '/free-3d-design/', faq: '/faq/' };
 const ALL = { ...CORE }; models.forEach(m => ALL['model-' + m.id] = '/fiberglass-pools/' + m.id + '/'); ARTICLES.forEach(a => ALL['article-' + a] = '/pool-school/' + a + '/');
 const VIEWPORTS = [[360, 740], [390, 844], [414, 896], [768, 1024], [844, 390], [1440, 900]];
 const ctxOpts = (w, h, extra = {}) => ({ viewport: { width: w, height: h }, hasTouch: w < 1000, isMobile: w < 1000, deviceScaleFactor: w < 1000 ? 2 : 1, ...extra });
