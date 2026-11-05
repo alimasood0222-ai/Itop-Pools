@@ -10,10 +10,7 @@
   "leadWebhook": "",
   "leadEmail": "hello@itoppools.com",
   "business": {
-    "@type": [
-      "PoolAndSpaContractor",
-      "HomeAndConstructionBusiness"
-    ],
+    "@type": "HomeAndConstructionBusiness",
     "name": "iTop Pools",
     "alternateName": [
       "iTop Builder",
