@@ -113,3 +113,8 @@ address{font-style:normal}
   .prose table:not(.cost-tbl){display:block;overflow-x:auto}
   .takeaways{padding:16px 18px}
 }
+
+/* Logo artwork: wordmark, sized by height */
+.logo svg.lg,.dr-head .logo svg.lg{height:40px;width:auto;aspect-ratio:1609/505;display:block}
+footer .logo svg.lg{height:44px}
+@media (max-width:700px){.nav .logo svg.lg,.dr-head .logo svg.lg{height:36px}}
