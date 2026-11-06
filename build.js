@@ -111,6 +111,7 @@ async function build() {
   const inject = t => t.replace('{{FINISH}}', () => FIN).replace('{{GEO}}', () => GEO);
   const engine = await emit('engine', '(function(){"use strict";\n' + inject(read('js/engine.js')) + '\n})();', 'js');
   const siteForApp = { leadWebhook: site.leadWebhook, leadEmail: site.leadEmail, engine: engine.f };
+  const galByModel = {}; for (const g of json('data/gallery.json')) if (g.m) galByModel[g.m] = (galByModel[g.m] || 0) + 1;
   const BUNDLES = { home: ['base', 'data', 'hero', 'd3', 'studio', 'lab', 'minicalc', 'cards', 'home'], pools: ['base', 'data', 'cards', 'finder'], model: ['base', 'data', 'cards', 'model'], studio: ['base', 'data', 'd3', 'studio'], colours: ['base', 'data', 'd3', 'lab'], cost: ['base', 'data', 'estimator'], quote: ['base', 'data', 'quote'], why: ['base', 'why'], work: ['base', 'work'], learn: ['base', 'learn'], financing: ['base', 'minicalc'], plain: ['base'] };
   const jsFor = {};
   for (const [name, parts] of Object.entries(BUNDLES)) {
@@ -139,7 +140,7 @@ async function build() {
       { id: 'extras', q: `Does the ${n} have a spa or tanning ledge?`, a: m.spa ? `Yes, the ${n} has an integrated spa built into the shell${/ledge|sundeck/.test(fl) ? ', plus a lounging ledge' : ''}.` : m.feats.includes('ledge') ? `The ${n} has a lounging area${m.sizes.some(z => z.lounger) ? ' on its listed lounger versions' : ''}, but no built-in spa. Ask iTop Pools about adding a separate one.` : `The ${n} has no built-in spa or lounging ledge listed. Ask iTop Pools what can be added to it.` }];
     return q.map(x => ({ ...x, id: `${m.id}-${x.id}` })); };
   const NAP = `<address class="nap-card"><b>iTop Pools</b><br>6510 Columbia Park Drive, Suite 206<br>Jacksonville, FL 32258<br><a href="tel:+19046852555">(904) 685-2555</a><br><a href="mailto:hello@itoppools.com">hello@itoppools.com</a><br>Mon–Fri, 9:00 AM – 6:00 PM</address>`;
-  const heroBand = (crumbs, eyebrow, h1, sl, lead) => `<section class="phero"><div class="wrap"><div class="crumbs"><a href="/">Home</a>${crumbs.map(([n, u]) => `<span>/</span>${u ? `<a href="${u}">${n}</a>` : `<b>${n}</b>`}`).join('')}</div><div class="ph-grid"><div><div class="eyebrow light">${eyebrow}</div><h1>${h1}${sl ? ` <span class="serif grad">${sl}</span>` : ''}</h1></div><p class="lead">${lead}</p></div></div></section>`;
+  const heroBand = (crumbs, eyebrow, h1, sl, lead) => `<section class="phero"><div class="wrap"><div class="crumbs"><a href="/">Home</a>${crumbs.map(([n, u]) => `<span>/</span>${u ? `<a href="${u}">${n}</a>` : `<b>${n}</b>`}`).join('')}</div><div class="ph-grid"><div><div class="eyebrow light">${eyebrow}</div><h1>${h1}${sl ? ` ${sl}` : ''}</h1></div><p class="lead">${lead}</p></div></div></section>`;
 
   // ---------- Split body.html
   let body = read('body.html')
@@ -243,7 +244,8 @@ ${shellBottom}
     c = setInner(c, 'mdCrumb', m.n); c = setInner(c, 'mdName', `${m.n} fiberglass pool`); c = setEmpty(c, 'mdBlurb', esc(m.blurb));
     c = setEmpty(c, 'mdTags', `${m.feats.includes('new') ? '<span class="n">New for 2026</span>' : ''}<span>${m.t}</span><span>Barrier Reef</span>`);
     c = setEmpty(c, 'mdSizes', `<small>${m.sizes.length > 1 ? 'Choose a version' : 'Available version'}</small>${m.sizes.map((s, k) => `<button type="button" data-i="${k}"${k === i ? ' class="on"' : ''}>${zLabel(m, s)}</button>`).join('')}`);
-    c = setEmpty(c, 'mdPhoto', `${pic('m-' + m.id, undefined, '(max-width:900px) 100vw,620px', true)}<figcaption>${m.n} · Photo: Barrier Reef Pools USA</figcaption>`);
+    const galN = id => galByModel[id] || 0;
+    c = setEmpty(c, 'mdPhoto', `${pic('m-' + m.id, undefined, '(max-width:900px) 100vw,620px', true)}<figcaption>${m.n} · Photo: Barrier Reef Pools USA${galN(m.id) ? ` · <a href="/our-work/?model=${m.id}">See all ${galN(m.id)} ${m.n} photos</a>` : ''}</figcaption>`);
     c = setEmpty(c, 'mdSpec', [['Length', z.Ls], ['Width', z.Ws], ['Shallow end', z.Ss || 'See spec sheet'], ['Deep end', z.Ds || 'See spec sheet'], ...(z.lounger ? [['Lounger', z.lounger]] : []), ['Water', z.gal ? z.gal.toLocaleString('en-US') + ' gal' : 'See spec sheet']].map(([k, v]) => `<div><small>${k}</small><b>${v}</b></div>`).join(''));
     c = setEmpty(c, 'mdFeat', m.fl.map(f => `<li>${f}</li>`).join(''));
     c = setEmpty(c, 'mdSim', sim.map(x => card(x)).join(''));
@@ -268,7 +270,32 @@ ${shellBottom}
   learn = setEmpty(learn, 'journey', STAGES.map(([k, n, d], i) => `<button class="jy${i === 0 ? ' on' : ''}" data-k="${k}"><small>STAGE 0${i + 1}</small><b>${n}</b><span>${d} · ${ARTS.filter(a => a.st === k).length} guides</span></button>`).join(''));
   learn = setEmpty(learn, 'mtx', `<div class="mtx-r h"><span></span><span>Fiberglass</span><span>Concrete</span><span>Vinyl liner</span></div>${MTX.map(r => `<div class="mtx-r"><span>${r[0]}</span><span data-l="Fiberglass">${r[1]}</span><span data-l="Concrete">${r[2]}</span><span data-l="Vinyl liner">${r[3]}</span></div>`).join('')}`);
   page({ url: '/pool-school/', route: 'learn', js: 'learn', graph: [crumbsLd([['Pool School', '/pool-school/']])], content: learn });
-  page({ url: '/our-work/', route: 'work', js: 'work', graph: [crumbsLd([['Gallery', '/our-work/']])], content: setEmpty(withCTA(FRAG.work), 'wkGrid', Object.keys(photos).filter(id => id.startsWith('p-')).map(id => `<figure class="mi" data-cat="${photos[id].cat}" data-full="${src(id, photos[id].w[photos[id].w.length - 1])}">${pic(id, photos[id].cap, '(max-width:680px) 100vw,400px')}<figcaption><b>${photos[id].cap}</b></figcaption></figure>`).join('')) });
+  // Gallery: the Barrier Reef photo library (src/data/gallery.json), filtered in the browser.
+  // Finished WebP files live in src/assets/gallery as <f>-640.webp and <f>-1280.webp.
+  const gallery = json('data/gallery.json');
+  fs.cpSync(path.join(SRC, 'assets/gallery'), path.join(DIST, 'gallery'), { recursive: true });
+  const finishSrc = read('js/shared/finish.js');
+  const FINN = { aquamarine: 'Aquamarine', arctic: 'Arctic', california: 'California', eveningsky: 'Evening Sky', ocean: 'Ocean', sandstone: 'Sandstone', silvermist: 'Silver Mist' };
+  const FINSW = Object.fromEntries(Object.keys(FINN).map(k => { const m = finishSrc.match(new RegExp(`${k}:\\{[^}]*sw:\\['(#[0-9a-f]+)','(#[0-9a-f]+)'\\]`)); if (!m) errors.push('no swatch for ' + k); return [k, m ? [m[1], m[2]] : ['#ccc', '#999']]; }));
+  const SHAPEN = { rect: 'Rectangular', free: 'Freeform', kidney: 'Kidney', roman: 'Roman', plunge: 'Plunge' };
+  const OTHERN = { l20: 'Up to 20 ft long', l30: '21 to 30 ft long', l40: '31 to 40 ft long', spa: 'With a spa', aerial: 'Aerial views', outdoor: 'Outdoor living', install: 'Installation' };
+  const gModel = {};
+  for (const m of models) { const L = Math.max(...m.sizes.map(z => z.L)); gModel[m.id] = [m.n, [m.s, ...(m.cat === 'plunge' && m.s !== 'plunge' ? ['plunge'] : [])], L <= 20 ? 'l20' : L <= 30 ? 'l30' : 'l40']; }
+  for (const g of gallery) { if (g.m && !gModel[g.m]) errors.push('gallery: unknown model ' + g.m); if (g.c && !FINN[g.c]) errors.push('gallery: unknown finish ' + g.c); if (!fs.existsSync(path.join(SRC, 'assets/gallery', g.f + '-640.webp'))) errors.push('gallery: missing ' + g.f); }
+  const gTags = g => ({ shape: g.m ? gModel[g.m][1] : [], model: g.m ? [g.m] : [], color: g.c ? [g.c] : [], other: [...g.o, ...(g.m ? [gModel[g.m][2]] : [])] });
+  const gCount = (k, v) => gallery.filter(g => gTags(g)[k].includes(v)).length;
+  const altSeen = {};
+  const gAltBase = g => g.m ? `${g.t}, a Barrier Reef ${gModel[g.m][0]} fiberglass pool` : g.t;
+  // Some library photos share a title, so number the repeats to keep alt text unique
+  const gAltN = new Map(gallery.map(g => { const b = gAltBase(g); altSeen[b] = (altSeen[b] || 0) + 1; return [g, altSeen[b] > 1 ? `${b} (photo ${altSeen[b]})` : b]; }));
+  const gAlt = g => gAltN.get(g);
+  const gCard = (g, i) => `<a class="gc" href="/gallery/${g.f}-1280.webp" data-i="${i}"><span class="gc-img"><img src="/gallery/${g.f}-640.webp" alt="${esc(gAlt(g))}" width="640" height="427"${i < 3 ? '' : ' loading="lazy"'} decoding="async"></span><span class="gc-b">${g.m ? gModel[g.m][0] : OTHERN[g.o[0]] || 'Pool'}</span><span class="gc-f"><span class="gc-t"><b>${g.m ? gModel[g.m][0] : 'iTop Pools'}</b><small>${esc(g.t)}</small></span>${g.c ? `<span class="gc-c"><i style="background:linear-gradient(135deg,${FINSW[g.c][0]},${FINSW[g.c][1]})"></i>${FINN[g.c]}</span>` : ''}</span></a>`;
+  const gOpts = (k, list) => list.map(([v, l, extra = '']) => [v, l, extra, gCount(k, v)]).filter(o => o[3]).map(([v, l, extra, n]) => `<label><input type="checkbox" value="${v}">${extra}<span>${l}</span><em>${n}</em></label>`).join('');
+  const gDrop = (k, label, list) => `<details class="gf-d" data-k="${k}"><summary>${label}<b></b></summary><div class="gf-m">${gOpts(k, list)}</div></details>`;
+  const galFilters = `<div class="gf" id="galFil"><h2 class="gf-h">Filter the gallery</h2><div class="gf-row"><button class="gf-all on" type="button" id="gfAll">All</button>${gDrop('shape', 'Shape', Object.entries(SHAPEN))}${gDrop('model', 'Model', models.map(m => [m.id, m.n]))}${gDrop('color', 'Color', Object.entries(FINN).map(([v, l]) => [v, l, `<i style="background:linear-gradient(135deg,${FINSW[v][0]},${FINSW[v][1]})"></i>`]))}${gDrop('other', 'Other', Object.entries(OTHERN))}<button class="gf-clear" type="button" id="gfClear">Clear filters</button></div></div>`;
+  const galData = { m: gModel, c: Object.fromEntries(Object.keys(FINN).map(k => [k, [FINN[k], ...FINSW[k]]])), o: OTHERN, i: gallery.map(g => [g.f, g.t, g.m, g.c, g.o.join(' ')]) };
+  const work = withCTA(FRAG.work).replace('{{GALFILTERS}}', () => galFilters).replace('{{GALCARDS}}', () => gallery.slice(0, 24).map(gCard).join('')).replace('{{GALTOTAL}}', gallery.length) + `<script type="application/json" id="galData">${safeJSON(galData)}</script>`;
+  page({ url: '/our-work/', route: 'work', js: 'work', graph: [crumbsLd([['Gallery', '/our-work/']]), { '@type': 'ImageGallery', name: 'Barrier Reef fiberglass pool gallery', url: `${SITE}/our-work/`, numberOfItems: gallery.length }], content: work });
   const why = withCTA(FRAG.why).replace('<div class="tl" id="tl"><div class="tl-line"><i id="tlFill"></i></div></div>', () => `<div class="tl" id="tl"><div class="tl-line"><i id="tlFill"></i></div>${TL.map((s, i) => `<div class="tli"><div class="dot">${String(i + 1).padStart(2, '0')}</div><div class="card"><span class="who ${s[2] === 'Barrier Reef' ? 'mf' : ''}">${s[2]}</span><h3>${s[0]}</h3><p>${s[1]}</p><span class="dur">${s[3]}</span></div></div>`).join('')}</div>`);
   if (!why.includes('class="tli"')) errors.push('timeline not rendered');
   page({ url: '/process-and-warranty/', route: 'why', js: 'why', graph: [crumbsLd([['Process & warranty', '/process-and-warranty/']])], content: why });

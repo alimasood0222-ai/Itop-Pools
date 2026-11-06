@@ -7,3 +7,6 @@ screenshots/
 .env*
 qa/screens/
 qa/logs/
+
+# Gallery images are stored once, in src/assets/gallery, and copied by the build
+dist/gallery/

@@ -1,0 +1,121 @@
+/* Refinement pass: quieter, more editorial styling.
+   Removes decorative effects (glows, gradient text, grid overlays, outlined watermarks)
+   and settles type into one family with steadier spacing. Loaded last, so it overrides earlier files. */
+
+:root{--r-sm:8px;--r:12px;--r-lg:16px;--r-xl:20px;--shadow-1:0 1px 2px rgba(7,26,51,.06),0 8px 24px -16px rgba(7,26,51,.28);--shadow-2:0 2px 6px rgba(7,26,51,.08),0 24px 48px -28px rgba(7,26,51,.4)}
+
+/* Type: one family, natural tracking */
+h1,h2,h3{letter-spacing:-.02em;line-height:1.08}
+h2{font-size:clamp(30px,3.4vw,46px);letter-spacing:-.025em;line-height:1.1}
+.phero h1,.sp-head h1,.md-copy h1,.ah-in h1{font-size:clamp(34px,4.2vw,58px);letter-spacing:-.03em;line-height:1.05}
+.serif,.h-serif,.grad,.grad-blue{font-family:inherit;font-style:normal;font-weight:inherit;letter-spacing:inherit;text-transform:none;background:none;-webkit-background-clip:border-box;background-clip:border-box;-webkit-text-fill-color:currentColor;color:inherit;animation:none}
+.h-serif{display:block;font-size:1em;line-height:inherit;margin:0}
+.h-serif em{color:inherit}
+
+/* Section labels: small sentence-case text, no rule */
+.eyebrow{font-family:var(--sans);font-size:14px;letter-spacing:0;text-transform:none;font-weight:600;gap:0}
+.eyebrow::before,.hero .eyebrow::before{display:none}
+.hero .eyebrow{font-size:15px;letter-spacing:0;font-weight:600;text-shadow:0 1px 8px rgba(0,0,0,.45)}
+.hero .eyebrow.hero-h1{font-size:15px}
+
+/* Buttons: solid, no glow or sheen */
+.btn{box-shadow:none;border-radius:10px;padding:15px 22px;font-weight:600;transition:background .2s,color .2s,border-color .2s}
+.btn::after{display:none}
+.btn:hover{transform:none;box-shadow:none;background:var(--sun-600)}
+.btn .arr,.btn[class] .arr{width:auto!important;height:auto!important;background:none!important;color:inherit!important;border-radius:0;transform:none!important}
+.btn .arr svg{width:16px;height:16px}
+.nav .btn{border-radius:10px}
+
+/* Flat dark sections instead of glowing radial washes and grid lines */
+.phero,.md-hero,.config,.studio-page{background:var(--navy-900)}
+.phero::before,.md-hero::before,.studio-page::before,.config::before,.q-bg::after,.steps::before,.svc::before,.fd-card::before,.mini::before{display:none}
+.q-bg{background:var(--navy-900)}
+.q-bg .o1,.q-bg .o2,.hs-shimmer,.r2-bg,.step .big{display:none}
+.mq span.o{color:inherit;font-style:normal;font-family:inherit;font-size:inherit}
+
+/* Closing call to action: photo with a navy overlay instead of a sunset gradient */
+.cta{background:var(--navy-900)}
+.cta::before{opacity:.22;mix-blend-mode:normal;filter:grayscale(.2)}
+.cta .waves{display:none}
+.cta h2{font-size:clamp(34px,4.4vw,60px)}
+.form{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(4,16,31,.72);box-shadow:none;border-color:rgba(255,255,255,.16)}
+
+/* Cards: thinner borders and softer shadows */
+.tilt,.tilting{transform:none!important}
+
+/* Labels: sentence case for headings and badges, light tracking for data labels */
+footer .f-h,.mega h5,.tr-brand small,.q-card>small,.eo-card>small,.mini small,.panel-h small,.ab-card small,.ab-more small,.fp-g h6{text-transform:none;letter-spacing:0;font-size:13px;font-weight:600}
+.spec small,.md-sizes small,.r2i-m small,.mc .dims small,.pc .dims small,.md-tags span,.tag,.lab-tag,.opt-l,.mc .t,.pc .t,.rc .t,.q-l,.q-steps span,.prose th,.mtx-r.h>*{letter-spacing:.05em}
+
+/* Secondary buttons keep their own hover instead of the orange fill */
+.btn.ghost:hover{background:rgba(255,255,255,.1)}
+.btn.ghost-d:hover{background:rgba(11,37,69,.06)}
+.btn.dark:hover{background:var(--navy-800)}
+.btn.blue:hover{background:var(--azure-600)}
+
+/* Gallery */
+.gal-sec{background:var(--navy-900);padding:40px 0 90px}
+.gf{background:#fff;border-radius:20px;padding:26px 28px;text-align:center;margin-bottom:22px}
+.gf-h{font-size:24px;letter-spacing:-.01em;color:var(--navy-900);margin-bottom:16px}
+.gf-row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px}
+.gf-all,.gf-d summary{min-height:46px;display:inline-flex;align-items:center;gap:8px;padding:0 20px;border-radius:999px;border:1px solid #c9d3dd;background:#fff;color:var(--navy-900);font-weight:600;font-size:15px;cursor:pointer;list-style:none}
+.gf-d summary::-webkit-details-marker{display:none}
+.gf-d summary::after{content:"";width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);margin-left:4px;opacity:.6}
+.gf-d[open] summary::after{transform:rotate(-135deg) translateY(-1px)}
+.gf-all.on,.gf-d.has summary{background:var(--sun);border-color:var(--sun);color:var(--navy-900)}
+.gf-all:hover,.gf-d summary:hover{border-color:var(--navy-700)}
+.gf-d{position:relative}
+.gf-m{position:absolute;left:0;top:calc(100% + 6px);z-index:30;min-width:240px;max-height:340px;overflow:auto;background:#fff;border:1px solid #d5dde5;border-radius:12px;padding:6px;text-align:left;box-shadow:0 18px 40px -18px rgba(7,26,51,.45)}
+.gf-m label{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:14.5px;color:var(--navy-900);cursor:pointer;min-height:40px}
+.gf-m label:hover{background:var(--ice)}
+.gf-m input{width:17px;height:17px;accent-color:var(--azure-600);flex:none}
+.gf-m label i{width:18px;height:18px;border-radius:50%;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.gf-m label span{flex:1}
+.gf-m label em{font-style:normal;font-size:12.5px;color:var(--body)}
+.gf-clear{min-height:46px;padding:0 6px;color:var(--navy-900);font-weight:600;font-size:15px;text-decoration:underline;text-underline-offset:4px}
+.gf-clear:hover{color:var(--azure-600)}
+.gal-count{color:rgba(255,255,255,.75);font-size:14px;margin:0 4px 16px}
+.gal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.gc{min-width:0}
+.route[data-route="work"] .phero::after{display:none}
+.route[data-route="work"] .phero{padding-bottom:30px}
+.gc{position:relative;display:flex;flex-direction:column;background:#fff;border-radius:18px;padding:8px;color:var(--navy-900);transition:transform .25s var(--ease)}
+.gc:hover,.gc:focus-visible{transform:translateY(-3px)}
+.gc-img{display:block;aspect-ratio:3/2;border-radius:12px;overflow:hidden;background:var(--ice)}
+.gc-img img{width:100%;height:100%;object-fit:cover}
+.gc-b{position:absolute;top:18px;left:18px;padding:4px 12px;border-radius:999px;background:var(--sun);color:var(--navy-900);font-size:12.5px;font-weight:700}
+.gc-f{display:flex;align-items:center;gap:14px;padding:14px 10px 8px}
+.gc-t{flex:1;min-width:0}
+.gc-t b{display:block;font-size:16px}
+.gc-t small{display:block;font-size:13px;color:var(--body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gc-c{display:flex;flex-direction:column;align-items:center;gap:5px;padding-left:14px;border-left:1px solid #dfe5eb;font-size:12px;font-weight:600;color:var(--body);min-width:84px;text-align:center}
+.gc-c i{width:32px;height:32px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+.gal-none{grid-column:1/-1;color:#fff;text-align:center;padding:40px 0}
+.gal-more{text-align:center;margin-top:34px}
+.gal-more .btn[hidden]{display:none}
+.gal-credit{margin-top:26px;color:rgba(255,255,255,.6);font-size:13px;text-align:center}
+.glb{margin:auto;border:0;padding:0;background:transparent;max-width:min(1280px,96vw);width:100%;overflow:visible}
+.glb::backdrop{background:rgba(3,10,22,.92)}
+.glb figure{margin:0}
+.glb img{width:100%;max-height:80vh;object-fit:contain;border-radius:10px;background:#000}
+.glb figcaption{color:#fff;padding:12px 4px 0;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:15px}
+.glb figcaption span{color:rgba(255,255,255,.7)}
+.glb-x,.glb-p,.glb-n{position:absolute;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:30px;line-height:1;display:grid;place-items:center}
+.glb-x:hover,.glb-p:hover,.glb-n:hover{background:rgba(255,255,255,.26)}
+.glb-x{top:-58px;right:0}
+.glb-p{left:-62px;top:40%}
+.glb-n{right:-62px;top:40%}
+@media (max-width:1100px){.gal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.glb-p{left:8px}.glb-n{right:8px}}
+@media (max-width:680px){
+  .gal-grid{grid-template-columns:minmax(0,1fr);gap:16px}
+  .gf{padding:20px 14px}
+  .gf-row{gap:8px}
+  .gf-all,.gf-d summary{padding:0 14px;font-size:14px}
+  .gf-d{position:static}
+  .gf-m{left:14px;right:14px;min-width:0}
+  .gf{position:relative}
+  .glb-x{top:-56px;right:6px}
+}
+
+/* Model page: link to that model in the gallery */
+#mdPhoto figcaption a{display:inline-block;padding:10px 4px;margin:-10px 0;color:#fff;text-decoration:underline;text-underline-offset:3px}

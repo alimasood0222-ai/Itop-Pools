@@ -76,6 +76,14 @@ Add it to a group in `src/data/faq.json`, starting with a direct answer. `top: t
 3. Add its title and description to `src/data/pages.json`.
 4. Link to it from `/service-areas/`.
 
+**A gallery photo**
+The gallery at `/our-work/` reads `src/data/gallery.json`. Each entry is `{ f, t, m, c, o }`: file name, title, model id (or empty), finish id (or empty), and extra tags (`spa`, `aerial`, `outdoor`, `install`).
+1. Save two WebP files in `src/assets/gallery/`: `<f>-640.webp` and `<f>-1280.webp`.
+2. Add the entry to `gallery.json`. Its position sets the order.
+3. Build. The build fails if a file, model or finish is missing.
+
+The 425 Barrier Reef photos came from Barrier Reef's own gallery, which iTop is authorized to use as a dealer. Model pages link to their photos with `/our-work/?model=<id>`. The filters work the same way for `shape`, `color` and `other`.
+
 **Common edits**
 
 | What | Where |
@@ -85,6 +93,7 @@ Add it to a group in `src/data/faq.json`, starting with a direct answer. `top: t
 | Estimator prices (**demo numbers**) | `PRICE` in `src/js/estimator.js` |
 | Phone, address, email | `src/body.html`, `src/data/site.json`, `src/content/pages.js`, `build.js` (`NAP`, `llms.txt`) |
 | Brand colors | `:root` in `src/css/01-base.css` |
+| Overall look (radii, buttons, labels, section backgrounds) | `src/css/07-refine.css`, which loads last and overrides earlier files |
 
 ## Enquiry form
 

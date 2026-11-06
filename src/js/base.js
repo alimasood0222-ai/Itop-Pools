@@ -33,12 +33,6 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 let reveal=function(root=document){$$('.rv:not(.in),.flow:not(.in),.mtx:not(.in),.tli:not(.in)',root).forEach(el=>io.observe(el))};
 const co=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target,to=+el.dataset.to;let s=null;const step=ts=>{if(!s)s=ts;const k=Math.min(1,(ts-s)/1400);el.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step);co.unobserve(el)}),{threshold:.6});
 $$('.count').forEach(el=>co.observe(el));
-if(!isTouch&&!reduce){
- document.addEventListener('pointermove',e=>{const t=e.target.closest&&e.target.closest('.tilt');$$('.tilt.tilting').forEach(x=>{if(x!==t){x.classList.remove('tilting');x.style.transform=''}});
-  if(t){const r=t.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;t.classList.add('tilting');t.style.transform=`perspective(900px) rotateY(${(px-.5)*9}deg) rotateX(${(.5-py)*9}deg) translateY(-6px)`}
-  $('#cursor').style.transform=`translate(${e.clientX}px,${e.clientY}px)`},{passive:true});
- $$('.mag').forEach(b=>{b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.25}px)`});b.addEventListener('pointerleave',()=>b.style.transform='')});
-}else $('#cursor').style.display='none';
 $('#lb').onclick=()=>$('#lb').classList.remove('on');
 const openLB=src=>{$('#lb img').src=src;$('#lb').classList.add('on')};
 addEventListener('keydown',e=>{if(e.key==='Escape'){$('#lb').classList.remove('on');$('#cmpModal').classList.remove('on');drClose();document.body.classList.remove('fp-open-s')}});
