@@ -18,12 +18,13 @@ Nothing here has been invented. Each item is either left out of the site or word
 | Financing partner, if any | Financing page and FAQ |
 | Workmanship warranty terms | Process and warranty page |
 | Review count and real reviews | Only then can reviews or `aggregateRating` be added |
-| Project photos, neighborhoods, family shots | `PHOTOS-NEEDED.md` |
+| Project photos, neighborhoods, family shots | `PHOTOS-NEEDED.md`. The crane photo in the gallery is confirmed as an iTop job; its model and area are still needed |
 | "2–6 weeks", "within one business day", "every call answered by someone who builds pools" | Throughout |
 | HOA approval times and permit office experience | Permits guide, city pages |
 | Barrier Reef dealer finder listing | Confirm iTop is listed, since the site says "authorized dealer" throughout |
 | GA4, GTM, Search Console and Bing IDs | `src/data/site.json` |
 | GoHighLevel webhook | `leadWebhook` in `src/data/site.json` |
+| ~~Permission to use Barrier Reef's photos~~ | Confirmed 7 November 2026: Fabio has permission through his related company. The gallery uses all 425 photos |
 | Privacy and terms review | A short plain-English draft is live. Have a professional review it |
 
 ## City pages

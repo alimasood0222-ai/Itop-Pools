@@ -278,7 +278,7 @@ ${shellBottom}
   const FINN = { aquamarine: 'Aquamarine', arctic: 'Arctic', california: 'California', eveningsky: 'Evening Sky', ocean: 'Ocean', sandstone: 'Sandstone', silvermist: 'Silver Mist' };
   const FINSW = Object.fromEntries(Object.keys(FINN).map(k => { const m = finishSrc.match(new RegExp(`${k}:\\{[^}]*sw:\\['(#[0-9a-f]+)','(#[0-9a-f]+)'\\]`)); if (!m) errors.push('no swatch for ' + k); return [k, m ? [m[1], m[2]] : ['#ccc', '#999']]; }));
   const SHAPEN = { rect: 'Rectangular', free: 'Freeform', kidney: 'Kidney', roman: 'Roman', plunge: 'Plunge' };
-  const OTHERN = { l20: 'Up to 20 ft long', l30: '21 to 30 ft long', l40: '31 to 40 ft long', spa: 'With a spa', aerial: 'Aerial views', outdoor: 'Outdoor living', install: 'Installation' };
+  const OTHERN = { l20: 'Up to 20 ft long', l30: '21 to 30 ft long', l40: '31 to 40 ft long', spa: 'With a spa', aerial: 'Aerial views', outdoor: 'Outdoor living', install: 'iTop installs' };
   const gModel = {};
   for (const m of models) { const L = Math.max(...m.sizes.map(z => z.L)); gModel[m.id] = [m.n, [m.s, ...(m.cat === 'plunge' && m.s !== 'plunge' ? ['plunge'] : [])], L <= 20 ? 'l20' : L <= 30 ? 'l30' : 'l40']; }
   for (const g of gallery) { if (g.m && !gModel[g.m]) errors.push('gallery: unknown model ' + g.m); if (g.c && !FINN[g.c]) errors.push('gallery: unknown finish ' + g.c); if (!fs.existsSync(path.join(SRC, 'assets/gallery', g.f + '-640.webp'))) errors.push('gallery: missing ' + g.f); }
