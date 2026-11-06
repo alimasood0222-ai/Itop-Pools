@@ -412,13 +412,13 @@
   <section class="studio-page">
     <div class="wrap">
       <div class="crumbs"><a href="/">Home</a><span>/</span><b>3D design studio</b></div>
-      <div class="sp-head"><h1>3D design studio — your backyard, live.</h1><p>Drag to orbit, scroll to zoom. When it looks right, send it to us and we'll draw it to your yard's survey.</p></div>
+      <div class="sp-head"><h1>3D design studio — your backyard, live.</h1><p>Pick any Barrier Reef model and size, choose a spa and drag it where you want it. Drag to look around, scroll to zoom. When it looks right, send it to us and we'll draw it to your yard's survey.</p></div>
       <div class="portal" data-p="studio"></div>
       <div class="sp-tips">
-        <div><b>01</b><span>Choose from {{MODELCOUNT}} real Barrier Reef shells. Lengths and widths are to scale, outlines are simplified.</span></div>
+        <div><b>01</b><span>Choose from {{MODELCOUNT}} real Barrier Reef shells in every size. Lengths and widths are to scale, outlines are simplified.</span></div>
         <div><b>02</b><span>Try all seven finishes. They're simulated, so see real samples on the visit.</span></div>
-        <div><b>03</b><span>Switch to night to preview LED lighting and the lanai glow.</span></div>
-        <div><b>04</b><span>Send the design and we'll bring the 3D drawing for your real yard.</span></div>
+        <div><b>03</b><span>Pick one of four Barrier Reef spas and drag it into place. Against the pool it spills over, out on the deck it stands alone.</span></div>
+        <div><b>04</b><span>Switch to night to preview LED lighting, then send the design and we'll bring the 3D drawing for your real yard.</span></div>
       </div>
     </div>
   </section>
@@ -743,19 +743,20 @@
         <div class="views" id="views"><button data-v="aerial">Aerial</button><button data-v="poolside" class="on">Poolside</button><button data-v="lanai">From the lanai</button><button class="fs" id="fsBtn" aria-label="Full screen"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div>
       </div>
       <div class="st-bot">
-        <div class="hint3d" id="cfgHint"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12m0-1.5v-2a1.5 1.5 0 0 1 3 0V12m0-1a1.5 1.5 0 0 1 3 0v1m0 0a1.5 1.5 0 0 1 3 0V16a6 6 0 0 1-6 6h-2a6 6 0 0 1-5-2.7L5 16.5a1.5 1.5 0 0 1 2.5-1.7L8 15.5"/></svg>Drag to walk around · scroll to zoom</div>
+        <div class="hint3d" id="cfgHint"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12m0-1.5v-2a1.5 1.5 0 0 1 3 0V12m0-1a1.5 1.5 0 0 1 3 0v1m0 0a1.5 1.5 0 0 1 3 0V16a6 6 0 0 1-6 6h-2a6 6 0 0 1-5-2.7L5 16.5a1.5 1.5 0 0 1 2.5-1.7L8 15.5"/></svg>Drag to look around · drag the spa to move it</div>
         <div class="lightseg" id="lightSeg"><button data-v="day" class="on">Day</button><button data-v="sunset">Sunset</button><button data-v="night">Night</button></div>
       </div>
     </div>
     <aside class="panel">
       <div class="panel-h"><b>Your pool</b><small>Configuration</small></div>
       <div class="panel-b">
-        <div class="stp"><div class="stp-h"><i>01</i>Model<em id="mName">Whitsunday</em></div><div class="mlist" id="mList"></div></div>
+        <div class="stp"><div class="stp-h"><i>01</i>Model<em id="mName">Whitsunday</em></div><div class="mlist" id="mList"></div><div class="msizes" id="mSizes" hidden></div></div>
         <div class="stp"><div class="stp-h"><i>02</i>Barrier Reef finish<em id="finName">Ocean</em></div><div class="swatches" id="optFinish"></div></div>
         <div class="stp"><div class="stp-h"><i>03</i>Deck<em id="deckName">Travertine</em></div><div class="decks" id="optDeck">
           <button class="dk on" data-v="travertine"><span></span><b>Travertine</b></button><button class="dk" data-v="porcelain"><span></span><b>Porcelain</b></button><button class="dk" data-v="pavers"><span></span><b>Pavers</b></button></div></div>
         <div class="stp"><div class="stp-h"><i>04</i>Features</div><div class="toggles" id="optToggles">
-          <div class="tg on" data-k="spa" role="switch" aria-checked="true" tabindex="0"><span>Spillover spa<small>Raised spa with sheer descent</small></span><i class="sw-t"></i></div>
+          <div class="tg on" data-k="spa" role="switch" aria-checked="true" tabindex="0"><span>Spa<small>Raised spa with a spillover into the pool</small></span><i class="sw-t"></i></div>
+          <div class="spa-opts" id="spaOpts"><div class="spa-types" id="spaTypes"><button type="button" data-v="cube" class="on"><b>Cube</b><small>9' × 9'</small></button><button type="button" data-v="horseshoe"><b>Horseshoe</b><small>9'3&quot; × 9'6&quot;</small></button><button type="button" data-v="oval"><b>Oval</b><small>8'5&quot; × 8'3&quot;</small></button><button type="button" data-v="resort"><b>Resort</b><small>15'8&quot; × 9'</small></button></div><p class="spa-where"><span id="spaWhere">At the pool edge, spilling into the pool.</span> <button type="button" id="spaReset">Reset position</button></p></div>
           <div class="tg on" data-k="ledge" role="switch" aria-checked="true" tabindex="0"><span>Tanning ledge<small>Molded sun shelf for loungers</small></span><i class="sw-t"></i></div>
           <div class="tg" data-k="cage" role="switch" aria-checked="false" tabindex="0"><span>Screen enclosure<small>Hurricane-code aluminum cage</small></span><i class="sw-t"></i></div>
         </div></div>

@@ -220,7 +220,51 @@ function PoolScene(canvas,opts){
  const pool=new T.Group();scene.add(pool);
  const W=waterMat(),SW=waterMat(),SP=spillMat();S.mats={W,SW,SP,M};
  SW.uniforms.uScale.value=1.4;
- S.state={shape:'rect',finish:'ocean',deck:'travertine',spa:true,ledge:true,cage:false,sx:1,sy:1};
+ S.state={shape:'rect',finish:'ocean',deck:'travertine',spa:true,spaType:'cube',ledge:true,cage:false,sx:1,sy:1};
+
+ // Spa: Barrier Reef spa shells at true size (1 ft = .3 units, so a 40' pool is 12 units long).
+ // It lives in its own group so it can be dragged without rebuilding the pool.
+ const FT=.3;
+ const SPAS={cube:{w:9,d:9,k:'rect'},horseshoe:{w:9.5,d:9.25,k:'horse'},oval:{w:8.42,d:8.25,k:'oval'},resort:{w:15.67,d:9,k:'rect'}};
+ // Outline in the spa's own frame: x along the pool edge, +z towards the pool (the spillover side)
+ function spaOutline(k,w,d){const p=[];
+  if(k==='oval'){for(let i=0;i<48;i++){const a=i/48*Math.PI*2;p.push([Math.cos(a)*w/2,Math.sin(a)*d/2])}}
+  else if(k==='horse'){const r=w/2,cz=-d/2+r;p.push([w/2,d/2],[-w/2,d/2]);for(let i=0;i<=24;i++){const a=Math.PI+i/24*Math.PI;p.push([Math.cos(a)*r,cz+Math.sin(a)*r])}}
+  else{const r=Math.min(.35,w/4),c=(cx,cz,a0)=>{for(let i=0;i<=6;i++){const a=a0+i/6*Math.PI/2;p.push([cx+Math.cos(a)*r,cz+Math.sin(a)*r])}};
+   c(w/2-r,d/2-r,0);c(-w/2+r,d/2-r,Math.PI/2);c(-w/2+r,-d/2+r,Math.PI);c(w/2-r,-d/2+r,-Math.PI/2)}
+  return p.map(([x,z])=>new T.Vector2(x,-z))} // extr() maps shape y to world -z
+ const spaG=new T.Group();scene.add(spaG);S.spaG=spaG;
+ const spa={x:null,z:null,ang:0,attached:true};S.spa=spa;
+ let spaSheet=null,spaHalf=1.35,spaR=1.4;
+ function buildSpa(){spaG.children.slice().forEach(o=>{spaG.remove(o);o.traverse(m=>{if(m.geometry)m.geometry.dispose()})});
+  const t=SPAS[S.state.spaType]||SPAS.cube,w=t.w*FT,d=t.d*FT;spaHalf=d/2;spaR=Math.max(w,d)/2;
+  const out=spaOutline(t.k,w,d),inn=spaOutline(t.k,w-.4,d-.4),cop=spaOutline(t.k,w+.24,d+.24);
+  const ws=shapeFrom(out);ws.holes.push(pathFrom(inn));
+  const wall=new T.Mesh(extr(ws,.95),M.stone);wall.position.y=-.25;wall.castShadow=wall.receiveShadow=true;spaG.add(wall);
+  const cs=shapeFrom(cop);cs.holes.push(pathFrom(inn));
+  const rim=new T.Mesh(extr(cs,.08),M.coping);rim.position.y=.7;rim.castShadow=true;spaG.add(rim);
+  const floor=new T.Mesh(extr(shapeFrom(inn),.05),M.ledge);floor.position.y=-.1;spaG.add(floor);
+  const wg=new T.ShapeGeometry(shapeFrom(inn),24);wg.rotateX(-Math.PI/2);const sw=new T.Mesh(wg,SW);sw.position.y=.66;sw.renderOrder=3;spaG.add(sw);
+  spaSheet=new T.Mesh(new T.PlaneGeometry(Math.min(w*.55,1.7),.84),SP);spaSheet.position.set(0,.28,d/2+.13);spaSheet.renderOrder=4;spaG.add(spaSheet)}
+ const inPool=(x,z)=>{const P=S.poolW;let c=false;for(let i=0,j=P.length-1;i<P.length;j=i++){const a=P[i],b=P[j];if((a.z>z)!==(b.z>z)&&x<(b.x-a.x)*(z-a.z)/(b.z-a.z)+a.x)c=!c}return c};
+ function nearestEdge(x,z){const P=S.poolW;let best=null;
+  for(let i=0;i<P.length;i++){const a=P[i],b=P[(i+1)%P.length],ex=b.x-a.x,ez=b.z-a.z,L2=ex*ex+ez*ez||1;const t=Math.max(0,Math.min(1,((x-a.x)*ex+(z-a.z)*ez)/L2));
+   const qx=a.x+ex*t,qz=a.z+ez*t,dd=Math.hypot(x-qx,z-qz);if(!best||dd<best.d)best={d:dd,qx,qz,ex,ez}}
+  // Outward normal: the edge's perpendicular that points away from the pool's centre (the origin)
+  let nx=best.ez,nz=-best.ex;const l=Math.hypot(nx,nz)||1;nx/=l;nz/=l;if(nx*best.qx+nz*best.qz<0){nx=-nx;nz=-nz}
+  best.nx=nx;best.nz=nz;return best}
+ const DECK={x0:-10,x1:10,z0:-6.8,z1:7.1};
+ // Keeps the spa on the deck and out of the water. Near the pool it snaps to the edge and shows the spillover.
+ // snap: 'force' always attaches to the nearest edge, true uses a small magnetic zone, false only pushes it out of the water.
+ S.placeSpa=function(x,z,snap){
+  for(let k=0;k<3;k++){x=Math.min(DECK.x1-spaR,Math.max(DECK.x0+spaR,x));z=Math.min(DECK.z1-spaR,Math.max(DECK.z0+spaR,z));
+   const e=nearestEdge(x,z),gap=inPool(x,z)?-e.d:e.d,need=spaHalf+.12;
+   if(snap==='force'||gap<need+(snap?.5:0)){x=e.qx+e.nx*need;z=e.qz+e.nz*need;spa.attached=true}else spa.attached=false}
+  const e=nearestEdge(x,z);spa.x=x;spa.z=z;spa.ang=Math.atan2(-e.nx,-e.nz);
+  spaG.position.set(x,0,z);spaG.rotation.y=spa.ang;if(spaSheet)spaSheet.visible=spa.attached;spaG.visible=!!S.state.spa;
+  S.onSpaMove&&S.onSpaMove(spa)};
+ S.resetSpa=function(){spa.x=null;S.build()};
+
  S.build=function(){
   pool.children.slice().forEach(o=>{pool.remove(o);o.traverse&&o.traverse(m=>{if(m.geometry)m.geometry.dispose()})});
   const st=S.state;const pts=poolPts(st.shape,st.sx,st.sy);
@@ -238,13 +282,10 @@ function PoolScene(canvas,opts){
   // ledge
   if(st.ledge){const lx=-6*st.sx+.12;const lw=Math.max(1.2,2.1*st.sx);const lh=(st.shape==='rect'?4.5:3.0)*st.sy;
     const l=new T.Mesh(new T.BoxGeometry(lw,1.45,lh),M.ledge);l.position.set(lx+lw/2,-.38-.725,0);pool.add(l);}
-  // spa
-  if(st.spa){const ex=3*st.sx;let edge=-1e9;pts.forEach(p=>{if(Math.abs(p.x-ex)<.6&&p.y>edge)edge=p.y});if(edge<0)edge=2.4*st.sy;edge-=.04;const sg=new T.Group();const s=2.5;
-    const box=new T.Mesh(new T.BoxGeometry(s,.95,s),M.stone);box.position.set(0,.22,-s/2);box.castShadow=box.receiveShadow=true;sg.add(box);
-    [[0,-s,1],[0,0,1],[-s/2,-s/2,0],[s/2,-s/2,0]].forEach(([x,z,hz])=>{const c=new T.Mesh(new T.BoxGeometry(hz?s+.2:.2,.08,hz?.2:s+.2),M.coping);c.position.set(x,.72,z);c.castShadow=true;sg.add(c)});
-    const sw=new T.Mesh(new T.PlaneGeometry(s-.25,s-.25),SW);sw.rotation.x=-Math.PI/2;sw.position.set(0,.71,-s/2);sw.renderOrder=3;sg.add(sw);
-    const sp=new T.Mesh(new T.PlaneGeometry(1.5,.84),SP);sp.position.set(0,.28,.11);sp.renderOrder=4;sg.add(sp);
-    sg.position.set(ex,0,-edge);pool.add(sg)}
+  // spa: placed after the pool is built (see placeSpa); an attached spa follows the new pool edge
+  S.poolW=pts.map(p=>({x:p.x,z:-p.y}));
+  if(!spaG.children.length)buildSpa();
+  if(spa.x===null){S.placeSpa(3*st.sx,-2.4*st.sy-2,'force')}else S.placeSpa(spa.x,spa.z,spa.attached?'force':false);
   S.cage.visible=st.cage;
   // pool LEDs
   const xs=pts.reduce((a,p)=>[Math.min(a[0],p.x),Math.max(a[1],p.x)],[1e9,-1e9]);
@@ -253,7 +294,7 @@ function PoolScene(canvas,opts){
   const f=FINISH[st.finish];M.basin.color.set(f.basin);M.ledge.color.set(f.basin);[W,SW].forEach(m=>{m.uniforms.uDeep.value.set(f.deep);m.uniforms.uShallow.value.set(f.shallow)});
   M.deck.map=deckTex(st.deck);M.deck.needsUpdate=true;patio.material=M.deck;
  };
- S.set=function(o){Object.assign(S.state,o);S.build()};
+ S.set=function(o){const newType=o.spaType&&o.spaType!==S.state.spaType;Object.assign(S.state,o);if(newType)buildSpa();S.build()};
  S.build();
 
  // time of day blend
@@ -282,10 +323,21 @@ function PoolScene(canvas,opts){
  if(!opts.hero){const v=VIEWS.poolside;ctl.theta=ctl.tt=v.t;ctl.phi=ctl.tp=v.p;ctl.rad=ctl.tr=v.r;ctl.target.set(0,v.y,v.z)}
  let mx=0,my=0;
  if(opts.hero){addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5},{passive:true})}
- if(opts.interactive){let drag=null;
-  canvas.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,t:ctl.tt,p:ctl.tp};canvas.setPointerCapture(e.pointerId);S.onInteract&&S.onInteract()});
-  canvas.addEventListener('pointermove',e=>{if(!drag)return;ctl.tt=drag.t-(e.clientX-drag.x)*.006;ctl.tp=Math.min(1.45,Math.max(.3,drag.p-(e.clientY-drag.y)*.005))});
-  const end=()=>drag=null;canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);
+ if(opts.interactive){let drag=null,spaDrag=null;
+  // Pressing on the spa moves the spa; pressing anywhere else orbits the camera
+  const ray=new T.Raycaster(),ndc=new T.Vector2(),ground=new T.Plane(new T.Vector3(0,1,0),0),hit=new T.Vector3();
+  const aim=e=>{const r=canvas.getBoundingClientRect();ndc.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(ndc,cam)};
+  const onSpa=e=>{if(!S.state.spa||!spaG.visible)return false;aim(e);return ray.intersectObject(spaG,true).length>0};
+  const onGround=e=>{aim(e);return ray.ray.intersectPlane(ground,hit)?hit.clone():null};
+  S.spaScreen=()=>{const v=new T.Vector3(spa.x,.7,spa.z).project(cam),r=canvas.getBoundingClientRect();return{x:r.left+(v.x+1)/2*r.width,y:r.top+(1-v.y)/2*r.height}};
+  canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);S.onInteract&&S.onInteract();
+   if(onSpa(e)){const g=onGround(e);if(g){spaDrag={dx:spa.x-g.x,dz:spa.z-g.z};S.autospin=false;canvas.style.cursor='grabbing';return}}
+   drag={x:e.clientX,y:e.clientY,t:ctl.tt,p:ctl.tp}});
+  canvas.addEventListener('pointermove',e=>{
+   if(spaDrag){const g=onGround(e);if(g)S.placeSpa(g.x+spaDrag.dx,g.z+spaDrag.dz,true);return}
+   if(!drag){if(e.pointerType==='mouse')canvas.style.cursor=onSpa(e)?'move':'';return}
+   ctl.tt=drag.t-(e.clientX-drag.x)*.006;ctl.tp=Math.min(1.45,Math.max(.3,drag.p-(e.clientY-drag.y)*.005))});
+  const end=()=>{if(spaDrag){spaDrag=null;canvas.style.cursor='';S.onSpaDrop&&S.onSpaDrop(spa)}drag=null};canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);
   canvas.addEventListener('wheel',e=>{e.preventDefault();ctl.tr=Math.min(42,Math.max(8,ctl.tr+e.deltaY*.02));S.onInteract&&S.onInteract()},{passive:false});
   let pinch=0;canvas.addEventListener('touchmove',e=>{if(e.touches.length===2){const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);if(pinch)ctl.tr=Math.min(38,Math.max(12,ctl.tr-(d-pinch)*.05));pinch=d}},{passive:true});
   canvas.addEventListener('touchend',()=>pinch=0);

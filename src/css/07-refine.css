@@ -119,3 +119,18 @@ footer .f-h,.mega h5,.tr-brand small,.q-card>small,.eo-card>small,.mini small,.p
 
 /* Model page: link to that model in the gallery */
 #mdPhoto figcaption a{display:inline-block;padding:10px 4px;margin:-10px 0;color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+/* 3D studio: size versions and spa options */
+.msizes{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.msizes button,.spa-types button{display:flex;flex-direction:column;align-items:flex-start;gap:1px;padding:8px 12px;border-radius:10px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#fff;font-size:13px;text-align:left;min-height:44px}
+.msizes button small,.spa-types button small{font-size:11.5px;color:rgba(255,255,255,.6)}
+.msizes button.on,.spa-types button.on{border-color:var(--sky);background:rgba(125,211,252,.12)}
+.msizes button:hover,.spa-types button:hover{border-color:rgba(255,255,255,.3)}
+.spa-opts{padding:10px 0 4px}
+.spa-opts[hidden]{display:none}
+.spa-types{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.spa-where{margin-top:8px;font-size:12.5px;color:rgba(255,255,255,.72);line-height:1.45}
+.spa-where button{display:inline-block;padding:8px 2px;color:var(--sky);text-decoration:underline;text-underline-offset:3px;font-size:12.5px}
+@media (max-width:480px){.spa-types{grid-template-columns:repeat(2,1fr)}}
+/* The 3D hint is information only, so it must not block dragging */
+.hint3d{pointer-events:none!important}
