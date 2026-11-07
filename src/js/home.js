@@ -22,7 +22,7 @@ qzGo(0);
 (()=>{const tr=$('#r2Track');let list=MODELS.slice(),act=0,raf=0,cat='all';
  const CATS=[['all','All'],['rect','Rectangular'],['free','Freeform'],['kidney','Kidney'],['roman','Roman'],['plunge','Plunge & compact']];
  $('#r2Fil').innerHTML=CATS.map(([k,l])=>`<button data-k="${k}" class="${k==='all'?'on':''}">${l}<sup>${k==='all'?MODELS.length:MODELS.filter(m=>m.cat===k).length}</sup></button>`).join('');
- function build(){tr.innerHTML=list.map((m,i)=>`<div class="r2c" data-i="${i}" role="group" aria-label="${m.n}">${m.feats.includes('new')?'<span class="tag">New 2026</span>':''}<div class="r2p r2ph">${pic(m.photo,{sizes:'(max-width:680px) 80vw,420px'})}<span class="r2s">${m.Ls} × ${m.Ws}</span></div><div class="r2n"><b>${m.n}</b><small>${m.t}</small></div></div>`).join('');
+ function build(){tr.innerHTML=list.map((m,i)=>`<div class="r2c" data-i="${i}" role="group" aria-label="${m.n}">${m.feats.includes('new')?'<span class="tag">New 2026</span>':''}<div class="r2p r2br"><img src="/models-br/${m.id}.webp" alt="${m.n} fiberglass pool shape" width="400" height="200" loading="lazy" decoding="async"><span class="r2s">${m.Ls} × ${m.Ws}</span></div><div class="r2n"><b>${m.n}</b><small>${m.t}</small></div></div>`).join('');
   $('#r2Ticks').innerHTML=list.map((m,i)=>`<button data-i="${i}" aria-label="${m.n}"><i></i><span>${m.n}</span></button>`).join('');
   $('#r2Tot').textContent='/ '+String(list.length).padStart(2,'0');
   $$('.r2c',tr).forEach(c=>c.onclick=()=>{if(moved)return;const i=+c.dataset.i;if(i===act)location.href='/fiberglass-pools/'+list[i].id+'/';else to(i)});

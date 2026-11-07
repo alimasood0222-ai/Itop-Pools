@@ -228,3 +228,9 @@ footer .f-h,.mega h5,.tr-brand small,.q-card>small,.eo-card>small,.mini small,.p
   .bm-new~.bm-body{padding-top:36px}
   .bm-n{font-size:26px;line-height:2rem}
 }
+
+/* Home carousel: Barrier Reef shell drawings on a light panel, as on the Pools page */
+.r2p.r2br{background:#faf9f5;padding:22px 26px;place-items:center}
+.r2p.r2br img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 14px rgba(7,14,43,.18));transition:transform .8s cubic-bezier(.19,1,.22,1)}
+.r2c.on .r2p.r2br img{transform:scale(1.04)}
+.r2p.r2br .r2s{z-index:2;color:#070e2b;background:rgba(255,255,255,.9);border-color:rgba(7,14,43,.12);text-shadow:none}
