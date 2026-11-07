@@ -399,3 +399,10 @@ footer .f-col a:hover,footer .f-col a:focus-visible{color:#fff}
 .r2n small,.chip small,.md-sw button,.q-call small,.ab-more a span,.ac .meta span,.es-models button b,.eb span,.eb b,.q-meta span,.q-enter{font-size:13.5px!important}
 .hf span,.tri small,.feat-row span{font-size:14px!important}
 @media (max-width:640px){.hs-cap{font-size:13px!important}}
+
+/* Shell pickers (cost estimator, quote form, finder results) show the Barrier Reef drawings */
+.br-pl{display:block;width:100%;height:auto;object-fit:contain}
+.es-models button .br-pl{height:48px}
+.q-models button .br-pl{height:50px}
+.fd-item .pl .br-pl{width:86px;height:46px}
+@media (max-width:640px){.fd-item .pl .br-pl{width:62px;height:40px}}

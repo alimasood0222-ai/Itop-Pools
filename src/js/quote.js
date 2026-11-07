@@ -4,7 +4,7 @@ const QLEFT=['About 90 seconds','About 75 seconds left','About a minute left','A
 const PL={pool:'New pool',spa:'Spa',pavers:'Pavers & deck',kitchen:'Outdoor kitchen',enclosure:'Screen enclosure',remodel:'Remodel'};
 const WL={asap:'As soon as possible','3-6':'3–6 months','6-12':'6–12 months',later:'Just exploring'},BL={u60:'Under $60k','60-80':'$60k–$80k','80-100':'$80k–$100k','100+':'$100k+'};
 const ZIPAREA={'320':'St. Johns County & the Beaches','321':'Clay & Nassau area','322':'Jacksonville / Duval'};
-later(()=>{$('#qModels').innerHTML='<button type="button" class="ns" data-id="none"><span class="ns-ic">?</span><span><b>Help me choose</b><small>We\'ll recommend shells after measuring</small></span></button>'+MODELS.map(m=>`<button type="button" data-id="${m.id}"><svg viewBox="0 0 140 60"><path d="${planPath(m.s,m.L,m.W)}" fill="#1e9be0" stroke="#bfe9fd" stroke-width="4"/></svg><b>${m.n}</b><small>${m.Ls} × ${m.Ws}</small></button>`).join('');
+later(()=>{$('#qModels').innerHTML='<button type="button" class="ns" data-id="none"><span class="ns-ic">?</span><span><b>Help me choose</b><small>We\'ll recommend shells after measuring</small></span></button>'+MODELS.map(m=>`<button type="button" data-id="${m.id}"><img class="br-pl" src="/models-br/${m.id}.webp" alt="" width="140" height="70" loading="lazy" decoding="async"><b>${m.n}</b><small>${m.Ls} × ${m.Ws}</small></button>`).join('');
 $$('#qModels button').forEach(b=>b.onclick=()=>{Q.model=b.dataset.id;qUpd()});qUpd()});
 // days
 (()=>{const d=new Date();const out=[];while(out.length<10){d.setDate(d.getDate()+1);if(d.getDay()!==0)out.push(new Date(d))}

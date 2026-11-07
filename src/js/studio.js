@@ -4,7 +4,7 @@ const SPA_N={cube:'Cube',horseshoe:'Horseshoe',oval:'Oval',resort:'Resort'};
 /* Tremron paver lines, colors and coping (src/data/pavers.json) */
 const PAVERS={{PAVERSJSON}};
 /* Each model's outline, traced from its Barrier Reef drawing (src/data/outlines.json), so the 3D pool has the same shape as the card */
-const OUTLINES={{OUTLINESJSON}};
+
 const pvLine=id=>PAVERS.lines.find(l=>l.id===id),pvColor=(l,id)=>l.colors.find(c=>c.id===id)||l.colors[0];
 const st={model:byId('whitsunday'),size:0,finish:'ocean',deck:'Travertine',deckV:'travertine',feats:{spa:true,ledge:true,cage:false},spaType:'cube',spaAttached:true,paverLine:'olde-towne',paverColor:'sand-dune',coping:null,light:'day',view:'poolside',touched:false};
 st.size=st.model.def;

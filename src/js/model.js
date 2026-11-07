@@ -1,7 +1,7 @@
 let mdM=null,mdFin='california',mdZ=0;
 const mdS=()=>({...mdM,...mdM.sizes[mdZ]});
 function mdPlan(){const m=mdS();const x1=70-60*m.L/40,x2=70+60*m.L/40;const hw=(m.s==='rect'?24:25.5)*m.W/16;const yT=30-hw,yB=30+hw;
- const svg=planSVG(m,{fin:mdFin,dark:1,attr:'class="fillw" x="0" y="0" width="140" height="60"'});const p=planPath(m.s,m.L,m.W);
+ const svg=planSVG(m,{fin:mdFin,dark:1,attr:'class="fillw" x="0" y="0" width="140" height="60"'});const p=planPath(m.s,m.L,m.W,m.id);
  $('#mdPlan').innerHTML=`<svg viewBox="-4 -6 156 76"><path class="draw" d="${p}" fill="none" stroke="#7dd3fc" stroke-width=".7"/>${svg}
   <g class="fillw"><path class="dl" d="M${x1} ${yT-5}H${x2}M${x1} ${yT-7}v4M${x2} ${yT-7}v4"/><rect x="${70-8}" y="${yT-8.2}" width="16" height="5" rx="2.5" fill="#04101f"/><text class="dt" x="70" y="${yT-4.6}" text-anchor="middle">${m.Ls}</text>
   <path class="dl" d="M${x2+5} ${yT}V${yB}M${x2+3} ${yT}h4M${x2+3} ${yB}h4"/><rect x="${x2+0.5}" y="27.5" width="9" height="5" rx="2.5" fill="#04101f"/><text class="dt" x="${x2+5}" y="31.1" text-anchor="middle" style="font-size:3px">${m.Ws}</text></g></svg><span class="scale">PLAN VIEW · ${FIN_META[mdFin].n.toUpperCase()} FINISH</span>`}
