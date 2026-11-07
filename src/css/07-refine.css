@@ -234,3 +234,97 @@ footer .f-h,.mega h5,.tr-brand small,.q-card>small,.eo-card>small,.mini small,.p
 .r2p.r2br img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 14px rgba(7,14,43,.18));transition:transform .8s cubic-bezier(.19,1,.22,1)}
 .r2c.on .r2p.r2br img{transform:scale(1.04)}
 .r2p.r2br .r2s{z-index:2;color:#070e2b;background:rgba(255,255,255,.9);border-color:rgba(7,14,43,.12);text-shadow:none}
+
+/* Footer: five quiet columns, everything listed vertically */
+footer{padding:84px 0 32px;font-size:15px;color:rgba(255,255,255,.68)}
+.f-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr 1.35fr;gap:40px 48px}
+.f-brand p{margin-top:20px;max-width:30ch;line-height:1.65}
+footer .f-h{font-family:var(--display);font-size:17px!important;font-weight:600;letter-spacing:0;text-transform:none;color:#fff;margin:4px 0 20px}
+footer .f-col ul{list-style:none;display:grid;gap:14px;padding:0;margin:0}
+footer .f-col a{color:rgba(255,255,255,.68);transition:color .2s}
+footer .f-col a:hover,footer .f-col a:focus-visible{color:#fff}
+.f-contact li{display:grid;grid-template-columns:20px 1fr;gap:12px;align-items:start;line-height:1.5}
+.f-contact svg{width:19px;height:19px;color:#4fb3f0;margin-top:2px}
+.f-contact address{font-style:normal}
+.f-bot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:64px;padding-top:26px;border-top:1px solid rgba(255,255,255,.08);font-size:14px;color:rgba(255,255,255,.55)}
+.f-bot p{margin:0}
+.f-legal{display:flex;align-items:center;gap:14px}
+.f-legal a{color:rgba(255,255,255,.55)}
+.f-legal a:hover{color:#fff}
+.f-legal span{color:rgba(255,255,255,.2)}
+.f-note{margin-top:14px;font-size:12.5px;line-height:1.55;color:rgba(255,255,255,.4)}
+@media (max-width:1100px){.f-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.f-brand{grid-column:1/-1}}
+@media (max-width:680px){
+  footer{padding:60px 0 110px}
+  .f-grid{grid-template-columns:1fr 1fr;gap:36px 24px}
+  .f-contact{grid-column:1/-1}
+  .f-bot{flex-direction:column;align-items:flex-start;margin-top:44px}
+}
+.bm-head img.bm-logo{width:190px;height:auto}
+@media (max-width:680px){.bm-head img.bm-logo{width:130px}}
+
+/* Free design form: easy on every screen */
+.q-page{overflow:clip}
+/* Continue stays on screen on tablets and desktops (phones already have a fixed bar) */
+@media (min-width:681px){
+  .qform .q-nav{position:sticky;bottom:0;z-index:20;margin:36px -18px 0;padding:14px 18px calc(14px + env(safe-area-inset-bottom));background:rgba(4,16,31,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,.12);border-radius:18px 18px 0 0}
+}
+/* Phones: the first field shows on the first screen; the brief moves below the form */
+@media (max-width:680px){
+  .q-page .crumbs,#qIntro{display:none!important}
+  .q-side{order:1}
+  .q-prog{margin:4px 0 22px}
+  .q-h{font-size:clamp(28px,8vw,34px)}
+  .q-sub{font-size:15px;margin-top:8px}
+}
+/* Bigger tap areas */
+.consent{display:flex;gap:12px;align-items:flex-start;min-height:44px;padding:10px 0;cursor:pointer;line-height:1.45}
+.consent input{width:22px;height:22px;flex:none;margin:1px 0 0;accent-color:var(--sun)}
+.q-skip{min-height:44px;padding:10px 0;display:inline-flex;align-items:center}
+.q-skip.on{color:var(--sun);font-weight:700}
+.q-skip.on::before{content:"✓";margin-right:8px}
+
+/* Chat widget */
+.chat{position:fixed;right:20px;bottom:20px;z-index:75;display:flex;flex-direction:column;align-items:flex-end;gap:12px;pointer-events:none}
+.chat>*{pointer-events:auto}
+.chat-btn{width:60px;height:60px;border-radius:50%;background:var(--sun);color:var(--navy-900);display:grid;place-items:center;box-shadow:0 12px 28px -10px rgba(0,0,0,.55);transition:transform .2s,background .2s}
+.chat-btn:hover{background:var(--sun-600);transform:translateY(-2px)}
+.chat-btn svg{width:28px;height:28px;grid-area:1/1}
+.chat-i-close{opacity:0;transform:rotate(-45deg);transition:.2s}
+.chat-i-open{transition:.2s}
+.chat.open .chat-i-close{opacity:1;transform:none}
+.chat.open .chat-i-open{opacity:0;transform:scale(.6)}
+.chat-p{width:min(380px,calc(100vw - 32px));max-height:min(620px,calc(100vh - 130px));display:flex;flex-direction:column;background:#fff;color:var(--ink);border-radius:20px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(7,26,51,.55),0 0 0 1px rgba(7,26,51,.06)}
+.chat-p[hidden]{display:none}
+.chat-h{display:flex;align-items:center;gap:12px;padding:16px 16px 16px 18px;background:var(--navy-900);color:#fff}
+.chat-av{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center;flex:none}
+.chat-av svg{width:26px;height:26px}
+.chat-h b{display:block;font-size:16px}
+.chat-h small{display:block;font-size:12.5px;color:rgba(255,255,255,.7)}
+.chat-x{margin-left:auto;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff}
+.chat-x:hover{background:rgba(255,255,255,.1)}
+.chat-x svg{width:20px;height:20px}
+.chat-b{padding:16px 18px 18px;overflow:auto}
+.chat-msg{background:var(--ice);border-radius:4px 16px 16px 16px;padding:12px 14px;font-size:14.5px;line-height:1.5}
+.chat-quick{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
+.chat-quick a{display:inline-flex;align-items:center;min-height:44px;padding:8px 14px;border-radius:999px;border:1px solid #c9d6e2;font-size:13.5px;font-weight:600;color:var(--navy-800)}
+.chat-quick a:hover{border-color:var(--azure);color:var(--azure-600)}
+.chat-f{display:grid;gap:6px;margin-top:14px}
+.chat-f[hidden]{display:none}
+.chat-f label{font-size:13px;font-weight:600;color:var(--navy-800);margin-top:6px}
+.chat-f input,.chat-f textarea{width:100%;font:inherit;font-size:16px;padding:11px 12px;border:1px solid #c9d6e2;border-radius:10px;background:#fff;color:var(--ink);resize:vertical}
+.chat-f input:focus,.chat-f textarea:focus{outline:2px solid var(--azure);outline-offset:0;border-color:transparent}
+.chat-err{min-height:1px;color:#b42318;font-size:13px}
+.chat-f .btn{justify-content:center;margin-top:4px}
+.chat-fine{font-size:11.5px;color:var(--body);text-align:center}
+/* Phones: sit above the sticky call bar and the form's Continue bar; the panel becomes a bottom sheet */
+@media (max-width:680px){
+  .chat{right:14px;bottom:14px;transition:bottom .3s}
+  .mbar.on~.chat{bottom:88px}
+  .chat.above-nav{bottom:calc(84px + env(safe-area-inset-bottom))}
+  .chat-btn{width:54px;height:54px}
+  .chat.open{left:10px;right:10px;align-items:stretch}
+  .chat.open .chat-btn{align-self:flex-end}
+  .chat-p{width:auto;max-height:calc(100svh - 160px)}
+  .chat.open,.mbar.on~.chat.open,.chat.above-nav.open{bottom:12px;z-index:90}
+}

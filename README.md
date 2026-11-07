@@ -111,6 +111,16 @@ Put a GoHighLevel inbound webhook URL in `leadWebhook` in `src/data/site.json`, 
 
 While `leadWebhook` is empty, nothing is sent automatically. The last screen asks the visitor to email or call, so nobody believes a request went through when it didn't. Yard photos stay in the browser until a file upload endpoint exists.
 
+## Chat widget
+
+A chat button sits in the bottom right of every page. To connect GoHighLevel, either:
+- put GoHighLevel's chat widget ID in `ghlChatWidgetId` in `src/data/site.json`, and its official widget loads in place of ours, or
+- put an inbound webhook URL in `chatWebhook`, and messages from our panel post to it as JSON (`name`, `phone`, `message`, `page`, `source`).
+
+Until one is set, the panel asks the visitor to send their message by text or email, so nobody is told it went through when it didn't. Events: `chat_open`, `chat_message`, `chat_call`, `chat_free_design`.
+
+The free design form asks for contact details first. With `leadWebhook` set, it posts those details as soon as step 1 is done (`stage: contact_only`, plus a `lead_started` event), then the full lead at the end (`stage: complete`), so a visitor who stops partway is still a lead.
+
 ## Tracking
 
 Events pushed to `window.dataLayer`: `generate_lead` (model, budget, ZIP), `form_complete`, `phone_click`, `email_click`, `estimator_complete`, `design_3d_interaction`, `color_lab_use`. Add `gtm` or `ga4`, plus `googleVerify` and `bingVerify`, in `src/data/site.json`.

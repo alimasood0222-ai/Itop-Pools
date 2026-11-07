@@ -62,3 +62,33 @@ const _reveal=reveal;reveal=function(root){stagger(root);imgRev(root);_reveal(ro
 document.addEventListener('click',e=>{if(e.target.closest('a[href^="tel:"]'))track('phone_click');if(e.target.closest('a[href^="mailto:"]'))track('email_click');const h=e.target.closest('a[href^="#"]');if(h&&!h.hasAttribute('data-scroll')){e.preventDefault();const id=h.getAttribute('href').slice(1);const t=id&&document.getElementById(id);t&&t.scrollIntoView({behavior:'smooth'})}});
 /* a link to one question opens its answer */
 if(location.hash.startsWith('#q-')){const t=document.getElementById(location.hash.slice(1));if(t&&!t.classList.contains('open'))t.querySelector('button').click()}
+
+/* Chat widget, bottom right on every page. With SITE.ghlChatWidgetId set (src/data/site.json), GoHighLevel's own
+   chat widget loads instead. Otherwise messages post to SITE.chatWebhook, or, until that is set, the visitor sends
+   them by text or email, so nobody is told a message went through when it didn't. */
+(()=>{const box=$('#chat');if(!box)return;
+ if(SITE.ghlChatWidgetId){box.hidden=true;box.style.display='none';const load=()=>{const s=document.createElement('script');s.src='https://widgets.leadconnectorhq.com/loader.js';s.dataset.resourcesUrl='https://widgets.leadconnectorhq.com/chat-widget/loader.js';s.dataset.widgetId=SITE.ghlChatWidgetId;document.body.appendChild(s)};('requestIdleCallback' in window?requestIdleCallback:setTimeout)(load,2500);return}
+ if($('#qNav'))box.classList.add('above-nav');
+ const btn=$('#chatBtn'),panel=$('#chatPanel'),form=$('#chatForm'),done=$('#chatDone'),errEl=$('#chatErr'),name=$('#chatName'),ph=$('#chatPhone'),msg=$('#chatMsg');
+ const open=o=>{panel.hidden=!o;box.classList.toggle('open',o);btn.setAttribute('aria-expanded',o);btn.setAttribute('aria-label',o?'Close chat':'Chat with iTop Pools');if(o){track('chat_open');if(!isTouch)setTimeout(()=>(form.hidden?btn:name).focus(),60)}};
+ btn.onclick=()=>open(panel.hidden);$('#chatClose').onclick=()=>{open(false);btn.focus()};
+ addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden){open(false);btn.focus()}});
+ $$('.chat-quick a').forEach(a=>a.addEventListener('click',()=>track(a.dataset.track)));
+ ph.addEventListener('input',()=>{const d=ph.value.replace(/\D/g,'').replace(/^1/,'').slice(0,10);ph.value=d.length>6?`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`:d.length>3?`(${d.slice(0,3)}) ${d.slice(3)}`:d});
+ // Keep a half-written message if the visitor moves to another page
+ try{const d=JSON.parse(sessionStorage.getItem('itop_chat')||'{}');name.value=d.n||'';ph.value=d.p||'';msg.value=d.m||''}catch(e){}
+ form.addEventListener('input',()=>{errEl.textContent='';try{sessionStorage.setItem('itop_chat',JSON.stringify({n:name.value,p:ph.value,m:msg.value}))}catch(e){}});
+ const finish=html=>{form.hidden=true;done.hidden=false;done.innerHTML=html;try{sessionStorage.setItem('itop_chat','{}')}catch(e){}};
+ form.addEventListener('submit',e=>{e.preventDefault();
+  const n=name.value.trim(),p=ph.value,m=msg.value.trim(),bad=(el,t)=>{errEl.textContent=t;el.focus();return false};
+  if(!n)return bad(name,'Please add your name.');if(p.replace(/\D/g,'').length!==10)return bad(ph,'Enter a 10-digit mobile number so we can reply.');if(!m)return bad(msg,'Type a short message.');
+  track('chat_message');
+  const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;'),first=esc(n.split(' ')[0]),text=`Hi iTop Pools, this is ${n} (${p}). ${m}`;
+  const manual=lead=>finish(`<p class="chat-msg"><b>Almost there, ${first}.</b> ${lead} Tap below to send your message by text or email.</p><div class="chat-quick"><a href="sms:+19046852555?&body=${encodeURIComponent(text)}">Send as a text</a><a href="mailto:${SITE.leadEmail}?subject=${encodeURIComponent('Website chat from '+n)}&body=${encodeURIComponent(text)}">Send by email</a></div>`);
+  if(!SITE.chatWebhook){manual('');return}
+  $('#chatSend').disabled=true;
+  fetch(SITE.chatWebhook,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,phone:p,message:m,page:location.pathname,source:'website_chat'})})
+   .then(r=>{if(!r.ok)throw 0;finish(`<p class="chat-msg"><b>Thanks, ${first}.</b> Your message is with our crew. We'll reply by text or call during business hours.</p>`)})
+   .catch(()=>manual("We couldn't send that automatically."))
+   .finally(()=>{$('#chatSend').disabled=false})});
+})();
