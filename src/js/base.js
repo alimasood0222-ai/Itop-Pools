@@ -65,7 +65,8 @@ if(location.hash.startsWith('#q-')){const t=document.getElementById(location.has
 
 /* Chat widget, bottom right on every page. With SITE.ghlChatWidgetId set (src/data/site.json), GoHighLevel's own
    chat widget loads instead. Otherwise messages post to SITE.chatWebhook, or, until that is set, the visitor sends
-   them by text or email, so nobody is told a message went through when it didn't. */
+   them by text or email, so nobody is told a message went through when it didn't. Messages go to the /api/lead relay
+   (GoHighLevel via GHL_CHAT_WEBHOOK_URL or GHL_WEBHOOK_URL in Vercel) unless SITE.chatWebhook is set. */
 (()=>{const box=$('#chat');if(!box)return;
  if(SITE.ghlChatWidgetId){box.hidden=true;box.style.display='none';const load=()=>{const s=document.createElement('script');s.src='https://widgets.leadconnectorhq.com/loader.js';s.dataset.resourcesUrl='https://widgets.leadconnectorhq.com/chat-widget/loader.js';s.dataset.widgetId=SITE.ghlChatWidgetId;document.body.appendChild(s)};('requestIdleCallback' in window?requestIdleCallback:setTimeout)(load,2500);return}
  if($('#qNav'))box.classList.add('above-nav');
@@ -85,10 +86,9 @@ if(location.hash.startsWith('#q-')){const t=document.getElementById(location.has
   track('chat_message');
   const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;'),first=esc(n.split(' ')[0]),text=`Hi iTop Pools, this is ${n} (${p}). ${m}`;
   const manual=lead=>finish(`<p class="chat-msg"><b>Almost there, ${first}.</b> ${lead} Tap below to send your message by text or email.</p><div class="chat-quick"><a href="sms:+19046852555?&body=${encodeURIComponent(text)}">Send as a text</a><a href="mailto:${SITE.leadEmail}?subject=${encodeURIComponent('Website chat from '+n)}&body=${encodeURIComponent(text)}">Send by email</a></div>`);
-  if(!SITE.chatWebhook){manual('');return}
   $('#chatSend').disabled=true;
-  fetch(SITE.chatWebhook,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,phone:p,message:m,page:location.pathname,source:'website_chat'})})
+  fetch(SITE.chatWebhook||'/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({company:$('#chatCo').value,name:n,first_name:n.split(' ')[0],last_name:n.split(' ').slice(1).join(' '),phone:p,message:m,page:location.pathname,source:'website_chat'})})
    .then(r=>{if(!r.ok)throw 0;finish(`<p class="chat-msg"><b>Thanks, ${first}.</b> Your message is with our crew. We'll reply by text or call during business hours.</p>`)})
-   .catch(()=>manual("We couldn't send that automatically."))
+   .catch(()=>manual(''))
    .finally(()=>{$('#chatSend').disabled=false})});
 })();

@@ -105,11 +105,16 @@ To change a line's laying pattern, edit its `pattern` in `pavers.json`. Sizes ar
 | Brand colors | `:root` in `src/css/01-base.css` |
 | Overall look (radii, buttons, labels, section backgrounds) | `src/css/07-refine.css`, which loads last and overrides earlier files |
 
-## Enquiry form
+## Enquiry form and GoHighLevel
 
-Put a GoHighLevel inbound webhook URL in `leadWebhook` in `src/data/site.json`, then rebuild. The form posts its answers as JSON, including `utm_*`, `referrer` and `landing_page`, and fires `generate_lead` on success.
+The form and the chat post to `/api/lead` (`api/lead.js`, a Vercel function), which forwards each lead to GoHighLevel. To connect it:
+1. In GoHighLevel, create a workflow with the **Inbound Webhook** trigger and copy its URL.
+2. In Vercel, open the project, go to Settings > Environment Variables, and add `GHL_WEBHOOK_URL` with that URL. Optionally add `GHL_CHAT_WEBHOOK_URL` to send chat messages to a different workflow.
+3. Redeploy. Submit a test lead, then map the fields in the workflow (for example `first_name`, `last_name`, `phone`, `email`, `postal_code`).
 
-While `leadWebhook` is empty, nothing is sent automatically. The last screen asks the visitor to email or call, so nobody believes a request went through when it didn't. Yard photos stay in the browser until a file upload endpoint exists.
+The relay keeps the webhook URL out of the site code, adds `full_name`, a `+1` phone and `submitted_at`, and drops spam caught by a hidden field. The form posts the contact details after step 1 (`stage: contact_only`) and the full lead at the end (`stage: complete`). The visitor sees "You're all set" only once GoHighLevel has accepted the lead. If the relay isn't configured or the send fails, they're asked to email or call instead, so no lead is silently lost.
+
+Fields sent: `first_name`, `last_name`, `phone`, `email`, `postal_code`, `project`, `model`, `must_haves`, `timing`, `budget`, `hoa`, `existing`, `visit_day`, `visit_slot`, `call_first`, `contact_pref`, `notes`, `sms_consent`, `estimate`, `stage`, `utm_*`, `referrer`, `landing_page`. Yard photos stay in the browser until a file upload endpoint exists.
 
 ## Chat widget
 

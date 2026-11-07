@@ -328,3 +328,10 @@ footer .f-col a:hover,footer .f-col a:focus-visible{color:#fff}
   .chat-p{width:auto;max-height:calc(100svh - 160px)}
   .chat.open,.mbar.on~.chat.open,.chat.above-nav.open{bottom:12px;z-index:90}
 }
+
+/* Spam trap fields, hidden from people */
+.hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
+/* Form confirmation: sending state, then a single follow-up link */
+.q-sending .q-next,.q-sending .q-after{visibility:hidden}
+.q-after{display:flex;justify-content:center;margin-top:8px}
+.q-manual .q-after{display:none}
