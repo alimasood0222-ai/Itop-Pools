@@ -16,7 +16,7 @@ function toast(msg){const t=$('#toast');$('#toastT').textContent=msg;t.classList
 function setP(r){const p=(r.value-r.min)/(r.max-r.min)*100;r.style.setProperty('--p',p+'%')}
 requestAnimationFrame(()=>document.body.classList.add('ready'));
 let ly=0;const nav=$('#nav'),mbar=$('#mbar');
-addEventListener('scroll',()=>{const y=scrollY;document.body.classList.toggle('past-hero',y>innerHeight*.8);nav.classList.toggle('scrolled',y>40);nav.classList.toggle('hide',y>ly&&y>500&&!document.body.classList.contains('menu-open'));ly=y;mbar.classList.toggle('on',y>innerHeight*.7)},{passive:true});
+addEventListener('scroll',()=>{const y=scrollY;document.body.classList.toggle('past-hero',y>innerHeight*.8);nav.classList.toggle('scrolled',y>40);ly=y;mbar.classList.toggle('on',y>innerHeight*.7)},{passive:true});
 /* mobile drawer */
 const drawer=$('#drawer'),burger=$('#burger');let drLast=null;
 function drOpen(){drLast=document.activeElement;drawer.inert=false;drawer.setAttribute('aria-hidden','false');document.body.classList.add('menu-open');burger.setAttribute('aria-expanded','true');burger.setAttribute('aria-label','Close menu');setTimeout(()=>$('#drClose').focus({preventScroll:true}),60)}

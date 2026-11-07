@@ -152,3 +152,21 @@ footer .f-h,.mega h5,.tr-brand small,.q-card>small,.eo-card>small,.mini small,.p
 .pvl:hover,.pvc:hover{border-color:rgba(255,255,255,.3)}
 .pv-cop-h{margin-top:16px}
 .pv-note{margin-top:10px;font-size:11.5px;color:rgba(255,255,255,.55);line-height:1.45}
+
+/* Nav: transparent over the page header, frosted glass once scrolled, and always visible */
+.nav.hide{transform:none}
+.nav:not(.scrolled) .bar{background:transparent;border-color:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.nav:not(.scrolled) .bar .logo,.nav:not(.scrolled) .bar ul a,.nav:not(.scrolled) .bar .phone{text-shadow:0 1px 10px rgba(0,0,0,.35)}
+.nav .bar{transition:background .3s,border-color .3s,box-shadow .3s}
+.nav.scrolled .bar{background:rgba(7,26,51,.62);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border-color:rgba(255,255,255,.12);box-shadow:0 10px 30px -18px rgba(0,0,0,.55)}
+@media (max-width:860px){.nav.scrolled .bar{background:rgba(7,26,51,.72);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4)}}
+
+/* Hero: asymmetric wave cut into the bottom edge; the stats, controls and text sit above it */
+.hero{--wave:clamp(48px,6.5vw,104px)}
+.hero-wave{position:absolute;left:0;bottom:-1px;width:100%;height:var(--wave);z-index:5;display:block;pointer-events:none}
+.hero-foot{bottom:calc(var(--wave) - 14px);border-top:0;background:none}
+.hero-foot::before{content:"";position:absolute;inset:-40px 0 -60px;z-index:-1;background:linear-gradient(0deg,rgba(2,12,26,.62),rgba(2,12,26,0));pointer-events:none}
+.hs-ui{bottom:calc(112px + var(--wave) - 14px)}
+.hero-in{padding-bottom:calc(150px + var(--wave))}
+@media (max-width:1100px){.hs-ui{bottom:calc(86px + var(--wave) - 14px)}}
+@media (max-width:680px){.hero{--wave:44px}.hero-in{padding-bottom:calc(18px + var(--wave))}.hs-ui{bottom:auto}}
