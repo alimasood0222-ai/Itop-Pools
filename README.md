@@ -158,3 +158,11 @@ Automatic deploys are off for this Vercel project, so pushes to GitHub don't pub
 - Plan drawings and 3D shapes are to scale for length and width, but the outlines are simplified.
 - Adding `?test` to a URL slows the 3D render loop, for automated screenshots.
 - Animations respect the visitor's *reduce motion* setting.
+
+## Equipment brands, social links and license numbers
+
+All three live in `src/data/site.json`:
+
+- `brands`: the "Equipment we install" strip on the home page, as `[file, name, width, height]`. Logos are in `src/assets/brands/<file>.webp`.
+- `social.facebook` / `social.instagram`: the footer icons. While a URL is empty, its icon opens a search for iTop Pools on that network; paste the real profile URL to link it directly (it is also added to the business schema's `sameAs`).
+- `licenses`: the license numbers shown in the footer on every page.

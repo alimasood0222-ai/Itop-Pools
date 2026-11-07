@@ -162,13 +162,28 @@ async function build() {
   const NAP = `<address class="nap-card"><b>iTop Pools</b><br>6510 Columbia Park Drive, Suite 206<br>Jacksonville, FL 32258<br><a href="tel:+19046852555">(904) 685-2555</a><br><a href="mailto:hello@itoppools.com">hello@itoppools.com</a><br>Mon–Fri, 9:00 AM – 6:00 PM</address>`;
   const heroBand = (crumbs, eyebrow, h1, sl, lead) => `<section class="phero"><div class="wrap"><div class="crumbs"><a href="/">Home</a>${crumbs.map(([n, u]) => `<span>/</span>${u ? `<a href="${u}">${n}</a>` : `<b>${n}</b>`}`).join('')}</div><div class="ph-grid"><div><div class="eyebrow light">${eyebrow}</div><h1>${h1}${sl ? ` ${sl}` : ''}</h1></div><p class="lead">${lead}</p></div></div></section>`;
 
+  // ---------- Equipment brands strip, social icons and license numbers (all from src/data/site.json)
+  fs.cpSync(path.join(SRC, 'assets/brands'), path.join(DIST, 'brands'), { recursive: true });
+  const brandTile = ([id, n, w, h], hide) => `<li class="eq-t"><img src="/brands/${id}.webp" width="${w}" height="${h}" alt="${hide ? '' : esc(n)}" decoding="async"></li>`;
+  const brandsSection = `<section class="eq" aria-labelledby="eqH"><div class="wrap eq-head"><div class="eyebrow light" id="eqH">Equipment we install</div><p>We build with the same brands the industry's best builders use: pumps, heaters, automation, lighting, cleaners and covers.</p></div><div class="eq-view"><ul class="eq-track">${site.brands.map(b => brandTile(b)).join('')}${site.brands.map(b => brandTile(b, true).replace('<li class="eq-t">', '<li class="eq-t" aria-hidden="true">')).join('')}</ul></div></section>`;
+  const SOC = {
+    facebook: ['Facebook', '<path d="M14 8.5V6.8c0-.8.5-1 1-1h2V2.2L14.2 2C11.1 2 10.4 4.3 10.4 5.8v2.7H8.2V12h2.2v10H14V12h2.8l.4-3.5z"/>', 'https://www.facebook.com/search/top?q=iTop%20Pools%20Jacksonville'],
+    instagram: ['Instagram', '<path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3c1.2-.1 1.6-.1 4.8-.1zm0 4.9a4.9 4.9 0 1 0 0 9.8 4.9 4.9 0 0 0 0-9.8zm0 8.1a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zm5.1-9.4a1.15 1.15 0 1 0 0 2.3 1.15 1.15 0 0 0 0-2.3z"/>', 'https://www.instagram.com/explore/search/keyword/?q=iTop%20Pools']
+  };
+  // Until the client's profile URLs are in site.json, the icons open a search for the business.
+  const socialLinks = `<ul class="f-soc">${Object.entries(SOC).map(([k, [n, svg, fallback]]) => `<li><a href="${esc((site.social && site.social[k]) || fallback)}" target="_blank" rel="noopener" aria-label="iTop Pools on ${n}"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">${svg}</svg></a></li>`).join('')}</ul>`;
+  const licenseLine = `<p class="f-lic">License numbers: ${site.licenses.map(l => `<abbr title="${esc(l.t)}">${esc(l.n)}</abbr>`).join('<span aria-hidden="true">·</span>')}</p>`;
+
   // ---------- Split body.html
   let body = read('body.html')
     .replace('{{FAQHOME}}', () => qaList(allItems.filter(it => it.top)))
     .replace('{{FAQWHY}}', () => qaList(allItems.filter(it => it.why)))
     .replace('{{FAQPAGE}}', () => faqPage())
     .replace('{{NSMODELS}}', () => models.map(m => `<li><a href="/fiberglass-pools/${m.id}/">${m.n}</a></li>`).join(''))
-    .replace(/\{\{MODELCOUNT\}\}/g, models.length);
+    .replace(/\{\{MODELCOUNT\}\}/g, models.length)
+    .replace('{{BRANDS}}', () => brandsSection)
+    .replace('{{SOCIAL}}', () => socialLinks)
+    .replace('{{LICENSE}}', () => licenseLine);
   const mainAt = body.indexOf('<main id="app">') + '<main id="app">'.length, mainEnd = body.indexOf('</main>');
   const parkAt = body.indexOf('<!-- shared components'), footAt = body.indexOf('<footer>');
   const shellTop = body.slice(0, mainAt), shellBottom = body.slice(mainEnd, parkAt) + body.slice(footAt).replace(/id="fLearn"><\/ul>/, () => `id="fLearn">${ARTS.slice(0, 6).map(a => `<li><a href="/pool-school/${a.id}/">${a.t.split(/[:?]/)[0]}</a></li>`).join('')}</ul>`);
@@ -188,8 +203,9 @@ async function build() {
   models.forEach(m => { META[`/fiberglass-pools/${m.id}/`] = modelMeta(m); });
   ARTS.forEach(a => { META[`/pool-school/${a.id}/`] = pagesData.articles[a.id]; });
 
+  const sameAs = [...site.sameAs, ...Object.values(site.social || {}).filter(Boolean)];
   const areaCities = site.business.areaServed.map(c => ({ '@type': 'City', name: c }));
-  const biz = { ...site.business, '@id': `${SITE}/#business`, areaServed: areaCities, logo: `${SITE}/apple-touch-icon.png`, image: abs(heroIds[0]), hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Pool and outdoor services', itemListElement: ['Fiberglass pools', 'Spas', 'Paver decks', 'Screen enclosures', 'Pool remodels', 'Outdoor kitchens'].map(n => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: n } })) }, ...(site.sameAs.length ? { sameAs: site.sameAs } : {}) };
+  const biz = { ...site.business, '@id': `${SITE}/#business`, areaServed: areaCities, logo: `${SITE}/apple-touch-icon.png`, image: abs(heroIds[0]), hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Pool and outdoor services', itemListElement: ['Fiberglass pools', 'Spas', 'Paver decks', 'Screen enclosures', 'Pool remodels', 'Outdoor kitchens'].map(n => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: n } })) }, ...(sameAs.length ? { sameAs } : {}) };
   const baseGraph = [biz, { '@type': 'Organization', '@id': `${SITE}/#org`, name: 'iTop Pools', url: `${SITE}/`, logo: `${SITE}/apple-touch-icon.png`, telephone: biz.telephone, email: biz.email, address: biz.address }, { '@type': 'WebSite', '@id': `${SITE}/#website`, url: `${SITE}/`, name: 'iTop Pools', publisher: { '@id': `${SITE}/#org` }, inLanguage: 'en-US' }];
   const crumbsLd = list => ({ '@type': 'BreadcrumbList', itemListElement: [['Home', '/'], ...list].map(([name, u], i) => ({ '@type': 'ListItem', position: i + 1, name, item: SITE + u })) });
   const product = m => ({ '@type': 'Product', '@id': `${SITE}/fiberglass-pools/${m.id}/#product`, name: `${m.n} fiberglass pool`, description: plain((COPY[m.id] ? COPY[m.id].desc[0] : m.blurb)), category: 'Fiberglass swimming pool', brand: { '@type': 'Brand', name: 'Barrier Reef Pools' }, image: abs('m-' + m.id), url: `${SITE}/fiberglass-pools/${m.id}/`, additionalProperty: m.sizes.flatMap(s => [['Length', s.Ls], ['Width', s.Ws], ['Shallow depth', s.Ss], ['Deep depth', s.Ds], ['Gallons', s.gal && s.gal.toLocaleString('en-US')]].filter(x => x[1]).map(([k, v]) => ({ '@type': 'PropertyValue', name: `${s.label} ${k}`, value: v }))) });

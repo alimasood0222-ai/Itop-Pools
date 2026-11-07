@@ -66,5 +66,63 @@
   "googleVerify": "",
   "bingVerify": "",
   "indexNowKey": "b7e41d9c2fa34a0e8c6d15f7a9320e4b",
-  "sameAs": []
+  "sameAs": [],
+  "social": {
+    "facebook": "",
+    "instagram": ""
+  },
+  "licenses": [
+    {
+      "n": "CBC 1264958",
+      "t": "Certified Building Contractor"
+    },
+    {
+      "n": "CPC 1460444",
+      "t": "Certified Pool/Spa Contractor"
+    }
+  ],
+  "brands": [
+    [
+      "jandy",
+      "Jandy",
+      260,
+      102
+    ],
+    [
+      "polaris",
+      "Polaris",
+      307,
+      65
+    ],
+    [
+      "zodiac",
+      "Zodiac",
+      331,
+      64
+    ],
+    [
+      "iaqualink",
+      "iAquaLink",
+      407,
+      98
+    ],
+    [
+      "nature2",
+      "Nature2",
+      259,
+      100
+    ],
+    [
+      "cover-pools",
+      "Cover-Pools",
+      487,
+      48
+    ],
+    [
+      "grand-effects",
+      "Grand Effects",
+      431,
+      99
+    ]
+  ]
 }

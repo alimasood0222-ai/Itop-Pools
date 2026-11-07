@@ -357,3 +357,25 @@ footer .f-col a:hover,footer .f-col a:focus-visible{color:#fff}
 
 /* 3D studio model list: Barrier Reef drawings, as on the Pools page */
 .mbtn img{width:64px;height:30px;object-fit:contain;flex:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))}
+
+/* ---------- Equipment we install (home): a slow, endless logo strip */
+.eq{background:var(--navy-900);padding:clamp(56px,7vw,96px) 0;overflow:hidden}
+.eq-head{margin-bottom:34px}
+.eq-head p{margin:16px 0 0;max-width:56ch;font-size:17px;line-height:1.6;color:rgba(255,255,255,.72)}
+.eq-view{position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.eq-track{display:flex;gap:14px;width:max-content;margin:0;padding:0;list-style:none;animation:eqRun 38s linear infinite}
+.eq-view:hover .eq-track{animation-play-state:paused}
+.eq-t{flex:0 0 auto;width:220px;height:110px;display:flex;align-items:center;justify-content:center;padding:0 30px;background:#fff;border-radius:6px}
+.eq-t img{display:block;max-width:100%;max-height:50px;width:auto;height:auto}
+@keyframes eqRun{to{transform:translateX(calc(-50% - 7px))}}
+@media (max-width:640px){.eq-t{width:168px;height:88px;padding:0 22px}.eq-t img{max-height:40px}.eq-track{animation-duration:30s}}
+@media (prefers-reduced-motion:reduce){.eq-track{animation:none;flex-wrap:wrap;width:auto;justify-content:center;padding:0 16px}.eq-t[aria-hidden]{display:none}.eq-view{-webkit-mask-image:none;mask-image:none}}
+
+/* ---------- Footer: social icons and license numbers */
+.f-soc{display:flex;gap:12px;margin:26px 0 0;padding:0;list-style:none}
+.f-soc a{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;transition:background .3s,color .3s,transform .3s}
+.f-soc a:hover,.f-soc a:focus-visible{background:var(--sun);color:var(--navy-900);transform:translateY(-2px)}
+.f-soc svg{width:20px;height:20px}
+.f-lic{display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:rgba(255,255,255,.75)}
+.f-lic abbr{text-decoration:none;font-weight:600;color:#fff;letter-spacing:.02em}
+.f-lic span{color:rgba(255,255,255,.3)}
