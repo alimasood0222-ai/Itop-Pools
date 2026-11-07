@@ -87,7 +87,7 @@ if(location.hash.startsWith('#q-')){const t=document.getElementById(location.has
   const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;'),first=esc(n.split(' ')[0]),text=`Hi iTop Pools, this is ${n} (${p}). ${m}`;
   const manual=lead=>finish(`<p class="chat-msg"><b>Almost there, ${first}.</b> ${lead} Tap below to send your message by text or email.</p><div class="chat-quick"><a href="sms:+19046852555?&body=${encodeURIComponent(text)}">Send as a text</a><a href="mailto:${SITE.leadEmail}?subject=${encodeURIComponent('Website chat from '+n)}&body=${encodeURIComponent(text)}">Send by email</a></div>`);
   $('#chatSend').disabled=true;
-  fetch(SITE.chatWebhook||'/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({company:$('#chatCo').value,name:n,first_name:n.split(' ')[0],last_name:n.split(' ').slice(1).join(' '),phone:p,message:m,page:location.pathname,source:'website_chat'})})
+  fetch(SITE.chatWebhook||'/api/lead/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({company:$('#chatCo').value,name:n,first_name:n.split(' ')[0],last_name:n.split(' ').slice(1).join(' '),phone:p,message:m,page:location.pathname,source:'website_chat'})})
    .then(r=>{if(!r.ok)throw 0;finish(`<p class="chat-msg"><b>Thanks, ${first}.</b> Your message is with our crew. We'll reply by text or call during business hours.</p>`)})
    .catch(()=>manual(''))
    .finally(()=>{$('#chatSend').disabled=false})});

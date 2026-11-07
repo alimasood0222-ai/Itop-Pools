@@ -52,7 +52,7 @@ function qValid(){const s=Q.step;err.shown=0;$$('.qs.on .q-err').forEach(e=>e.te
  return true}
 /* Enquiry delivery: posts to the /api/lead relay, which forwards to GoHighLevel (GHL_WEBHOOK_URL in Vercel). SITE.leadWebhook, if set, is used instead.
    If sending fails or the relay isn't configured, the visitor is asked to email or call, so nobody is told a request went through when it didn't. */
-const LEAD_URL=SITE.leadWebhook||'/api/lead';
+const LEAD_URL=SITE.leadWebhook||'/api/lead/';
 const SRC=(()=>{let s=null;try{s=JSON.parse(sessionStorage.getItem('itop_src'))}catch(e){}if(!s){const u=new URLSearchParams(location.search);s={utm_source:u.get('utm_source')||'',utm_medium:u.get('utm_medium')||'',utm_campaign:u.get('utm_campaign')||'',utm_term:u.get('utm_term')||'',utm_content:u.get('utm_content')||'',referrer:document.referrer||'',landing_page:location.pathname+location.search};try{sessionStorage.setItem('itop_src',JSON.stringify(s))}catch(e){}}return s})();
 function qLead(){return {...SRC,company:$('#qCo').value,first_name:$('#qFn').value,last_name:$('#qLn').value,phone:$('#qPh').value,email:$('#qEm').value,postal_code:$('#qZip').value,project:[...Q.project].join(', '),model:Q.model,must_haves:[...Q.musts].join(', '),timing:Q.when,budget:Q.budget,hoa:Q.hoa,existing:Q.existing,visit_day:Q.day,visit_slot:Q.slot,call_first:Q.callFirst,contact_pref:Q.contact,notes:$('#qNotes').value,sms_consent:$('#qSms').checked,estimate:Q.estimate}}
 function qManualSend(msg){$('.q-done').classList.add('q-manual');const body=qBrief().filter(r=>r[1]).map(r=>r[0]+': '+r[1]).concat(['Phone: '+$('#qPh').value,'Email: '+$('#qEm').value,'Best way to reach me: '+Q.contact,'Notes: '+$('#qNotes').value]).join('\n');
