@@ -379,3 +379,23 @@ footer .f-col a:hover,footer .f-col a:focus-visible{color:#fff}
 .f-lic{display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:rgba(255,255,255,.75)}
 .f-lic abbr{text-decoration:none;font-weight:600;color:#fff;letter-spacing:.02em}
 .f-lic span{color:rgba(255,255,255,.3)}
+
+/* ---------- Type scale: the small end, raised so labels and notes read comfortably */
+/* Section labels sit above 40-60px headings; at 12px they looked lost */
+.eyebrow{font-size:15.5px!important;line-height:1.3;letter-spacing:.01em}
+.hero .eyebrow,.hero .eyebrow.hero-h1{font-size:16px!important}
+.sec-head .eyebrow+h2,.sec-head .eyebrow~h2{margin-top:16px}
+/* Fine print, footnotes, captions and breadcrumbs */
+.fine,p.fine,.f-note,.src,.g-it figcaption,.md-photo figcaption,.consent,.q-priv{font-size:14px!important;line-height:1.55}
+.crumbs{font-size:14.5px}
+.f-bot{font-size:15px}
+@media (max-width:640px){
+  .eyebrow{font-size:14.5px!important}
+  .hero .eyebrow,.hero .eyebrow.hero-h1{font-size:14px!important}
+  .fine,p.fine,.f-note,.src,.g-it figcaption,.md-photo figcaption,.consent,.q-priv{font-size:13.5px!important}
+}
+/* The last labels below 13px: model ticks, chips, swatch names, trust notes, meta lines */
+.r2-ticks button span{font-size:13px!important}
+.r2n small,.chip small,.md-sw button,.q-call small,.ab-more a span,.ac .meta span,.es-models button b,.eb span,.eb b,.q-meta span,.q-enter{font-size:13.5px!important}
+.hf span,.tri small,.feat-row span{font-size:14px!important}
+@media (max-width:640px){.hs-cap{font-size:13px!important}}

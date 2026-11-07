@@ -57,8 +57,8 @@ address{font-style:normal}
 .ab-more small,.ac .tag{color:inherit}
 
 /* readable minimum */
-.eyebrow,.tag,.hud span,.hud b,.views button,.lightseg button,.panel-h small,.stp-h i,.mbtn small,.lab-tag,.lab-pick small,.lab-pair small,.mini-top small,.mini-out small,.r2s,.r2i-tags span,.r2-fil sup,.fd-n,.tr-brand small,.dims small,.spec small,.es-models small,.q-models small,.qd small,.q-days small,.q-days span,.q-card-h small,.q-l,.jy small,.who,.fts span,.pc .t,.mtx-r.h>*,.vs-row.h>*,footer .f-h,.md-tags span,.md-sizes small,.sum,.r2i-m small,.ms span,.dur,.es-h i,.eo-fh small,.eo-card small,.md-sticky small,.ab-card small,.ab-more small,.lab-light button,.seg button,.fp-g h6,.loan i,.fl .who,.tli .who{font-size:12px!important}
-.r2-fil sup,.filters sup,.tg small,.panel-f p,.mini-row small,.stages button i,.jy small,.cmp,.scale,.q-trust span,.q-steps button i,kbd,.eoptions small,.eopt small,.eopt em,.loan i,.mbtn span small,.md-a-row span{font-size:12px!important}
+.eyebrow,.tag,.hud span,.hud b,.views button,.lightseg button,.panel-h small,.stp-h i,.mbtn small,.lab-tag,.lab-pick small,.lab-pair small,.mini-top small,.mini-out small,.r2s,.r2i-tags span,.r2-fil sup,.fd-n,.tr-brand small,.dims small,.spec small,.es-models small,.q-models small,.qd small,.q-days small,.q-days span,.q-card-h small,.q-l,.jy small,.who,.fts span,.pc .t,.mtx-r.h>*,.vs-row.h>*,footer .f-h,.md-tags span,.md-sizes small,.sum,.r2i-m small,.ms span,.dur,.es-h i,.eo-fh small,.eo-card small,.md-sticky small,.ab-card small,.ab-more small,.lab-light button,.seg button,.fp-g h6,.loan i,.fl .who,.tli .who{font-size:13.5px!important}
+.r2-fil sup,.filters sup,.tg small,.panel-f p,.mini-row small,.stages button i,.jy small,.cmp,.scale,.q-trust span,.q-steps button i,kbd,.eoptions small,.eopt small,.eopt em,.loan i,.mbtn span small,.md-a-row span{font-size:13.5px!important}
 /* these need to beat rules with higher specificity */
 .fts span,.ac .tx .meta span,.loan i,.tli .card .who,.pc .t{color:var(--azure-t)!important}
 .tli .card .who.mf{color:#7a4f00!important}
