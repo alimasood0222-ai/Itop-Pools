@@ -29,6 +29,29 @@ function deckTex(kind){
      g.fillStyle=tone();g.fillRect(ox+2,oy+2,b-4,a-4);g.fillStyle=tone();g.fillRect(ox+2,oy+a+2,a-4,b-4)}noise(g,w,h,8000,.15)},.32)}
  return DECKTEX[kind]=t;
 }
+// Tremron pavers: the line's real laying pattern at true scale, each paver filled with a clean patch
+// of the chosen color (atlas: 4 x 3 patches of 128 x 96 px, made from Tremron's swatch photos).
+// Scene scale is .3 units per foot, so a tile T inches wide repeats every T*.025 units.
+function paverTex(pat,img,avg){
+ const rows=pat.type==='rows'?pat.rows:null,cyc=rows?rows.reduce((a,r)=>a+r.h,0):16;
+ const TS=pat.type==='herringbone'?48:cyc*Math.max(1,Math.round(96/cyc)),px=1024/TS,gap=Math.max(1,px*.09);
+ const c=document.createElement('canvas');c.width=c.height=1024;const g=c.getContext('2d');
+ const col=new T_COLOR(avg);g.fillStyle=`rgb(${col.r*.55|0},${col.g*.53|0},${col.b*.5|0})`;g.fillRect(0,0,1024,1024);
+ const piece=(x,y,w,h)=>{const i=Math.floor(Math.random()*12),sx=(i%4)*128,sy=Math.floor(i/4)*96,r=w/h;let cw,ch;if(r>128/96){cw=128;ch=128/r}else{ch=96;cw=96*r}
+  const ox=sx+Math.random()*(128-cw),oy=sy+Math.random()*(96-ch),tone=Math.random()*.08-.04;
+  for(const dx of [0,-TS])for(const dy of [0,-TS]){const X=(x+dx)*px+gap/2,Y=(y+dy)*px+gap/2,W=w*px-gap,H=h*px-gap;if(X>1024||Y>1024||X+W<0||Y+H<0)continue;
+   g.drawImage(img,ox,oy,cw,ch,X,Y,W,H);g.fillStyle=tone<0?`rgba(0,0,0,${-tone})`:`rgba(255,255,255,${tone})`;g.fillRect(X,Y,W,H);
+   g.strokeStyle='rgba(0,0,0,.16)';g.lineWidth=Math.max(1,px*.12);g.strokeRect(X+.5,Y+.5,W-1,H-1)}};
+ if(rows){let y=0,k=0;while(y<TS-.01){const r=rows[k++%rows.length],h=Math.min(r.h,TS-y),mn=Math.min(...r.l),s=Math.random()*Math.max(...r.l);let x=s;
+   while(x<s+TS-.01){let L=r.l[Math.floor(Math.random()*r.l.length)];const left=s+TS-x;if(left-L<mn)L=left;piece(x%TS,y,L,h);x+=L}y+=h}}
+ else{const a=pat.a,seen=new Set();for(let n=-40;n<40;n++)for(let k=-20;k<20;k++){const bx=a*n+2*a*k,by=a*n-2*a*k;
+   [[bx,by,2*a,a],[bx,by+a,a,2*a]].forEach(([x,y,w,h])=>{const X=((x%TS)+TS)%TS,Y=((y%TS)+TS)%TS,key=X+','+Y+','+w;if(seen.has(key))return;seen.add(key);piece(X,Y,w,h)})}}
+ const t=new T.CanvasTexture(c);t.wrapS=t.wrapT=T.RepeatWrapping;t.repeat.set(40/TS,40/TS);t.anisotropy=8;if(T.sRGBEncoding)t.encoding=T.sRGBEncoding;return t}
+function T_COLOR(hex){const v=parseInt(hex.slice(1),16);this.r=v>>16;this.g=(v>>8)&255;this.b=v&255}
+const PAVERTEX={},PAVER_TONE='#acacac';
+// Loads a color's atlas once and resolves with the finished texture
+function paverMap(line,color){const key=line.id+'/'+color.id;if(PAVERTEX[key])return PAVERTEX[key];
+ return PAVERTEX[key]=new Promise((res,rej)=>{const img=new Image();img.onload=()=>res(paverTex(line.pattern,img,color.avg));img.onerror=rej;img.src=`/pavers/${line.id}-${color.id}.jpg`})}
 const tileTex=()=>canvasTex(256,256,(g,w,h)=>{g.fillStyle='#ffffff';g.fillRect(0,0,w,h);g.strokeStyle='rgba(0,30,60,.10)';g.lineWidth=2;for(let i=0;i<=8;i++){g.beginPath();g.moveTo(i*32,0);g.lineTo(i*32,h);g.stroke();g.beginPath();g.moveTo(0,i*32);g.lineTo(w,i*32);g.stroke()}},1.2);
 const stoneTex=()=>canvasTex(512,256,(g,w,h)=>{g.fillStyle='#8a8e93';g.fillRect(0,0,w,h);let y=0;while(y<h){const rh=rnd(14,26);let x=-rnd(0,40);while(x<w){const rw=rnd(40,110);g.fillStyle=`hsl(${rnd(200,215)},${rnd(4,14)}%,${rnd(45,72)}%)`;g.fillRect(x+1.5,y+1.5,rw-3,rh-3);x+=rw}y+=rh}noise(g,w,h,3000,.15)},.9);
 
@@ -168,7 +191,8 @@ function PoolScene(canvas,opts){
  [-6.6,0,6.6].forEach(x=>{[-1.1,0,1.1].forEach(dx=>{const m=new T.Mesh(new T.BoxGeometry(.07,2.6,.16),M.trim);m.position.set(x+dx,1.15,-10.92);house.add(m)})});
  M.sconce=new T.MeshStandardMaterial({color:'#fff3d6',emissive:'#ffcf8a',emissiveIntensity:0});
  [-9.9,-3.3,3.3,9.9].forEach(x=>{const sc=new T.Mesh(new T.BoxGeometry(.18,.32,.12),M.sconce);sc.position.set(x,2.2,-10.9);house.add(sc)});
- const patio=new T.Mesh(new T.BoxGeometry(21,.25,4.4),M.deck);patio.position.set(0,-.12,-9.2);patio.receiveShadow=true;house.add(patio);
+ const patioG=new T.BoxGeometry(21,.25,4.4);{const uv=patioG.attributes.uv;for(let i=0;i<uv.count;i++)uv.setXY(i,uv.getX(i)*21,uv.getY(i)*4.4)}
+ const patio=new T.Mesh(patioG,M.deck);patio.position.set(0,-.12,-9.2);patio.receiveShadow=true;house.add(patio);
  // outdoor kitchen island
  const isl=new T.Mesh(new T.BoxGeometry(4,1,1),M.stone);isl.position.set(-6.5,.5,-8.8);isl.castShadow=true;house.add(isl);
  const top=new T.Mesh(new T.BoxGeometry(4.2,.1,1.2),M.coping);top.position.set(-6.5,1.05,-8.8);house.add(top);
@@ -292,8 +316,13 @@ function PoolScene(canvas,opts){
   pl1.position.set(xs[0]*.5,.2,0);pl2.position.set(xs[1]*.5,.2,0);
   // finish
   const f=FINISH[st.finish];M.basin.color.set(f.basin);M.ledge.color.set(f.basin);[W,SW].forEach(m=>{m.uniforms.uDeep.value.set(f.deep);m.uniforms.uShallow.value.set(f.shallow)});
-  M.deck.map=deckTex(st.deck);M.deck.needsUpdate=true;patio.material=M.deck;
+  // Tremron photo textures are darkened so the bright scene lighting renders them close to the real swatch
+  const tremron=st.deck==='pavers'&&S.paverTex;M.deck.map=tremron?S.paverTex:deckTex(st.deck);M.deck.color.set(tremron?PAVER_TONE:'#ffffff');M.deck.needsUpdate=true;patio.material=M.deck;
+  M.coping.map=st.coping&&S.copingTex?S.copingTex:null;M.coping.color.set(M.coping.map?PAVER_TONE:'#e6dcc6');M.coping.needsUpdate=true;
  };
+ // Tremron choices load their swatch atlas first, then rebuild; a newer pick wins if two overlap
+ S.setPaver=function(line,color){const key=line.id+'/'+color.id;S.paverKey=key;return paverMap(line,color).then(t=>{if(S.paverKey!==key)return;S.paverTex=t;S.state.deck='pavers';S.build()})};
+ S.setCoping=function(line,color){if(!color){S.state.coping=null;S.copingKey=null;S.build();return Promise.resolve()}const key=line.id+'/'+color.id;S.copingKey=key;return paverMap(line,color).then(t=>{if(S.copingKey!==key)return;S.copingTex=t;S.state.coping=color.id;S.build()})};
  S.set=function(o){const newType=o.spaType&&o.spaType!==S.state.spaType;Object.assign(S.state,o);if(newType)buildSpa();S.build()};
  S.build();
 

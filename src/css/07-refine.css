@@ -134,3 +134,21 @@ footer .f-h,.mega h5,.tr-brand small,.q-card>small,.eo-card>small,.mini small,.p
 @media (max-width:480px){.spa-types{grid-template-columns:repeat(2,1fr)}}
 /* The 3D hint is information only, so it must not block dragging */
 .hint3d{pointer-events:none!important}
+
+/* 3D studio: Tremron pavers and coping */
+.pv{margin-top:12px}
+.pv[hidden]{display:none}
+.pv-l{display:flex;justify-content:space-between;gap:10px;margin:12px 0 7px;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.85)}
+.pv-l em{font-style:normal;font-weight:500;color:var(--sky);text-align:right}
+.pv-lines{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.25) transparent;scroll-snap-type:x proximity}
+.pvl{flex:none;scroll-snap-align:start}
+.pvl{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:10px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#fff;font-size:12px;text-align:left;min-height:44px}
+.pvl i{width:26px;height:26px;border-radius:6px;flex:none}
+.pvl b{font-weight:600;line-height:1.2}
+.pv-colors{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pvc{display:flex;flex-direction:column;align-items:center;gap:5px;padding:4px 2px 6px;border-radius:10px;border:1.5px solid transparent;color:rgba(255,255,255,.85);font-size:11.5px;line-height:1.2;text-align:center;min-height:44px}
+.pvc i{width:100%;max-width:58px;aspect-ratio:1;border-radius:8px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)}
+.pvl.on,.pvc.on{border-color:var(--sky);background:rgba(125,211,252,.12)}
+.pvl:hover,.pvc:hover{border-color:rgba(255,255,255,.3)}
+.pv-cop-h{margin-top:16px}
+.pv-note{margin-top:10px;font-size:11.5px;color:rgba(255,255,255,.55);line-height:1.45}

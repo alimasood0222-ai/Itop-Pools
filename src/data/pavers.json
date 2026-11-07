@@ -1,0 +1,757 @@
+{
+ "source": "Tremron (tremron.com), November 2026",
+ "lines": [
+  {
+   "id": "olde-towne",
+   "n": "Olde Towne",
+   "url": "https://www.tremron.com/pavers/olde-towne",
+   "sizes": "6\"x4\", 6\"x6\", 6\"x9\"",
+   "pattern": {
+    "type": "rows",
+    "rows": [
+     {
+      "h": 6,
+      "l": [
+       4,
+       6,
+       9
+      ]
+     }
+    ]
+   },
+   "colors": [
+    {
+     "id": "autumn-blend",
+     "n": "Autumn Blend",
+     "avg": "#a27e5f",
+     "offered": false
+    },
+    {
+     "id": "glacier",
+     "n": "Glacier",
+     "avg": "#9e9b9c",
+     "offered": false
+    },
+    {
+     "id": "sand-dune",
+     "n": "Sand Dune",
+     "avg": "#b49f8b",
+     "offered": false
+    },
+    {
+     "id": "sierra",
+     "n": "Sierra",
+     "avg": "#968777",
+     "offered": false
+    },
+    {
+     "id": "granite",
+     "n": "Granite",
+     "avg": "#76736f",
+     "offered": true
+    },
+    {
+     "id": "heritage",
+     "n": "Heritage",
+     "avg": "#796358",
+     "offered": true
+    },
+    {
+     "id": "lions-bridge",
+     "n": "Lions Bridge",
+     "avg": "#9b9086",
+     "offered": true
+    },
+    {
+     "id": "santa-fe",
+     "n": "Santa Fe",
+     "avg": "#674733",
+     "offered": true
+    }
+   ]
+  },
+  {
+   "id": "mega-olde-towne",
+   "n": "Mega Olde Towne",
+   "url": "https://www.tremron.com/pavers/mega-olde-towne",
+   "sizes": "6\"x9\", 9\"x9\", 9\"x12\"",
+   "pattern": {
+    "type": "rows",
+    "rows": [
+     {
+      "h": 9,
+      "l": [
+       6,
+       9,
+       12
+      ]
+     }
+    ]
+   },
+   "colors": [
+    {
+     "id": "autumn-blend",
+     "n": "Autumn Blend",
+     "avg": "#9a7659",
+     "offered": false
+    },
+    {
+     "id": "glacier",
+     "n": "Glacier",
+     "avg": "#a29fa0",
+     "offered": false
+    },
+    {
+     "id": "sand-dune",
+     "n": "Sand Dune",
+     "avg": "#b09883",
+     "offered": false
+    },
+    {
+     "id": "sierra",
+     "n": "Sierra",
+     "avg": "#998776",
+     "offered": false
+    },
+    {
+     "id": "granite",
+     "n": "Granite",
+     "avg": "#a1988d",
+     "offered": true
+    },
+    {
+     "id": "heritage",
+     "n": "Heritage",
+     "avg": "#a87d65",
+     "offered": true
+    },
+    {
+     "id": "lions-bridge",
+     "n": "Lions Bridge",
+     "avg": "#a69f96",
+     "offered": true
+    },
+    {
+     "id": "santa-fe",
+     "n": "Santa Fe",
+     "avg": "#674733",
+     "offered": true
+    }
+   ]
+  },
+  {
+   "id": "stonehurst",
+   "n": "Stonehurst",
+   "url": "https://www.tremron.com/pavers/stonehurst",
+   "sizes": "6\"x9\", 9\"x9\", 9\"x12\"",
+   "pattern": {
+    "type": "rows",
+    "rows": [
+     {
+      "h": 9,
+      "l": [
+       6,
+       9,
+       12
+      ]
+     }
+    ]
+   },
+   "colors": [
+    {
+     "id": "autumn-blend",
+     "n": "Autumn Blend",
+     "avg": "#8c6f59",
+     "offered": false
+    },
+    {
+     "id": "glacier",
+     "n": "Glacier",
+     "avg": "#9d9b9b",
+     "offered": false
+    },
+    {
+     "id": "sand-dune",
+     "n": "Sand Dune",
+     "avg": "#ad9681",
+     "offered": false
+    },
+    {
+     "id": "sierra",
+     "n": "Sierra",
+     "avg": "#ad9e93",
+     "offered": false
+    },
+    {
+     "id": "granite",
+     "n": "Granite",
+     "avg": "#998e82",
+     "offered": true
+    },
+    {
+     "id": "heritage",
+     "n": "Heritage",
+     "avg": "#614132",
+     "offered": true
+    },
+    {
+     "id": "lions-bridge",
+     "n": "Lions Bridge",
+     "avg": "#b7a796",
+     "offered": true
+    },
+    {
+     "id": "santa-fe",
+     "n": "Santa Fe",
+     "avg": "#836d5f",
+     "offered": true
+    }
+   ]
+  },
+  {
+   "id": "4x8-brick",
+   "n": "4x8 Brick",
+   "url": "https://www.tremron.com/pavers/4x8-brick",
+   "sizes": "4\"x8\"",
+   "pattern": {
+    "type": "herringbone",
+    "a": 4
+   },
+   "colors": [
+    {
+     "id": "glacier",
+     "n": "Glacier",
+     "avg": "#928e8c",
+     "offered": false
+    },
+    {
+     "id": "sand-dune",
+     "n": "Sand Dune",
+     "avg": "#b79f8d",
+     "offered": false
+    },
+    {
+     "id": "sierra",
+     "n": "Sierra",
+     "avg": "#ab9884",
+     "offered": false
+    },
+    {
+     "id": "granite",
+     "n": "Granite",
+     "avg": "#94918b",
+     "offered": false
+    },
+    {
+     "id": "charcoal",
+     "n": "Charcoal",
+     "avg": "#6e706e",
+     "offered": true
+    },
+    {
+     "id": "heritage",
+     "n": "Heritage",
+     "avg": "#856656",
+     "offered": true
+    },
+    {
+     "id": "lions-bridge",
+     "n": "Lions Bridge",
+     "avg": "#aa8f7d",
+     "offered": true
+    },
+    {
+     "id": "natural-grey",
+     "n": "Natural Grey",
+     "avg": "#a09a94",
+     "offered": true
+    },
+    {
+     "id": "sandstone",
+     "n": "Sandstone",
+     "avg": "#d1bc97",
+     "offered": true
+    },
+    {
+     "id": "santa-fe",
+     "n": "Santa Fe",
+     "avg": "#7a6a5e",
+     "offered": true
+    },
+    {
+     "id": "tan",
+     "n": "Tan",
+     "avg": "#937867",
+     "offered": true
+    },
+    {
+     "id": "taupe",
+     "n": "Taupe",
+     "avg": "#a78d7b",
+     "offered": true
+    },
+    {
+     "id": "white",
+     "n": "White",
+     "avg": "#c8bfb6",
+     "offered": true
+    }
+   ]
+  },
+  {
+   "id": "plank",
+   "n": "Plank",
+   "url": "https://www.tremron.com/pavers/plank",
+   "sizes": "4\"x12\"",
+   "pattern": {
+    "type": "rows",
+    "rows": [
+     {
+      "h": 4,
+      "l": [
+       12,
+       16
+      ]
+     }
+    ]
+   },
+   "colors": [
+    {
+     "id": "charcoal",
+     "n": "Charcoal",
+     "avg": "#8c847d",
+     "offered": false
+    },
+    {
+     "id": "coral",
+     "n": "Coral",
+     "avg": "#b6a092",
+     "offered": false
+    },
+    {
+     "id": "dark-brown",
+     "n": "Dark Brown",
+     "avg": "#625854",
+     "offered": false
+    },
+    {
+     "id": "light-huntington",
+     "n": "Light Huntington",
+     "avg": "#767679",
+     "offered": false
+    },
+    {
+     "id": "natural-grey",
+     "n": "Natural Grey",
+     "avg": "#87827d",
+     "offered": false
+    },
+    {
+     "id": "sandstone",
+     "n": "Sandstone",
+     "avg": "#bcaa95",
+     "offered": false
+    },
+    {
+     "id": "tan",
+     "n": "Tan",
+     "avg": "#8b6f62",
+     "offered": false
+    },
+    {
+     "id": "taupe",
+     "n": "Taupe",
+     "avg": "#796a62",
+     "offered": false
+    },
+    {
+     "id": "white",
+     "n": "White",
+     "avg": "#c8bfb6",
+     "offered": false
+    }
+   ]
+  },
+  {
+   "id": "templehurst",
+   "n": "Templehurst",
+   "url": "https://www.tremron.com/pavers/templehurst",
+   "sizes": "22\"x12.5\", 12.5\"x12.5\", 12.5\"x9.25\"",
+   "pattern": {
+    "type": "rows",
+    "rows": [
+     {
+      "h": 12.5,
+      "l": [
+       22,
+       12.5,
+       9.25
+      ]
+     }
+    ]
+   },
+   "colors": [
+    {
+     "id": "autumn-blend",
+     "n": "Autumn Blend",
+     "avg": "#b99883",
+     "offered": false
+    },
+    {
+     "id": "cappuccino",
+     "n": "Cappuccino",
+     "avg": "#afa297",
+     "offered": false
+    },
+    {
+     "id": "glacier",
+     "n": "Glacier",
+     "avg": "#989595",
+     "offered": false
+    },
+    {
+     "id": "sand-dune",
+     "n": "Sand Dune",
+     "avg": "#ad9783",
+     "offered": false
+    },
+    {
+     "id": "sierra",
+     "n": "Sierra",
+     "avg": "#968879",
+     "offered": false
+    }
+   ]
+  },
+  {
+   "id": "cloisters",
+   "n": "Cloisters",
+   "url": "https://www.tremron.com/pavers/cloisters",
+   "sizes": "32\"x16\", 24\"x16\", 16\"x16\", 32\"x8\"",
+   "pattern": {
+    "type": "rows",
+    "rows": [
+     {
+      "h": 16,
+      "l": [
+       32,
+       24,
+       16
+      ]
+     },
+     {
+      "h": 16,
+      "l": [
+       32,
+       24,
+       16
+      ]
+     },
+     {
+      "h": 8,
+      "l": [
+       32
+      ]
+     }
+    ]
+   },
+   "colors": [
+    {
+     "id": "almond",
+     "n": "Almond",
+     "avg": "#d9bc9e",
+     "offered": false
+    },
+    {
+     "id": "greystone",
+     "n": "Greystone",
+     "avg": "#97989b",
+     "offered": false
+    },
+    {
+     "id": "ashford",
+     "n": "Ashford",
+     "avg": "#ccc6bf",
+     "offered": false
+    },
+    {
+     "id": "cathedral",
+     "n": "Cathedral",
+     "avg": "#8b929c",
+     "offered": false
+    }
+   ]
+  },
+  {
+   "id": "park-plaza",
+   "n": "Park Plaza",
+   "url": "https://www.tremron.com/pavers/park-plaza",
+   "sizes": "8\" x 12\"",
+   "pattern": {
+    "type": "rows",
+    "rows": [
+     {
+      "h": 12,
+      "l": [
+       8,
+       12,
+       24
+      ]
+     }
+    ]
+   },
+   "colors": [
+    {
+     "id": "charcoal",
+     "n": "Charcoal",
+     "avg": "#6e6f73",
+     "offered": true
+    },
+    {
+     "id": "natural",
+     "n": "Natural",
+     "avg": "#888380",
+     "offered": true
+    },
+    {
+     "id": "sandstone",
+     "n": "Sandstone",
+     "avg": "#e1cfb9",
+     "offered": true
+    },
+    {
+     "id": "tan",
+     "n": "Tan",
+     "avg": "#917265",
+     "offered": true
+    },
+    {
+     "id": "taupe",
+     "n": "Taupe",
+     "avg": "#796a62",
+     "offered": true
+    },
+    {
+     "id": "white",
+     "n": "White",
+     "avg": "#ddd9d5",
+     "offered": true
+    }
+   ]
+  },
+  {
+   "id": "shellstone",
+   "n": "Shellstone",
+   "url": "https://www.tremron.com/pavers/shellstone",
+   "sizes": "4\" x 8\"",
+   "pattern": {
+    "type": "rows",
+    "rows": [
+     {
+      "h": 8,
+      "l": [
+       4,
+       8,
+       12
+      ]
+     }
+    ]
+   },
+   "colors": [
+    {
+     "id": "natural",
+     "n": "Natural",
+     "avg": "#a3aabb",
+     "offered": true
+    },
+    {
+     "id": "sandstone",
+     "n": "Sandstone",
+     "avg": "#bcaa95",
+     "offered": true
+    },
+    {
+     "id": "white",
+     "n": "White",
+     "avg": "#c8bfb6",
+     "offered": true
+    }
+   ]
+  },
+  {
+   "id": "terrastone",
+   "n": "Terrastone",
+   "url": "https://www.tremron.com/pavers/terrastone",
+   "sizes": "24\"x10\"",
+   "pattern": {
+    "type": "rows",
+    "rows": [
+     {
+      "h": 10,
+      "l": [
+       24,
+       36
+      ]
+     }
+    ]
+   },
+   "colors": [
+    {
+     "id": "maple",
+     "n": "Maple",
+     "avg": "#9d8066",
+     "offered": false
+    },
+    {
+     "id": "silver-oak",
+     "n": "Silver Oak",
+     "avg": "#b9bbbe",
+     "offered": false
+    },
+    {
+     "id": "walnut",
+     "n": "Walnut",
+     "avg": "#716961",
+     "offered": false
+    }
+   ]
+  },
+  {
+   "id": "roma",
+   "n": "Roma",
+   "url": "https://www.tremron.com/pavers/roma",
+   "sizes": "4\"x8\", 8\"x8\", 8\"x12\"",
+   "pattern": {
+    "type": "rows",
+    "rows": [
+     {
+      "h": 8,
+      "l": [
+       4,
+       8,
+       12
+      ]
+     }
+    ]
+   },
+   "colors": [
+    {
+     "id": "autumn-blend",
+     "n": "Autumn Blend",
+     "avg": "#b79781",
+     "offered": false
+    },
+    {
+     "id": "glacier",
+     "n": "Glacier",
+     "avg": "#928e8c",
+     "offered": false
+    },
+    {
+     "id": "sand-dune",
+     "n": "Sand Dune",
+     "avg": "#b79f8d",
+     "offered": false
+    },
+    {
+     "id": "sierra",
+     "n": "Sierra",
+     "avg": "#ab9884",
+     "offered": false
+    }
+   ]
+  },
+  {
+   "id": "tuscany",
+   "n": "Tuscany",
+   "url": "https://www.tremron.com/pavers/tuscany",
+   "sizes": "4\" x 4\"",
+   "pattern": {
+    "type": "rows",
+    "rows": [
+     {
+      "h": 4,
+      "l": [
+       4
+      ]
+     }
+    ]
+   },
+   "colors": [
+    {
+     "id": "glacier",
+     "n": "Glacier",
+     "avg": "#928e8c",
+     "offered": false
+    },
+    {
+     "id": "granite",
+     "n": "Granite",
+     "avg": "#7a7b78",
+     "offered": false
+    },
+    {
+     "id": "oak-run",
+     "n": "Oak Run",
+     "avg": "#908479",
+     "offered": false
+    },
+    {
+     "id": "sierra",
+     "n": "Sierra",
+     "avg": "#ab9884",
+     "offered": false
+    }
+   ]
+  }
+ ],
+ "coping": {
+  "id": "bullnose-coping",
+  "n": "Bullnose coping",
+  "url": "https://www.tremron.com/pavers/bullnose-coping",
+  "sizes": "4\"x9\"",
+  "pattern": {
+   "type": "rows",
+   "rows": [
+    {
+     "h": 12,
+     "l": [
+      9
+     ]
+    }
+   ]
+  },
+  "colors": [
+   {
+    "id": "glacier",
+    "n": "Glacier",
+    "avg": "#8f8f8f",
+    "offered": false
+   },
+   {
+    "id": "charcoal",
+    "n": "Charcoal",
+    "avg": "#616161",
+    "offered": false
+   },
+   {
+    "id": "lions-bridge",
+    "n": "Lions Bridge",
+    "avg": "#9f8f82",
+    "offered": false
+   },
+   {
+    "id": "sand-dune",
+    "n": "Sand Dune",
+    "avg": "#bb957a",
+    "offered": false
+   },
+   {
+    "id": "sierra",
+    "n": "Sierra",
+    "avg": "#a68f7d",
+    "offered": false
+   }
+  ]
+ }
+}

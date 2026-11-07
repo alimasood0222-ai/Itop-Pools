@@ -84,6 +84,13 @@ The gallery at `/our-work/` reads `src/data/gallery.json`. Each entry is `{ f, t
 
 The 425 Barrier Reef photos came from Barrier Reef's own gallery, which iTop is authorized to use as a dealer. Model pages link to their photos with `/our-work/?model=<id>`. The filters work the same way for `shape`, `color` and `other`.
 
+**Tremron pavers in the 3D studio**
+The 3D studio offers 12 Tremron paver lines (75 colors) and 5 bullnose coping colors, listed in `src/data/pavers.json`. Each color has a small image in `src/assets/pavers/`:
+- `<line>-<color>.jpg`: 12 clean patches cut from Tremron's swatch photo. The 3D view lays the line's real pattern at true scale and fills each paver with one of these patches.
+- `<line>-chips.webp`: one 64px chip per color, for the picker.
+
+To change a line's laying pattern, edit its `pattern` in `pavers.json`. Sizes are in inches: `rows` takes a row height `h` and piece lengths `l`, and `herringbone` takes a brick width `a`. Tremron textures are darkened by `PAVER_TONE` in `src/js/engine.js`, so the bright scene lighting renders them close to the real swatch. The library was made from tremron.com in November 2026, at the client's request.
+
 **Common edits**
 
 | What | Where |

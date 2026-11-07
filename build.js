@@ -112,11 +112,15 @@ async function build() {
   const engine = await emit('engine', '(function(){"use strict";\n' + inject(read('js/engine.js')) + '\n})();', 'js');
   const siteForApp = { leadWebhook: site.leadWebhook, leadEmail: site.leadEmail, engine: engine.f };
   const galByModel = {}; for (const g of json('data/gallery.json')) if (g.m) galByModel[g.m] = (galByModel[g.m] || 0) + 1;
+  // Tremron paver library for the 3D studio (src/data/pavers.json, images in src/assets/pavers)
+  const pavers = json('data/pavers.json');
+  fs.cpSync(path.join(SRC, 'assets/pavers'), path.join(DIST, 'pavers'), { recursive: true });
+  for (const l of [...pavers.lines, pavers.coping]) for (const c of l.colors) if (!fs.existsSync(path.join(SRC, 'assets/pavers', l.id + '-' + c.id + '.jpg'))) errors.push('paver image missing: ' + l.id + ' ' + c.id);
   const BUNDLES = { home: ['base', 'data', 'hero', 'd3', 'studio', 'lab', 'minicalc', 'cards', 'home'], pools: ['base', 'data', 'cards', 'finder'], model: ['base', 'data', 'cards', 'model'], studio: ['base', 'data', 'd3', 'studio'], colours: ['base', 'data', 'd3', 'lab'], cost: ['base', 'data', 'estimator'], quote: ['base', 'data', 'quote'], why: ['base', 'why'], work: ['base', 'work'], learn: ['base', 'learn'], financing: ['base', 'minicalc'], plain: ['base'] };
   const jsFor = {};
   for (const [name, parts] of Object.entries(BUNDLES)) {
     const code = '(function(){"use strict";\n' + parts.map(p => read(`js/${p}.js`)).join('\n') + '\n' + read('js/boot.js') + '\n})();';
-    const filled = inject(code).replace('{{SITEJSON}}', () => safeJSON(siteForApp)).replace('{{PHOTOSJSON}}', () => safeJSON(photos)).replace('{{MODELSJSON}}', () => safeJSON(models));
+    const filled = inject(code).replace('{{SITEJSON}}', () => safeJSON(siteForApp)).replace('{{PHOTOSJSON}}', () => safeJSON(photos)).replace('{{MODELSJSON}}', () => safeJSON(models)).replace('{{PAVERSJSON}}', () => safeJSON(pavers));
     jsFor[name] = (await emit(name, filled, 'js'));
   }
 
