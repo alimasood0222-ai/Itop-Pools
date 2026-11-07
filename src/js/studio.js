@@ -3,6 +3,8 @@
 const SPA_N={cube:'Cube',horseshoe:'Horseshoe',oval:'Oval',resort:'Resort'};
 /* Tremron paver lines, colors and coping (src/data/pavers.json) */
 const PAVERS={{PAVERSJSON}};
+/* Each model's outline, traced from its Barrier Reef drawing (src/data/outlines.json), so the 3D pool has the same shape as the card */
+const OUTLINES={{OUTLINESJSON}};
 const pvLine=id=>PAVERS.lines.find(l=>l.id===id),pvColor=(l,id)=>l.colors.find(c=>c.id===id)||l.colors[0];
 const st={model:byId('whitsunday'),size:0,finish:'ocean',deck:'Travertine',deckV:'travertine',feats:{spa:true,ledge:true,cage:false},spaType:'cube',spaAttached:true,paverLine:'olde-towne',paverColor:'sand-dune',coping:null,light:'day',view:'poolside',touched:false};
 st.size=st.model.def;
@@ -17,10 +19,10 @@ function initStudio3D(){if(cfg||failed3D)return;load3D().then(()=>{if(cfg)return
 init3D.studio=initStudio3D;
 const ml=$('#mList'),msz=$('#mSizes');
 later(()=>{MODELS.forEach(m=>{const b=document.createElement('button');b.className='mbtn';b.dataset.id=m.id;
- b.innerHTML=`<svg viewBox="0 0 140 60"><path d="${planPath(m.s,m.L,m.W)}" fill="#1e9be0" stroke="#bfe9fd" stroke-width="4"/></svg><span><b>${m.n}</b><small>${m.sizes.length>1?m.sizes.length+' sizes':m.Ls+' × '+m.Ws}</small></span>`;
+ b.innerHTML=`<img src="/models-br/${m.id}.webp" alt="" width="72" height="32" loading="lazy" decoding="async"><span><b>${m.n}</b><small>${m.sizes.length>1?m.sizes.length+' sizes':m.Ls+' × '+m.Ws}</small></span>`;
  b.onclick=()=>{pickModel(m);st.touched=true};ml.appendChild(b)});$$('.mbtn',ml).forEach(b=>b.classList.toggle('on',b.dataset.id===st.model.id))});
 // The model's shape, size and built-in features go to the scene; the feature toggles follow the model
-function applyModel(){const z=sz(),m=st.model;if(cfg)cfg.set({shape:m.s,sx:z.L/40,sy:z.W/16,ledge:st.feats.ledge,spa:st.feats.spa,cage:st.feats.cage})}
+function applyModel(){const z=sz(),m=st.model;if(cfg)cfg.set({shape:m.s,outline:OUTLINES[m.id]||null,sx:z.L/40,sy:z.W/16,ledge:st.feats.ledge,spa:st.feats.spa,cage:st.feats.cage})}
 function pickModel(m,size){st.model=m;st.size=size!=null&&m.sizes[size]?size:m.def;st.feats.ledge=m.feats.includes('ledge');if(m.spa)st.feats.spa=true;
  $$('.mbtn',ml).forEach(b=>b.classList.toggle('on',b.dataset.id===m.id));
  msz.hidden=m.sizes.length<2;msz.innerHTML=m.sizes.length<2?'':m.sizes.map((z,i)=>`<button type="button" data-i="${i}" class="${i===st.size?'on':''}"><b>${z.label}</b><small>${z.Ls} × ${z.Ws}</small></button>`).join('');

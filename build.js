@@ -120,7 +120,7 @@ async function build() {
   const jsFor = {};
   for (const [name, parts] of Object.entries(BUNDLES)) {
     const code = '(function(){"use strict";\n' + parts.map(p => read(`js/${p}.js`)).join('\n') + '\n' + read('js/boot.js') + '\n})();';
-    const filled = inject(code).replace('{{SITEJSON}}', () => safeJSON(siteForApp)).replace('{{PHOTOSJSON}}', () => safeJSON(photos)).replace('{{MODELSJSON}}', () => safeJSON(models)).replace('{{PAVERSJSON}}', () => safeJSON(pavers));
+    const filled = inject(code).replace('{{SITEJSON}}', () => safeJSON(siteForApp)).replace('{{PHOTOSJSON}}', () => safeJSON(photos)).replace('{{MODELSJSON}}', () => safeJSON(models)).replace('{{PAVERSJSON}}', () => safeJSON(pavers)).replace('{{OUTLINESJSON}}', () => safeJSON(json('data/outlines.json')));
     jsFor[name] = (await emit(name, filled, 'js'));
   }
 

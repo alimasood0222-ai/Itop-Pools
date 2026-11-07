@@ -164,7 +164,9 @@ function PoolScene(canvas,opts){
   hedge:new T.MeshStandardMaterial({color:'#2f5a25',roughness:1}),
   flower:new T.MeshStandardMaterial({color:'#d22c58',roughness:.8}),
   canvas:new T.MeshStandardMaterial({color:'#f4efe6',roughness:.9,side:T.DoubleSide}),
-  cage:new T.LineBasicMaterial({color:'#1f262e',transparent:true,opacity:.6})
+  cage:new T.LineBasicMaterial({color:'#1f262e',transparent:true,opacity:.6}),
+  shelf:new T.MeshBasicMaterial({color:'#bff4ff',transparent:true,opacity:.42,depthWrite:false}),
+  shelfEdge:new T.MeshBasicMaterial({color:'#ffffff',transparent:true,opacity:.55,depthWrite:false})
  };
  // basin caustics + LED glow
  const causU={uTime:{value:0},uNight:{value:0},uLED:{value:C('#38e0ff')},uSunCol:{value:C('#fff')}};
@@ -291,7 +293,9 @@ function PoolScene(canvas,opts){
 
  S.build=function(){
   pool.children.slice().forEach(o=>{pool.remove(o);o.traverse&&o.traverse(m=>{if(m.geometry)m.geometry.dispose()})});
-  const st=S.state;const pts=poolPts(st.shape,st.sx,st.sy);
+  const st=S.state;
+  // Barrier Reef outline when given (u along the length, v across, each -0.5..0.5); 1 ft = .3 units, so 40 ft = 12 units
+  const pts=st.outline?st.outline.map(([u,v])=>new T.Vector2(u*12*st.sx,v*4.8*st.sy)):poolPts(st.shape,st.sx,st.sy);
   const cop=offsetPts(pts,.34);
   // deck with hole
   const d=new T.Shape([new T.Vector2(-10,-6.8),new T.Vector2(10,-6.8),new T.Vector2(10,7.1),new T.Vector2(-10,7.1)]);d.holes.push(pathFrom(cop));
@@ -304,8 +308,20 @@ function PoolScene(canvas,opts){
   // water
   const wg=new T.ShapeGeometry(shapeFrom(pts),24);wg.rotateX(-Math.PI/2);const w=new T.Mesh(wg,W);w.position.y=-.12;w.renderOrder=2;pool.add(w);
   // ledge
-  if(st.ledge){const lx=-6*st.sx+.12;const lw=Math.max(1.2,2.1*st.sx);const lh=(st.shape==='rect'?4.5:3.0)*st.sy;
-    const l=new T.Mesh(new T.BoxGeometry(lw,1.45,lh),M.ledge);l.position.set(lx+lw/2,-.38-.725,0);pool.add(l);}
+  // A shallow shelf (about 10" deep) across the left end, cut to the pool's own outline. The water over it is
+  // lighter, its step edge shows, and two in-water loungers sit on it, so it reads as a tanning ledge.
+  if(st.ledge){const x0=Math.min(...pts.map(p=>p.x)),cut=x0+Math.max(1.2,2.1*st.sx);
+    const clip=[];for(let i=0;i<pts.length;i++){const a=pts[i],b=pts[(i+1)%pts.length],ia=a.x<=cut,ib=b.x<=cut;if(ia)clip.push(a);if(ia!==ib){const t=(cut-a.x)/(b.x-a.x);clip.push(new T.Vector2(cut,a.y+(b.y-a.y)*t))}}
+    if(clip.length>2){
+     const l=new T.Mesh(extr(shapeFrom(clip),1.42),M.ledge);l.position.y=-1.8;l.receiveShadow=true;pool.add(l);
+     const glow=new T.Mesh(new T.ShapeGeometry(shapeFrom(offsetPts(clip,-.05)),12),M.shelf);glow.geometry.rotateX(-Math.PI/2);glow.position.y=-.105;glow.renderOrder=3;pool.add(glow);
+     const ys=clip.filter(p=>Math.abs(p.x-cut)<1e-6).map(p=>p.y),span=ys.length>1?Math.max(...ys)-Math.min(...ys):0;
+     if(span>.4){const e=new T.Mesh(new T.PlaneGeometry(.09,span-.1),M.shelfEdge);e.rotation.x=-Math.PI/2;e.position.set(cut-.05,-.1,-(Math.max(...ys)+Math.min(...ys))/2);e.renderOrder=4;pool.add(e)}
+     const deep=cut-x0,zs=clip.map(p=>p.y),zmid=-(Math.max(...zs)+Math.min(...zs))/2,zspan=Math.max(...zs)-Math.min(...zs);
+     if(deep>1.5&&zspan>2.2)[-.62,.62].forEach(dz=>{const g=new T.Group();
+      const seat=new T.Mesh(new T.BoxGeometry(Math.min(1.55,deep-.25),.12,.6),M.white);seat.position.y=-.3;g.add(seat);
+      const back=new T.Mesh(new T.BoxGeometry(.62,.1,.56),M.white);back.position.set(-Math.min(1.55,deep-.25)/2+.28,-.12,0);back.rotation.z=-.62;g.add(back);
+      g.traverse(o=>{if(o.isMesh)o.castShadow=true});g.position.set(x0+deep/2+.05,0,zmid+dz*Math.min(1,zspan/3.2));pool.add(g)})}}
   // spa: placed after the pool is built (see placeSpa); an attached spa follows the new pool edge
   S.poolW=pts.map(p=>({x:p.x,z:-p.y}));
   if(!spaG.children.length)buildSpa();
@@ -315,7 +331,7 @@ function PoolScene(canvas,opts){
   const xs=pts.reduce((a,p)=>[Math.min(a[0],p.x),Math.max(a[1],p.x)],[1e9,-1e9]);
   pl1.position.set(xs[0]*.5,.2,0);pl2.position.set(xs[1]*.5,.2,0);
   // finish
-  const f=FINISH[st.finish];M.basin.color.set(f.basin);M.ledge.color.set(f.basin);[W,SW].forEach(m=>{m.uniforms.uDeep.value.set(f.deep);m.uniforms.uShallow.value.set(f.shallow)});
+  const f=FINISH[st.finish];M.basin.color.set(f.basin);M.ledge.color.set(f.basin);M.shelf.color.set(f.shallow).lerp(C('#ffffff'),.55);[W,SW].forEach(m=>{m.uniforms.uDeep.value.set(f.deep);m.uniforms.uShallow.value.set(f.shallow)});
   // Tremron photo textures are darkened so the bright scene lighting renders them close to the real swatch
   const tremron=st.deck==='pavers'&&S.paverTex;M.deck.map=tremron?S.paverTex:deckTex(st.deck);M.deck.color.set(tremron?PAVER_TONE:'#ffffff');M.deck.needsUpdate=true;patio.material=M.deck;
   M.coping.map=st.coping&&S.copingTex?S.copingTex:null;M.coping.color.set(M.coping.map?PAVER_TONE:'#e6dcc6');M.coping.needsUpdate=true;

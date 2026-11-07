@@ -354,3 +354,6 @@ footer .f-col a:hover,footer .f-col a:focus-visible{color:#fff}
 @media (prefers-reduced-motion:reduce){.btn,.btn:hover,.btn .arr,.btn[class]:hover .arr,.bm:hover .bm-btn svg{transform:none!important}}
 .btn.dark{box-shadow:0 4px 12px -8px rgba(7,26,51,.5)}
 .btn.blue{box-shadow:0 4px 12px -8px rgba(30,155,224,.5)}
+
+/* 3D studio model list: Barrier Reef drawings, as on the Pools page */
+.mbtn img{width:64px;height:30px;object-fit:contain;flex:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))}
