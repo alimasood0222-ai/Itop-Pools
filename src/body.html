@@ -335,32 +335,12 @@
       <div class="crumbs"><a href="/">Home</a><span>/</span><b>Pool models</b></div>
       <div class="ph-grid">
         <div><div class="eyebrow light">Model finder</div><h1>Barrier Reef fiberglass pools that fit your yard.</h1></div>
-        <p class="lead">{{MODELCOUNT}} Barrier Reef fiberglass models with official specs. Filter by size, shape and features, then compare up to three side by side.</p>
+        <p class="lead">All {{MODELCOUNT}} Barrier Reef fiberglass models with official sizes. Filter by length, width, shape and features, then open any model for its specs, finishes and a 3D preview.</p>
       </div>
     </div>
   </section>
-  <section class="finder-page">
-    <div class="wrap fp-grid">
-      <button class="fp-open" id="fpOpen" aria-expanded="false" aria-controls="fpSide"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M3 6h18M7 12h10M10 18h4"/></svg>Filters <em id="fpOpenN"></em></button>
-      <div class="fp-back" id="fpBack"></div>
-      <aside class="fp-side" id="fpSide">
-        <div class="fp-h"><b>Filters</b><button id="fpClear">Clear all</button></div>
-        <div class="fp-g"><h6>Shape</h6><div class="fp-chips" data-f="shape"><button data-v="rect">Rectangular</button><button data-v="free">Freeform</button><button data-v="kidney">Kidney</button><button data-v="roman">Roman</button><button data-v="plunge">Plunge</button></div></div>
-        <div class="fp-g"><h6>Features</h6><div class="fp-chips" data-f="feat"><button data-v="ledge">Lounging ledge</button><button data-v="spa">Integrated spa</button><button data-v="bench">Built-in seating</button><button data-v="deep">Deep end 6'+</button><button data-v="new">New for 2026</button></div></div>
-        <div class="fp-g"><h6>Max length <em id="fpLenV">40 ft</em></h6><input type="range" class="rng" id="fpLen" aria-label="Maximum length in feet" min="16" max="40" value="40"></div>
-        <div class="fp-g"><h6>Max width <em id="fpWidV">16 ft</em></h6><input type="range" class="rng" id="fpWid" aria-label="Maximum width in feet" min="8" max="16" step=".5" value="16"></div>
-        <div class="fp-g"><h6>Sort by</h6><select id="fpSort" class="sel" aria-label="Sort models"><option value="len">Length, largest first</option><option value="len-a">Length, smallest first</option><option value="name">Name A–Z</option><option value="gal">Water volume</option></select></div>
-        <div class="fp-help"><b>Not sure what fits?</b><p>We measure your yard on the free site visit and tell you exactly which shells clear your setbacks.</p><a href="/free-3d-design/">Book a free visit →</a></div>
-        <button class="btn fp-apply" id="fpApply">Show models</button>
-      </aside>
-      <div>
-        <div class="fp-bar"><span id="fpCount">{{MODELCOUNT}} models</span><div class="fp-active" id="fpActive"></div></div>
-        <div class="fp-grid-cards" id="fpCards"></div>
-        <div class="fp-empty" id="fpEmpty"><b>No shell matches every filter.</b><p>Try a longer length or fewer features, or let us recommend one.</p><button class="btn dark" id="fpReset">Reset filters <span class="arr">↺</span></button></div>
-      </div>
-    </div>
-  </section>
-  <div class="cmp-tray" id="cmpTray"><div class="wrap ct-in"><div class="ct-slots" id="ctSlots"></div><button class="btn" id="ctGo">Compare <span class="arr">→</span></button><button class="ct-x" id="ctClear">Clear</button></div></div>
+  {{BRMODELS}}
+
 </div>
 
 <!-- ================= MODEL DETAIL ================= -->
@@ -400,13 +380,13 @@
           <div class="md-a-row"><span>Finish</span><b id="mdAsideFin">Ocean</b></div>
           <div class="md-a-row"><span>Typical install</span><b>2–6 weeks*</b></div>
           <a href="/free-3d-design/" class="btn" id="mdAsideQ" style="width:100%;justify-content:center;margin-top:16px">Get my firm price <span class="arr">→</span></a>
-          <button class="btn ghost-d" id="mdCmp" style="width:100%;justify-content:center;margin-top:8px">+ Add to compare</button>
+          
           <a href="tel:+19046852555" class="md-call">or call (904) 685-2555</a>
         </div>
       </aside>
     </div>
   </section>
-  <section class="sec md-sim"><div class="wrap"><div class="sec-head" style="margin-bottom:34px"><div><div class="eyebrow">You might also like</div><h2 style="margin-top:14px;font-size:clamp(32px,3.6vw,48px)">Similar shells</h2></div></div><div class="fp-grid-cards three" id="mdSim"></div></div></section>
+  <section class="sec md-sim"><div class="wrap"><div class="sec-head" style="margin-bottom:34px"><div><div class="eyebrow">You might also like</div><h2 style="margin-top:14px;font-size:clamp(32px,3.6vw,48px)">Similar shells</h2></div></div><div class="bm-grid" id="mdSim"></div></div></section>
 </div>
 
 <!-- ================= STUDIO PAGE ================= -->
@@ -808,5 +788,5 @@
 
 <div class="mbar" id="mbar"><a href="tel:+19046852555"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg> Call</a><a href="/free-3d-design/" class="p">Get my free 3D design →</a></div>
 <div class="lb" id="lb" role="dialog" aria-label="Photo"><img alt=""></div>
-<div class="modal" id="cmpModal"><div class="mo-in"><button class="mo-x" id="moX" aria-label="Close">✕</button><h3>Compare models</h3><div class="mo-tbl" id="moTbl"></div></div></div>
+
 <div class="toast" id="toast"><span style="font-size:22px">✓</span><span id="toastT"></span></div>

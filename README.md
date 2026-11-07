@@ -84,6 +84,9 @@ The gallery at `/our-work/` reads `src/data/gallery.json`. Each entry is `{ f, t
 
 The 425 Barrier Reef photos came from Barrier Reef's own gallery, which iTop is authorized to use as a dealer. Model pages link to their photos with `/our-work/?model=<id>`. The filters work the same way for `shape`, `color` and `other`.
 
+**Pool model cards**
+The Pools page, the shape pages and "Similar shells" use cards copied from Barrier Reef's own pool models section (brpoolsusa.com/fiberglass-pools-spas/), at the client's request. The card text, shapes, features and "2026 New Model" badges are in `src/data/model-cards.json`, and the drawings and shape icons are in `src/assets/models-br/`. The Length and Width filters use the sizes printed on each card and treat "31' / 40'" as covering everything between, so the results match Barrier Reef's own filter. To add a model, add it to `models.json` and `model-cards.json`, and put its drawing in `src/assets/models-br/<id>.webp`.
+
 **Tremron pavers in the 3D studio**
 The 3D studio offers 12 Tremron paver lines (75 colors) and 5 bullnose coping colors, listed in `src/data/pavers.json`. Each color has a small image in `src/assets/pavers/`:
 - `<line>-<color>.jpg`: 12 clean patches cut from Tremron's swatch photo. The 3D view lays the line's real pattern at true scale and fills each paver with one of these patches.

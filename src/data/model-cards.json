@@ -1,0 +1,431 @@
+{
+ "source": "Barrier Reef Pools USA, brpoolsusa.com/fiberglass-pools-spas/, November 2026",
+ "cards": [
+  {
+   "id": "aussie",
+   "n": "Aussie",
+   "len": "35' Length",
+   "wid": "15' 9\" Width",
+   "shapes": [
+    "Rectangular"
+   ],
+   "icon": "icon-aussie",
+   "badge": "2026 New Model",
+   "alt": "Aussie - Long rectangular fiberglass pool",
+   "feats": [
+    "sloped",
+    "ledge"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/aussie/",
+   "w": 627,
+   "h": 283
+  },
+  {
+   "id": "billabong-cove",
+   "n": "Billabong Cove",
+   "len": "35'3\" Length",
+   "wid": "16' Width",
+   "shapes": [
+    "Free-Form"
+   ],
+   "icon": "icon-billabong-cove-1",
+   "badge": "",
+   "alt": "Billabong Cove - Lagoon-style fiberglass pool",
+   "feats": [
+    "sloped",
+    "ledge"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/billabong-cove/",
+   "w": 806,
+   "h": 393
+  },
+  {
+   "id": "billabong-splash",
+   "n": "Billabong Splash",
+   "len": "27' Length",
+   "wid": "13' Width",
+   "shapes": [
+    "Free-Form"
+   ],
+   "icon": "icon-billabong-cove-1",
+   "badge": "",
+   "alt": "Billabong Splash - Lagoon-style fiberglass pool design",
+   "feats": [
+    "bench",
+    "sloped",
+    "ledge"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/billabong-splash/",
+   "w": 731,
+   "h": 386
+  },
+  {
+   "id": "bondi",
+   "n": "Bondi",
+   "len": "40' / 35' Length",
+   "wid": "15' 9\" Width",
+   "shapes": [
+    "Rectangular"
+   ],
+   "icon": "icon-aussie",
+   "badge": "",
+   "alt": "Bondi - Sleek rectangular fiberglass pool",
+   "feats": [
+    "sloped",
+    "ledge"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/bondi/",
+   "w": 772,
+   "h": 313
+  },
+  {
+   "id": "castaway",
+   "n": "Castaway",
+   "len": "30' / 35' Length",
+   "wid": "15' 8\" Width",
+   "shapes": [
+    "Rectangular"
+   ],
+   "icon": "icon-aussie",
+   "badge": "",
+   "alt": "Castaway - Fiberglass pool with steps and tanning ledge",
+   "feats": [
+    "spa",
+    "sloped",
+    "ledge"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/castaway/",
+   "w": 626,
+   "h": 273
+  },
+  {
+   "id": "coral-cay",
+   "n": "Coral Cay Plunge",
+   "len": "20' / 30' Length",
+   "wid": "9' 6\" / 11' 3\" Width",
+   "shapes": [
+    "Plunge",
+    "Rectangular"
+   ],
+   "icon": "icon-escape",
+   "badge": "",
+   "alt": "Coral Cay - Long rectangular fiberglass pool",
+   "feats": [
+    "bench",
+    "sloped"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/coral-cay/",
+   "w": 757,
+   "h": 285
+  },
+  {
+   "id": "coral-sea",
+   "n": "Coral Sea",
+   "len": "31' / 40' Length",
+   "wid": "15' 2\" Width",
+   "shapes": [
+    "Free-Form"
+   ],
+   "icon": "icon-billabong-cove-1",
+   "badge": "",
+   "alt": "Coral Sea - Lagoon-style fiberglass pool design",
+   "feats": [
+    "sloped",
+    "ledge"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/coral-sea/",
+   "w": 746,
+   "h": 323
+  },
+  {
+   "id": "crispin",
+   "n": "Crispin Plunge",
+   "len": "16' 6\" Length",
+   "wid": "10' Width",
+   "shapes": [
+    "Kidney",
+    "Plunge"
+   ],
+   "icon": "icon-opal",
+   "badge": "",
+   "alt": "Crispin Plunge - freeform fiberglass pool with steps",
+   "feats": [
+    "flat",
+    "bench"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/crispin/",
+   "w": 561,
+   "h": 360
+  },
+  {
+   "id": "outback-escape",
+   "n": "Escape Plunge",
+   "len": "17' Length",
+   "wid": "8' 6\" Width",
+   "shapes": [
+    "Plunge",
+    "Rectangular"
+   ],
+   "icon": "icon-escape",
+   "badge": "",
+   "alt": "Escape Plunge - Fiberglass plunge pool with built-in steps",
+   "feats": [
+    "flat"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/outback-escape/",
+   "w": 629,
+   "h": 328
+  },
+  {
+   "id": "grande",
+   "n": "Grande",
+   "len": "29' / 23' Length",
+   "wid": "13' 9\" / 11' 3\" Width",
+   "shapes": [
+    "Rectangular"
+   ],
+   "icon": "icon-aussie",
+   "badge": "",
+   "alt": "Grande - Large rectangular fiberglass pool",
+   "feats": [
+    "bench",
+    "sloped"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/grande/",
+   "w": 751,
+   "h": 324
+  },
+  {
+   "id": "laguna",
+   "n": "Laguna",
+   "len": "23' / 29' Length",
+   "wid": "11' 3\" / 13' 9\" Width",
+   "shapes": [
+    "Rectangular"
+   ],
+   "icon": "icon-aussie",
+   "badge": "",
+   "alt": "Laguna - Wide rectangular fiberglass pool",
+   "feats": [
+    "bench",
+    "sloped"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/laguna/",
+   "w": 751,
+   "h": 324
+  },
+  {
+   "id": "milano",
+   "n": "Milano",
+   "len": "23' Length",
+   "wid": "11' Width",
+   "shapes": [
+    "Roman"
+   ],
+   "icon": "icon-milano",
+   "badge": "",
+   "alt": "Technical diagram of the Milano fiberglass swimming pool with decorative curved sides and integrated entry steps",
+   "feats": [
+    "flat",
+    "bench"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/milano/",
+   "w": 675,
+   "h": 340
+  },
+  {
+   "id": "oasis",
+   "n": "Oasis",
+   "len": "30' Length",
+   "wid": "11'3\" Width",
+   "shapes": [
+    "Rectangular"
+   ],
+   "icon": "icon-aussie",
+   "badge": "2026 New Model",
+   "alt": "Technical diagram of the Oasis fiberglass swimming pool with rectangular shape and built-in entry steps",
+   "feats": [
+    "flat",
+    "bench",
+    "ledge"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/oasis/",
+   "w": 753,
+   "h": 283
+  },
+  {
+   "id": "opal",
+   "n": "Opal",
+   "len": "21' 2\" Length",
+   "wid": "11' 4\" Width",
+   "shapes": [
+    "Kidney"
+   ],
+   "icon": "icon-opal",
+   "badge": "",
+   "alt": "Opal - Rounded fiberglass pool with steps",
+   "feats": [
+    "sloped"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/opal/",
+   "w": 694,
+   "h": 434
+  },
+  {
+   "id": "outback-dundee",
+   "n": "Outback Dundee",
+   "len": "30' Length",
+   "wid": "14' Width",
+   "shapes": [
+    "Rectangular"
+   ],
+   "icon": "icon-aussie",
+   "badge": "",
+   "alt": "Outback Dundee - Rectangular pool with corner steps",
+   "feats": [
+    "bench",
+    "sloped",
+    "ledge"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/outback-dundee/",
+   "w": 667,
+   "h": 347
+  },
+  {
+   "id": "outback",
+   "n": "Outback Lounger",
+   "len": "30' Length",
+   "wid": "14' Width",
+   "shapes": [
+    "Rectangular"
+   ],
+   "icon": "icon-aussie",
+   "badge": "",
+   "alt": "Outback Lounger - Fiberglass pool with tanning ledge",
+   "feats": [
+    "flat",
+    "bench",
+    "ledge"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/outback/",
+   "w": 626,
+   "h": 283
+  },
+  {
+   "id": "oyster",
+   "n": "Oyster",
+   "len": "30' / 27' Length",
+   "wid": "14' 9\" / 13' 7\" Width",
+   "shapes": [
+    "Kidney"
+   ],
+   "icon": "icon-opal",
+   "badge": "",
+   "alt": "Oyster - Curved fiberglass pool design",
+   "feats": [
+    "bench",
+    "sloped"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/oyster/",
+   "w": 741,
+   "h": 373
+  },
+  {
+   "id": "pixie",
+   "n": "Pixie Plunge",
+   "len": "16' 6\" Length",
+   "wid": "10' Width",
+   "shapes": [
+    "Kidney",
+    "Plunge"
+   ],
+   "icon": "icon-opal",
+   "badge": "",
+   "alt": "Pixie Plunge - Small fiberglass plunge pool with steps",
+   "feats": [
+    "flat",
+    "bench"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/pixie/",
+   "w": 609,
+   "h": 362
+  },
+  {
+   "id": "southport",
+   "n": "Southport",
+   "len": "28' Length",
+   "wid": "14' 1\" Width",
+   "shapes": [
+    "Free-Form"
+   ],
+   "icon": "icon-billabong-cove-1",
+   "badge": "",
+   "alt": "Southport - Freeform fiberglass pool design",
+   "feats": [
+    "bench",
+    "sloped"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/southport/",
+   "w": 657,
+   "h": 346
+  },
+  {
+   "id": "sudbury",
+   "n": "Sudbury",
+   "len": "29' / 25' Length",
+   "wid": "14' 4\" Width",
+   "shapes": [
+    "Free-Form"
+   ],
+   "icon": "icon-billabong-cove-1",
+   "badge": "",
+   "alt": "Sudbury - Curved fiberglass pool with steps",
+   "feats": [
+    "bench",
+    "sloped"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/sudbury/",
+   "w": 635,
+   "h": 342
+  },
+  {
+   "id": "sydney-harbour",
+   "n": "Sydney Harbour",
+   "len": "40' / 35' Length",
+   "wid": "16' Width",
+   "shapes": [
+    "Rectangular"
+   ],
+   "icon": "icon-aussie",
+   "badge": "",
+   "alt": "Top-down technical diagram of the Sydney Harbour 40 rectangular fiberglass swimming pool with integrated spa and entry steps",
+   "feats": [
+    "spa",
+    "sloped",
+    "ledge"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/sydney-harbour/",
+   "w": 391,
+   "h": 168
+  },
+  {
+   "id": "whitsunday",
+   "n": "Whitsunday",
+   "len": "30' / 40' Length",
+   "wid": "14' / 15' 8\" Width",
+   "shapes": [
+    "Rectangular"
+   ],
+   "icon": "icon-aussie",
+   "badge": "",
+   "alt": "Whitsunday - Rectangular fiberglass pool design",
+   "feats": [
+    "sloped",
+    "ledge"
+   ],
+   "src": "https://www.brpoolsusa.com/pools/whitsunday/",
+   "w": 728,
+   "h": 289
+  }
+ ]
+}

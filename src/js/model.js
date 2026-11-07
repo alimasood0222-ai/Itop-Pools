@@ -21,5 +21,5 @@ function mdPick(i){mdZ=i;$$('#mdSizes button').forEach((b,k)=>{b.classList.toggl
  $('#mdSw').innerHTML=FIN_KEYS.map(k=>`<button data-v="${k}" class="${k===mdFin?'on':''}"><i style="background:${swBg(k)}"></i>${FIN_META[k].n}</button>`).join('');
  $$('#mdSw button').forEach(b=>b.onclick=()=>{mdFin=b.dataset.v;$$('#mdSw button').forEach(x=>x.classList.toggle('on',x===b));mdPlan();mdElev();$('#mdAsideFin').textContent=FIN_META[mdFin].n;$('#md3d').href=`/3d-pool-design/?m=${m.id}&f=${mdFin}`});
  $('#mdAsideName').textContent=m.n;$('#mdAsideFin').textContent=FIN_META[mdFin].n;
- $('#mdCmp').textContent=CMP.has(m.id)?'✓ In compare':'+ Add to compare';$('#mdCmp').onclick=()=>{toggleCmp(m.id);if(CMP.size>1)toast(CMP.size+' models in compare. Open Pool models to compare them.')};
+
  mdPick(mdZ)})();

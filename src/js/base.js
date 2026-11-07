@@ -35,7 +35,7 @@ const co=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return
 $$('.count').forEach(el=>co.observe(el));
 $('#lb').onclick=()=>$('#lb').classList.remove('on');
 const openLB=src=>{$('#lb img').src=src;$('#lb').classList.add('on')};
-addEventListener('keydown',e=>{if(e.key==='Escape'){$('#lb').classList.remove('on');$('#cmpModal').classList.remove('on');drClose();document.body.classList.remove('fp-open-s')}});
+addEventListener('keydown',e=>{if(e.key==='Escape'){$('#lb').classList.remove('on');drClose();document.body.classList.remove('fp-open-s')}});
 $$('input[type=range]').forEach(r=>{setP(r);r.addEventListener('input',()=>setP(r))});
 document.addEventListener('click',e=>{const b=e.target.closest('.qa-h>button');if(!b)return;const d=b.closest('.qa'),list=d.parentElement,o=!d.classList.contains('open');$$(':scope>.qa',list).forEach(x=>{x.classList.remove('open');x.querySelector('button').setAttribute('aria-expanded',false)});if(o){d.classList.add('open');b.setAttribute('aria-expanded',true)}});
 // split headings into masked words

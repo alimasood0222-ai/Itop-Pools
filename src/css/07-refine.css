@@ -170,3 +170,60 @@ footer .f-h,.mega h5,.tr-brand small,.q-card>small,.eo-card>small,.mini small,.p
 .hero-in{padding-bottom:calc(150px + var(--wave))}
 @media (max-width:1100px){.hs-ui{bottom:calc(86px + var(--wave) - 14px)}}
 @media (max-width:680px){.hero{--wave:44px}.hero-in{padding-bottom:calc(18px + var(--wave))}.hs-ui{bottom:auto}}
+
+/* Pool models in Barrier Reef's style: cards, chips and filters */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.bm-sec{background:#faf9f5;padding:64px 0 100px;color:#070e2b}
+.bm-head{display:flex;flex-wrap:wrap;align-items:center;gap:32px;width:min(1720px,100% - 40px);margin-inline:auto;padding:28px clamp(0px,4vw,80px)}
+.bm-head img{width:106px;height:auto}
+.bm-h{font-size:clamp(34px,3.4vw,48px);font-weight:700;letter-spacing:.01rem;line-height:1.2;color:#070e2b}
+.bm-head p{color:#070e2b;font-size:17px;margin-top:4px}
+.bm-wrap{width:min(1720px,100% - 40px);margin-inline:auto;padding:0 clamp(0px,4vw,80px)}
+.bm-fil{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:12px}
+.bm-sel{position:relative;flex:1 1 200px;height:50px;border:1px solid #c4c4c4;border-radius:999px;background:#fff}
+.bm-sel select,.bm-feat>button{appearance:none;-webkit-appearance:none;width:100%;height:100%;border:0;border-radius:999px;background:transparent;padding:0 46px 2px 20px;font:inherit;font-size:16px;color:#070e2b;cursor:pointer;text-align:left}
+.bm-sel::after{content:"";position:absolute;right:22px;top:50%;width:7px;height:7px;border-right:1.6px solid #070e2b;border-bottom:1.6px solid #070e2b;transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.bm-sel:focus-within{outline:2px solid #49a3e5;outline-offset:2px}
+.bm-sel select.on,.bm-feat>button.on{font-weight:600}
+.bm-fm{position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:20;background:#fff;border:1px solid #c4c4c4;border-radius:20px;padding:8px;box-shadow:0 18px 40px -20px rgba(7,14,43,.35)}
+.bm-fm[hidden]{display:none}
+.bm-fm label{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;font-size:15px;cursor:pointer;min-height:44px}
+.bm-fm label:hover{background:#faf9f5}
+.bm-fm input{width:18px;height:18px;accent-color:#ff9335}
+.bm-clear{padding:10px 8px;font-size:17px;color:#070e2b;text-decoration:underline;text-underline-offset:5px;min-height:44px}
+.bm-clear:hover{color:#ce7000}
+.bm-count{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.bm-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin-top:32px}
+@media (min-width:1700px){.bm-sec .bm-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.bm{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:24px;min-width:0;background:#fff;border:1px solid #c4c4c4;border-radius:24px;padding:clamp(24px,2.4vw,40px);color:#070e2b;transition:transform .3s ease}
+.bm[hidden]{display:none}
+.bm:hover,.bm:focus-visible{transform:scale(1.03)}
+.bm-new~.bm-body{padding-top:clamp(24px,2vw,40px)}
+.bm-body{display:flex;flex-direction:column;gap:24px}
+.bm-img{height:100px;width:auto;max-width:100%;object-fit:contain;object-position:left center}
+.bm-n{font-size:30px;line-height:2.5rem;font-weight:700;letter-spacing:.01rem;color:#070e2b;margin-top:8px}
+.bm-chips{display:flex;flex-wrap:wrap;gap:10px}
+.bm-c{display:flex;align-items:center;gap:8px;padding:8px 16px;border:1px solid rgba(196,196,196,.3);background:rgba(44,193,218,.05);border-radius:24px;font-size:13px;font-weight:600;line-height:1.4;color:#070e2b}
+.bm-c .bm-i{width:22px;height:22px;color:#49a3e5;flex:none}
+.bm-s{padding:10px 16px}
+.bm-s img{width:36px;height:auto}
+.bm-btn{display:inline-flex;align-items:center;gap:10px;width:fit-content;padding:7px 25px 9px;border-radius:999px;background:#ff9335;color:#fff;font-weight:700;font-size:15px;transition:background .3s,transform .3s}
+.bm-btn svg{width:16px;height:16px}
+.bm:hover .bm-btn,.bm:focus-visible .bm-btn{background:#ce7000}
+.bm-new{position:absolute;top:16px;right:16px;display:flex;align-items:center;gap:8px;padding:8px 16px 10px;border-radius:999px;background:#fff7f4;color:#ff9335;font-weight:800;font-size:15px}
+.bm-new svg{width:20px;height:20px}
+.bm-none{margin-top:30px;font-size:16px}
+.bm-none button{color:#ce7000;text-decoration:underline;text-underline-offset:4px;padding:8px 4px}
+/* Shape pages and "Similar shells" use the same cards on their own backgrounds */
+.hub-cards.bm-grid,#mdSim.bm-grid{gap:24px}
+@media (max-width:1100px){.bm-grid,.bm-sec .bm-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:680px){
+  .bm-sec{padding:40px 0 70px}
+  .bm-head{gap:16px;width:calc(100% - 32px);padding:16px 0}.bm-head img{width:60px}
+  .bm-wrap{width:calc(100% - 32px);padding:0}
+  .bm-sel{flex:1 1 100%}
+  .bm-grid,.bm-sec .bm-grid{grid-template-columns:minmax(0,1fr);gap:20px}
+  .bm-new{left:0;right:0;top:0;justify-content:center;border-radius:24px 24px 0 0}
+  .bm-new~.bm-body{padding-top:36px}
+  .bm-n{font-size:26px;line-height:2rem}
+}
