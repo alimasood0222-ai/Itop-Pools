@@ -92,3 +92,9 @@ if(location.hash.startsWith('#q-')){const t=document.getElementById(location.has
    .catch(()=>manual(''))
    .finally(()=>{$('#chatSend').disabled=false})});
 })();
+
+/* Leads that could not be delivered are kept here (max 5, 14 days) and re-sent on later page views. */
+function leadQueue(url,lead){try{const k='itop_pending',a=JSON.parse(localStorage.getItem(k)||'[]').filter(x=>Date.now()-x.t<12096e5);a.push({t:Date.now(),u:url,l:lead});localStorage.setItem(k,JSON.stringify(a.slice(-5)))}catch(e){}}
+(()=>{let a;try{a=JSON.parse(localStorage.getItem('itop_pending')||'[]')}catch(e){return}if(!a.length)return;
+ setTimeout(()=>Promise.all(a.map(x=>Date.now()-x.t>12096e5?Promise.resolve(true):fetch(x.u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...x.l,resent:true}),keepalive:true}).then(r=>r.ok).catch(()=>false)))
+  .then(ok=>{try{const left=a.filter((x,i)=>!ok[i]);left.length?localStorage.setItem('itop_pending',JSON.stringify(left)):localStorage.removeItem('itop_pending')}catch(e){}}),3000)})();

@@ -52,12 +52,14 @@ function qValid(){const s=Q.step;err.shown=0;$$('.qs.on .q-err').forEach(e=>e.te
 const LEAD_URL=SITE.leadWebhook||'/api/lead/';
 const SRC=(()=>{let s=null;try{s=JSON.parse(sessionStorage.getItem('itop_src'))}catch(e){}if(!s){const u=new URLSearchParams(location.search);s={utm_source:u.get('utm_source')||'',utm_medium:u.get('utm_medium')||'',utm_campaign:u.get('utm_campaign')||'',utm_term:u.get('utm_term')||'',utm_content:u.get('utm_content')||'',referrer:document.referrer||'',landing_page:location.pathname+location.search};try{sessionStorage.setItem('itop_src',JSON.stringify(s))}catch(e){}}return s})();
 function qLead(){return {...SRC,company:$('#qCo').value,first_name:$('#qFn').value,last_name:$('#qLn').value,phone:$('#qPh').value,email:$('#qEm').value,address1:$('#qAddr').value.trim(),address2:$('#qUnit').value.trim(),city:$('#qCity').value.trim(),state:$('#qState').value,postal_code:$('#qZip').value,full_address:qAddress(),project:[...Q.project].join(', '),model:Q.model,must_haves:[...Q.musts].join(', '),timing:Q.when,budget:Q.budget,hoa:Q.hoa,existing:Q.existing,contact_pref:Q.contact,notes:$('#qNotes').value,sms_consent:$('#qSms').checked,estimate:Q.estimate}}
-function qManualSend(msg){$('.q-done').classList.add('q-manual');const body=qBrief().filter(r=>r[1]).map(r=>r[0]+': '+r[1]).concat(['Phone: '+$('#qPh').value,'Email: '+$('#qEm').value,'Best way to reach me: '+Q.contact,'Notes: '+$('#qNotes').value]).join('\n');
- $('#qDoneTitle').firstChild.textContent='One last tap';$('#qDoneSub').textContent=msg;
- $('#qSend').innerHTML='<a class="btn" href="mailto:'+SITE.leadEmail+'?subject='+encodeURIComponent('Free 3D design request')+'&body='+encodeURIComponent(body)+'">Email my request to iTop <span class="arr">→</span></a><a class="btn ghost" href="tel:+19046852555">Call (904) 685-2555 <span class="arr">→</span></a>'}
-function qSubmit(){const d=$('.q-done');d.classList.remove('q-manual');d.classList.add('q-sending');track('form_complete');$('#qDoneTitle').firstChild.textContent='Sending your request';$('#qDoneSub').textContent='One moment…';$('#qSend').innerHTML='';
- fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...qLead(),stage:'complete'})}).then(r=>{if(!r.ok)throw new Error(r.status);d.classList.remove('q-sending');$('#qDoneTitle').firstChild.textContent="You're all set";$('#qDoneSub').textContent="We've got your request. Here's what happens next.";track('generate_lead',{model:Q.model||'',budget:Q.budget||'',zip:$('#qZip').value});try{sessionStorage.removeItem('itop_form')}catch(e){}})
-  .catch(()=>{d.classList.remove('q-sending');qManualSend("We couldn't send that automatically. Tap below to email it, or give us a call, so it reaches the team.")})}
+/* Submit: the visitor always sees the confirmation. The lead is sent in the background with retries; if every try
+   fails (offline, relay down), it is kept in this browser and base.js sends it again on the next page view. */
+function qSubmit(){track('form_complete');const lead={...qLead(),stage:'complete'};
+ $('#qDoneTitle').firstChild.textContent="You're all set";$('#qDoneSub').textContent="We've got your request. Here's what happens next.";
+ track('generate_lead',{model:Q.model||'',budget:Q.budget||'',zip:$('#qZip').value});try{sessionStorage.removeItem('itop_form')}catch(e){}
+ const send=n=>fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lead),keepalive:true}).then(r=>{if(!r.ok)throw new Error(r.status)})
+  .catch(()=>{if(n<2)return new Promise(r=>setTimeout(r,2500*(n+1))).then(()=>send(n+1));leadQueue(LEAD_URL,lead)});
+ send(0)}
 function qPartial(){track('lead_started');try{if(sessionStorage.getItem('itop_partial'))return;sessionStorage.setItem('itop_partial','1')}catch(e){}
  fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...qLead(),stage:'contact_only'}),keepalive:true}).catch(()=>{})}
 function qGo(dir){if(dir>0&&!qValid())return;const from=Q.step;Q.step=Math.max(0,Math.min(6,Q.step+dir));if(dir>0&&from===0)qPartial();
