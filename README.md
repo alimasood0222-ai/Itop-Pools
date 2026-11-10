@@ -110,11 +110,11 @@ To change a line's laying pattern, edit its `pattern` in `pavers.json`. Sizes ar
 The form and the chat post to `/api/lead` (`api/lead.js`, a Vercel function), which forwards each lead to GoHighLevel. To connect it:
 1. In GoHighLevel, create a workflow with the **Inbound Webhook** trigger and copy its URL.
 2. In Vercel, open the project, go to Settings > Environment Variables, and add `GHL_WEBHOOK_URL` with that URL. Optionally add `GHL_CHAT_WEBHOOK_URL` to send chat messages to a different workflow.
-3. Redeploy. Submit a test lead, then map the fields in the workflow (for example `first_name`, `last_name`, `phone`, `email`, `postal_code`).
+3. Redeploy. Submit a test lead, then map the fields in the workflow (for example `first_name`, `last_name`, `phone`, `email`, `address1`, `city`, `state`, `postal_code`).
 
 The relay keeps the webhook URL out of the site code, adds `full_name`, a `+1` phone and `submitted_at`, and drops spam caught by a hidden field. The form posts the contact details after step 1 (`stage: contact_only`) and the full lead at the end (`stage: complete`). The visitor sees "You're all set" only once GoHighLevel has accepted the lead. If the relay isn't configured or the send fails, they're asked to email or call instead, so no lead is silently lost.
 
-Fields sent: `first_name`, `last_name`, `phone`, `email`, `postal_code`, `project`, `model`, `must_haves`, `timing`, `budget`, `hoa`, `existing`, `visit_day`, `visit_slot`, `call_first`, `contact_pref`, `notes`, `sms_consent`, `estimate`, `stage`, `utm_*`, `referrer`, `landing_page`. Yard photos stay in the browser until a file upload endpoint exists.
+Fields sent: `first_name`, `last_name`, `phone`, `email`, `address1`, `address2`, `city`, `state`, `postal_code`, `full_address`, `project`, `model`, `must_haves`, `timing`, `budget`, `hoa`, `existing`, `contact_pref`, `notes`, `sms_consent`, `estimate`, `stage`, `utm_*`, `referrer`, `landing_page`. Yard photos stay in the browser until a file upload endpoint exists.
 
 ## Chat widget
 
