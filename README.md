@@ -116,7 +116,7 @@ The relay keeps the webhook URL out of the site code, adds `full_name`, a `+1` p
 
 Fields sent: `first_name`, `last_name`, `phone`, `email`, `address1`, `address2`, `city`, `state`, `postal_code`, `full_address`, `project`, `model`, `must_haves`, `timing`, `budget`, `hoa`, `existing`, `contact_pref`, `notes`, `sms_consent`, `estimate`, `photo_count`, `photo_urls`, `photo_1`…`photo_6`, `stage`, `utm_*`, `referrer`, `landing_page`.
 
-Yard photos: the form shrinks each photo in the browser (max 1600px JPEG) and posts it to `/api/photo/` as soon as it's picked; `api/photo.js` checks it really is an image (max 4 MB) and stores it in Vercel Blob, then the lead carries the public URLs. This needs a Blob store connected to the project (Vercel > Storage > Create > Blob, public access), which sets `BLOB_READ_WRITE_TOKEN`. Without it, leads still go through, just without photos. In GoHighLevel, map `photo_urls` (or `photo_1`…) to a text custom field.
+Yard photos: the form shrinks each photo in the browser (max 1600px JPEG) and posts it to `/api/photo/` as soon as it's picked; `api/photo.js` checks it really is an image (max 4 MB) and stores it in a private Vercel Blob store (`itop-pools-blob`). The lead carries links of the form `/api/photo/?p=yard-photos/<date>/photo-<random>.jpg`, which the same function serves by streaming the photo from the store. The store is connected to the project under Infrastructure > Storage, which sets `BLOB_STORE_ID` (the function signs in with Vercel OIDC; `BLOB_READ_WRITE_TOKEN` also works). Without it, leads still go through, just without photos. In GoHighLevel, map `photo_urls` (or `photo_1`…) to a text custom field.
 
 ## Chat widget
 
