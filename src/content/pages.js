@@ -96,9 +96,9 @@ const areas = `
 const privacy = `
 <section class="sec guide"><div class="wrap guide-w legal">
   <p class="fine">Last updated {{UPDATED}}</p>
-  <h2>What we collect</h2><p>When you use our enquiry form, you give us details such as your name, phone number, email, ZIP code and information about your project. We also record which page you arrived on and how you found us, so we understand which pages help people.</p>
+  <h2>What we collect</h2><p>When you use our enquiry form, you give us details such as your name, phone number, email, the project address, information about your project and any yard photos you choose to upload. We also record which page you arrived on and how you found us, so we understand which pages help people.</p>
   <h2>How we use it</h2><p>We use your details to respond to your request, arrange your site visit and prepare your design and price. If you agree, we may text you appointment reminders. Message and data rates may apply, and you can reply STOP to opt out.</p>
-  <h2>Who sees it</h2><p>Your details go to iTop Pools and the service providers we use to run our business, such as our customer management and website analytics tools. We don't sell your details.</p>
+  <h2>Who sees it</h2><p>Your details go to iTop Pools and the service providers we use to run our business, such as our customer management, website hosting and file storage, and website analytics tools. Yard photos are stored at unlisted, hard-to-guess web addresses that are only sent to our team. We don't sell your details.</p>
   <h2>Cookies and analytics</h2><p>We may use analytics tools that use cookies to understand how the site is used. You can control cookies in your browser settings.</p>
   <h2>Contact us</h2><p>To ask about or remove your details, email <a href="mailto:hello@itoppools.com">hello@itoppools.com</a> or call <a href="tel:+19046852555">(904) 685-2555</a>.</p>
 </div></section>`;

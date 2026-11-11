@@ -114,7 +114,9 @@ The form and the chat post to `/api/lead` (`api/lead.js`, a Vercel function), wh
 
 The relay keeps the webhook URL out of the site code, adds `full_name`, a `+1` phone and `submitted_at`, and drops spam caught by a hidden field. The form posts the contact details after step 1 (`stage: contact_only`) and the full lead at the end (`stage: complete`). After Submit the visitor always sees "You're all set". The lead is sent in the background and retried twice; if it still fails, it is kept in the visitor's browser (up to 5 leads, 14 days) and re-sent on their next page view. Until `GHL_WEBHOOK_URL` is set, the relay rejects every lead, so set it before launch.
 
-Fields sent: `first_name`, `last_name`, `phone`, `email`, `address1`, `address2`, `city`, `state`, `postal_code`, `full_address`, `project`, `model`, `must_haves`, `timing`, `budget`, `hoa`, `existing`, `contact_pref`, `notes`, `sms_consent`, `estimate`, `stage`, `utm_*`, `referrer`, `landing_page`. Yard photos stay in the browser until a file upload endpoint exists.
+Fields sent: `first_name`, `last_name`, `phone`, `email`, `address1`, `address2`, `city`, `state`, `postal_code`, `full_address`, `project`, `model`, `must_haves`, `timing`, `budget`, `hoa`, `existing`, `contact_pref`, `notes`, `sms_consent`, `estimate`, `photo_count`, `photo_urls`, `photo_1`…`photo_6`, `stage`, `utm_*`, `referrer`, `landing_page`.
+
+Yard photos: the form shrinks each photo in the browser (max 1600px JPEG) and posts it to `/api/photo/` as soon as it's picked; `api/photo.js` checks it really is an image (max 4 MB) and stores it in Vercel Blob, then the lead carries the public URLs. This needs a Blob store connected to the project (Vercel > Storage > Create > Blob, public access), which sets `BLOB_READ_WRITE_TOKEN`. Without it, leads still go through, just without photos. In GoHighLevel, map `photo_urls` (or `photo_1`…) to a text custom field.
 
 ## Chat widget
 

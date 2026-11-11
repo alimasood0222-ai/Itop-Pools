@@ -423,3 +423,9 @@ footer .f-col a:hover,footer .f-col a:focus-visible{color:#fff}
   #qForm .fr.q-csz .q-city{grid-column:1/-1}
   .q-review div{grid-template-columns:1fr;gap:2px}
 }
+
+/* Yard photo upload state */
+.q-thumbs figure.up img{opacity:.45}
+.q-thumbs figure.up::after{content:"";position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px;border-radius:50%;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;animation:qspin .8s linear infinite}
+.q-thumbs figure.fail{outline:2px solid var(--sun);outline-offset:-2px}
+@keyframes qspin{to{transform:rotate(360deg)}}
