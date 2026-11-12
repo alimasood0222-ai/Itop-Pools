@@ -203,8 +203,7 @@ picture{display:contents}
   #qBriefBody{display:none;margin-top:10px}
   #qCard.open #qBriefBody{display:block}
   .q-grid{grid-template-columns:minmax(0,1fr)}
-  .q-side{order:-1}
-  .q-call,.q-trust{display:none}
+  .q-side{order:1}
 }
 @media (max-width:900px){
   .md-grid{grid-template-columns:minmax(0,1fr)}

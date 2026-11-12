@@ -38,11 +38,9 @@ function qUpd(){
  $('#qNext').innerHTML=Q.step===5?'Submit my request <span class="arr">→</span>':(Q.step===2&&!Q.model)||(Q.step===3&&!Q.files.length&&$('#qZip').value.length===5&&false)?'Skip for now <span class="arr">→</span>':'Continue <span class="arr">→</span>';
  const z=$('#qZip').value;const zo=$('#zipOk');const ok=/^32[0-2]/.test(z);
  zo.className='q-zip'+(z.length===5?(ok?' y':' n'):'');zo.innerHTML=z.length===5?(ok?`<i>✓</i><span><b>Great news, we build in your area.</b>${ZIPAREA[z.slice(0,3)]}</span>`:`<i>i</i><span><b>Just outside our usual area.</b>We'll confirm when we call.</span>`):'<span>Enter your ZIP to check our service area</span>';
- const B=qBrief();const filled=B.filter(r=>r[1]).length;$('#qPct').textContent=Math.round(filled/B.length*100)+'%';
+ const B=qBrief();
  if(Q.step===5){const esc=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);const rv=[B[0],['Phone',$('#qPh').value],['Email',$('#qEm').value.trim()],['Reach me by',Q.contact],...B.slice(1)].filter(r=>r[1]);$('#qReview').innerHTML=rv.map(([k,v])=>`<div><span>${k}</span><b>${esc(v)}</b></div>`).join('')}
- $('#qSum').innerHTML=B.map(([k,v])=>`<div class="q-row ${v?'f':''}"><span>${k}</span><b>${v||'—'}</b></div>`).join('');
  const bi=['u60','60-80','80-100','100+'].indexOf(Q.budget);$('#qbFill').style.width=bi<0?'0':((bi+1)/4*100)+'%';
- const dsn=Brief.get().design,qs=$('#qStudio');qs.classList.toggle('on',!!dsn);if(dsn)qs.innerHTML='<b>3D design attached</b><span>'+dsn+'</span>';
  try{sessionStorage.setItem('itop_form',JSON.stringify({v:2,step:Q.step,project:[...Q.project],musts:[...Q.musts],model:Q.model,when:Q.when,budget:Q.budget,hoa:Q.hoa,existing:Q.existing,contact:Q.contact,estimate:Q.estimate,photos:Q.files.filter(f=>f.url).map(f=>f.url),fields:Object.fromEntries(['qAddr','qUnit','qCity','qState','qZip','qFn','qLn','qPh','qEm','qNotes'].map(k=>[k,$('#'+k).value]))}))}catch(e){}}
 function err(key,msg){const e=$(`.qs.on .q-err[data-for="${key}"]`);if(e){e.textContent=msg;const f=e.closest('.fi');f&&f.classList.add('bad');if(!err.shown){err.shown=1;(f||e).scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'})}}const s=$('.qs.on');s.classList.remove('shake');void s.offsetWidth;s.classList.add('shake');return false}
 function qValid(){const s=Q.step;err.shown=0;$$('.qs.on .q-err').forEach(e=>e.textContent='');$$('.qs.on .fi.bad').forEach(e=>e.classList.remove('bad'));
@@ -74,7 +72,7 @@ function qGo(dir){if(dir>0&&!qValid())return;const from=Q.step;Q.step=Math.max(0
  setTimeout(()=>{const f=$('.qs.on input:not([type=checkbox]):not([type=file])');if(f&&!isTouch)f.focus({preventScroll:true})},420)}
 $('#qNext').addEventListener('click',e=>{e.preventDefault();qGo(1)});
 $('#qBack').onclick=()=>qGo(-1);
-$('#qBriefBtn').onclick=e=>{const o=e.currentTarget.getAttribute('aria-expanded')!=='true';e.currentTarget.setAttribute('aria-expanded',o);$('#qCard').classList.toggle('open',o)};
+
 $('#qForm').addEventListener('keydown',e=>{if(e.key!=='Enter'||e.target.tagName==='TEXTAREA'||e.isComposing)return;if(e.target.tagName==='BUTTON'){if(e.target.classList.contains('on')&&e.target.closest('[data-k]')){e.preventDefault();qGo(1)}return}e.preventDefault();qGo(1)});
 (()=>{const q=new URLSearchParams(location.search),b=Brief.get();let saved=null;try{saved=JSON.parse(sessionStorage.getItem('itop_form'))}catch(e){}
  if(saved&&saved.step<6){if(saved.v!==2)saved.step=0;Object.assign(Q,saved,{project:new Set(saved.project),musts:new Set(saved.musts),files:(saved.photos||[]).map(u=>({n:'',u,url:u,st:'ok'}))});delete Q.photos;later(qThumbs);Object.entries(saved.fields||{}).forEach(([k,v])=>{const el=$('#'+k);if(el)el.value=v})}

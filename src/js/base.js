@@ -46,7 +46,7 @@ function splitHead(h){if(h.dataset.split)return;h.dataset.split=1;let i=0;
  walk(h);h.classList.add('sh');if(!h.classList.contains('rv'))h.classList.add('rv')}
 $$('.sec-head h2,.studio-head h2,.finder h2,.costt h2,.why h2,.faq h2,.mfg h2').forEach(splitHead);
 // stagger groups
-const STAG='.tr-items,.counters,.loans,.pal-grid,.wty-grid,.mfg-stats,.sp-tips,.journey,.p-points,.flow,.rv-grid,.q-trust';
+const STAG='.tr-items,.counters,.loans,.pal-grid,.wty-grid,.mfg-stats,.sp-tips,.journey,.p-points,.flow,.rv-grid,.q-acts';
 function stagger(root=document){$$(STAG,root).forEach(g=>{if(g.classList.contains('stg-g'))return;g.classList.add('stg-g');[...g.children].forEach((c,i)=>c.style.setProperty('--d',(i*70)+'ms'));io.observe(g)})}
 // image reveal
 function imgRev(root=document){$$('.ac .im,.mi,.stack .ph,.step .im',root).forEach(el=>{if(el.classList.contains('ir'))return;el.classList.add('ir');io.observe(el)})}
