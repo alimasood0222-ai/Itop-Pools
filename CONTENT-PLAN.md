@@ -79,7 +79,7 @@ The existing guides are short and general. First-hand detail from the crew would
 
 ## FAQ
 
-There are 39 questions in 10 groups. Fabio's original questions keep their wording, with these changes for him to approve:
+There are 42 questions in 10 groups. Added 12 November 2026: "Is there a Barrier Reef pool dealer in Jacksonville?", "Where is iTop Pools located, and when are you open?" and "Does a spa or hot tub need a permit in Florida?". Fabio's original questions keep their wording, with these changes for him to approve:
 
 - **Filled-in placeholders:** build time and energy options
 - **Added:** the Florida safety feature in the permits answer

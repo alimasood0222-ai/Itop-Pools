@@ -461,3 +461,5 @@ footer .f-col a:hover,footer .f-col a:focus-visible{color:#fff}
 @media (min-width:1101px){.q-map{aspect-ratio:16/11}}
 @media (min-width:1101px) and (max-height:1020px){.q-side{position:static}}
 .q-info p a{display:inline-block;padding:5px 0;margin:-5px 0}
+/* Text-heavy tables: on phones each cell stacks its label above the text */
+@media (max-width:680px){.cost-tbl.tbl-stack td{display:block;text-align:left}.cost-tbl.tbl-stack td::before{display:block;margin-bottom:2px}}

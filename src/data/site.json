@@ -31,6 +31,12 @@
       "postalCode": "32258",
       "addressCountry": "US"
     },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 30.1587,
+      "longitude": -81.5411
+    },
+    "hasMap": "https://www.google.com/maps/search/?api=1&query=6510+Columbia+Park+Dr+Suite+206,+Jacksonville,+FL+32258",
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",

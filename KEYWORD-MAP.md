@@ -29,7 +29,7 @@ One primary keyword per page, so pages don't compete with each other. These are 
 | `/pool-school/screen-enclosures/` | pool screen enclosure Florida | | Learn |
 | `/pool-school/high-water-table/` | fiberglass pool high water table | | Learn |
 | `/pool-school/hurricane/` | hurricane prep for pools | | Learn |
-| `/pool-school/permits/` | Florida pool permits | HOA pool approval, Chapter 515 | Learn |
+| `/pool-school/permits/` | Florida pool permits | St. Johns County pool permit, Jacksonville pool permit, Clay County pool permit, HOA pool approval, Chapter 515, spa permit | Learn |
 | `/pool-school/timeline/` | fiberglass pool installation timeline | how long to install | Learn |
 | `/pool-school/shapes/` | choosing a pool shape | | Learn |
 | `/pool-school/choosing-a-color/` | how to choose a pool color | | Learn |

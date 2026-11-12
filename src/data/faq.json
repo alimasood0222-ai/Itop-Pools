@@ -179,6 +179,11 @@
           "a": "Yes, and yes. HOA approvals, engineering and county permitting are all ours to chase, including the safety feature Florida law requires. You don't fill out a form or make a phone call."
         },
         {
+          "id": "spa-permit",
+          "q": "Does a spa or hot tub need a permit in Florida?",
+          "a": "Yes, if it's built in. Florida's pool safety law treats any hot tub or nonportable spa holding water over 24 inches deep as a swimming pool, so it needs a building permit and the same safety feature as a pool. Plug-in portable spas are defined separately. A spa built into your pool is covered by the pool's permit and safety plan. <a href=\"/pool-school/permits/\">See our permits guide</a>."
+        },
+        {
           "id": "who-is-on-site",
           "why": true,
           "q": "Who is actually on my property during the build?",
@@ -305,6 +310,11 @@
       "title": "Working with iTop",
       "items": [
         {
+          "id": "barrier-reef-dealer",
+          "q": "Is there a Barrier Reef pool dealer in Jacksonville?",
+          "a": "Yes. iTop Pools is an authorized Barrier Reef Pools USA dealer based in Jacksonville, at 6510 Columbia Park Drive, Suite 206. We sell and install all 22 Barrier Reef fiberglass models across Northeast Florida, and our own crew handles the dig, the shell, the deck and the pavers. <a href=\"/fiberglass-pools/\">Browse the models</a>."
+        },
+        {
           "id": "free-consultation",
           "top": true,
           "why": true,
@@ -326,6 +336,11 @@
           "id": "where-do-you-build",
           "q": "What areas does iTop Pools serve?",
           "a": "iTop Pools builds across Northeast Florida, including Jacksonville, Ponte Vedra Beach, Nocatee, St. Johns, St. Augustine, Julington Creek, Fleming Island, Orange Park, Mandarin, Jacksonville Beach, Green Cove Springs and Middleburg. <a href=\"/service-areas/\">See our service areas</a>."
+        },
+        {
+          "id": "office-hours",
+          "q": "Where is iTop Pools located, and when are you open?",
+          "a": "Our office is at 6510 Columbia Park Drive, Suite 206, Jacksonville, FL 32258. We're open Monday to Friday, 8:00 AM to 6:00 PM, and Saturday, 9:00 AM to 1:00 PM. Call or text (904) 685-2555, or email hello@itoppools.com. Site visits are booked by appointment."
         }
       ]
     }
