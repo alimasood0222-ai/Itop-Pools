@@ -168,3 +168,10 @@ All three live in `src/data/site.json`:
 - `brands`: the "Equipment we install" strip on the home page, as `[file, name, width, height]`. Logos are in `src/assets/brands/<file>.webp`.
 - `social.facebook` / `social.instagram`: the footer icons. While a URL is empty, its icon opens a search for iTop Pools on that network; paste the real profile URL to link it directly (it is also added to the business schema's `sameAs`).
 - `licenses`: the license numbers shown in the footer on every page.
+
+## Website chatbot (GoHighLevel)
+
+`chatbot/` holds the files for the GHL Conversation AI bot:
+
+- `itop-pools-knowledge-base.md` is generated from the site's data by `npm run chatbot-kb`. Re-run it after changing hours, prices, models, FAQs or guides, and send the new file to the GHL developer to replace the old one.
+- `itop-pools-bot-setup.md` holds the bot instructions, the field mapping (the same keys as the quote form) and the test checklist.
