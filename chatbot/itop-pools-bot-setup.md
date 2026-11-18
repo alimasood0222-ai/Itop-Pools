@@ -110,17 +110,15 @@ Run these test chats and check the contact in GHL after each:
 
 Delete the test contacts afterwards.
 
-## The website's Chat | Voice widget
+## The website's chat button
 
-The website has its own widget in the bottom-right corner, with two tabs:
+The website uses the GHL widget `6afcda0075f0c3a520f026dc`, which offers **Chat via Live Chat** and **Chat with Voice**. The site's orange button opens it; GHL's own bubble and its automatic "Hey, what brings you here today?" pop-up are hidden, so visitors see one button.
 
-| Tab | Today | Once GHL widget IDs are added |
-|---|---|---|
-| Chat | Visitor leaves name, phone and message. It's sent to the inbound webhook with `source: website_chat`. | A **Start chatting** button opens the GHL chatbot (the Conversation AI widget). |
-| Voice | **Call (904) 685-2555**, and **Call me back** (name and phone). The callback arrives at the same webhook with `source: website_chat` and `request: callback`. | Adds **Talk to our assistant**, which opens the GHL Voice AI web-call widget. |
+If the GHL widget fails to load (ad blockers, outages), the orange button opens the site's backup panel. Its **Chat** tab sends name, phone and message to the inbound webhook with `source: website_chat`. Its **Voice** tab offers **Call (904) 685-2555** and **Call me back**, which arrives with `source: website_chat` and `request: callback`.
 
 What the GHL developer needs to do:
 
-1. **Callback requests:** in the inbound webhook workflow, branch on `request` = `callback`. Then trigger a Voice AI outbound call to the contact, or create a call task for the team and notify Fabio. Also tag the contact `callback requested`.
-2. **Widget IDs:** create the two widgets in GHL (Sites → Chat Widgets): the chat widget connected to the chatbot, and a **Voice AI** widget connected to the voice agent. Send Ali both **widget IDs**. They go into `ghlChatWidgetId` and `ghlVoiceWidgetId` in `src/data/site.json`.
-3. **Call routing:** make sure (904) 685-2555 rings the Voice AI agent or the team, as Fabio prefers, since the Voice tab's call button dials it.
+1. **Widget look:** in the widget settings, set the header color to iTop orange `#F7A21B`, with dark text `#071A33` for contrast, and use the iTop logo as the avatar instead of a stock photo.
+2. **Callback requests from the backup panel:** in the inbound webhook workflow, branch on `request` = `callback`. Then trigger a Voice AI outbound call or create a call task, and notify Fabio. Tag the contact `callback requested`.
+3. **Call routing:** make sure (904) 685-2555 rings the Voice AI agent or the team, as Fabio prefers.
+4. **New widget ID:** if the widget is ever replaced, send Ali the new ID. It goes in `ghlWidgetId` in `src/data/site.json`.

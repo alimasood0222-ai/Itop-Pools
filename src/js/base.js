@@ -63,33 +63,33 @@ document.addEventListener('click',e=>{if(e.target.closest('a[href^="tel:"]'))tra
 /* a link to one question opens its answer */
 if(location.hash.startsWith('#q-')){const t=document.getElementById(location.hash.slice(1));if(t&&!t.classList.contains('open'))t.querySelector('button').click()}
 
-/* Chat & voice widget, bottom right on every page. Two tabs:
-   Chat:  with SITE.ghlChatWidgetId set (src/data/site.json) it opens the GoHighLevel chatbot; until then the visitor
-          leaves a message that goes to GHL through the /api/lead relay (source "website_chat").
-   Voice: with SITE.ghlVoiceWidgetId set it starts GHL's Voice AI web call; tap-to-call and a "call me back" request
-          (source "website_chat", request "callback") always work.
-   GHL scripts load only when the visitor asks for them. */
+/* Chat & voice, bottom right on every page. With SITE.ghlWidgetId set (src/data/site.json), the orange button opens the
+   GoHighLevel widget, which offers live chat (the AI chatbot) and a Voice AI call. GHL's own bubble and its automatic
+   pop-up are hidden, so there's one button. If GHL hasn't loaded (blocked, slow, down), the button opens our own panel
+   instead: Chat sends a message and Voice offers tap-to-call or a call-back request, all through /api/lead
+   (source "website_chat"; call-backs add request "callback"). */
 (()=>{const box=$('#chat');if(!box)return;
  if($('#qNav'))box.classList.add('above-nav');
  const btn=$('#chatBtn'),panel=$('#chatPanel'),form=$('#chatForm'),done=$('#chatDone'),errEl=$('#chatErr'),name=$('#chatName'),ph=$('#chatPhone'),msg=$('#chatMsg');
  const tabs=[$('#chatTabC'),$('#chatTabV')],panes=[$('#chatPaneC'),$('#chatPaneV')];let cur=0;
- const live=!!SITE.ghlChatWidgetId;
- if(live){$('#chatLive').hidden=false;form.hidden=true;$$('#chatPaneC>.chat-msg,#chatPaneC>.chat-quick').forEach(e=>e.hidden=true);$('#chatSub').textContent='Replies instantly, day or night'}
- if(SITE.ghlVoiceWidgetId)$('#voiceStart').hidden=false;
  const tab=i=>{cur=i;tabs.forEach((t,k)=>{t.setAttribute('aria-selected',k===i);t.tabIndex=k===i?0:-1;panes[k].hidden=k!==i});if(i===1)track('chat_tab_voice')};
  tabs.forEach((t,i)=>{t.onclick=()=>tab(i);t.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();const n=1-i;tab(n);tabs[n].focus()}})});
- const first=()=>cur===1?(SITE.ghlVoiceWidgetId?$('#voiceStart'):$('#cbName')):(live?$('#chatStart'):(form.hidden?btn:name));
+ const first=()=>cur===1?$('#cbName'):(form.hidden?btn:name);
  const open=o=>{panel.hidden=!o;box.classList.toggle('open',o);btn.setAttribute('aria-expanded',o);btn.setAttribute('aria-label',o?'Close chat':'Chat or talk with iTop Pools');if(o){track('chat_open');if(!isTouch)setTimeout(()=>first().focus(),60)}};
- btn.onclick=()=>open(panel.hidden);$('#chatClose').onclick=()=>{open(false);btn.focus()};
  addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden){open(false);btn.focus()}});
  $$('.chat-quick a,.chat-act[data-track]').forEach(a=>a.addEventListener('click',()=>track(a.dataset.track)));
- // GoHighLevel widgets: load the script once, then open it with GHL's public widget API
- const ghl=(id,label)=>new Promise(ok=>{const go=()=>{const w=window.leadConnector&&window.leadConnector.chatWidget;if(w&&w.openWidget){w.openWidget();ok(true);return true}};
-  if(!document.querySelector(`script[data-widget-id="${id}"]`)){const s=document.createElement('script');s.src='https://widgets.leadconnectorhq.com/loader.js';s.dataset.resourcesUrl='https://widgets.leadconnectorhq.com/chat-widget/loader.js';s.dataset.widgetId=id;document.body.appendChild(s)}
-  if(go())return;let n=0;const t=setInterval(()=>{if(go()||++n>40){clearInterval(t);if(n>40)ok(false)}},250)});
- const handoff=(id,b,ev)=>{track(ev);const t=b.innerHTML;b.disabled=true;b.textContent='Connecting…';ghl(id).then(ok=>{b.disabled=false;b.innerHTML=t;if(ok){open(false);return}let m=b.parentElement.querySelector('.chat-err');if(!m){m=document.createElement('p');m.className='chat-err';m.setAttribute('role','alert');b.after(m)}m.innerHTML='Sorry, that did not load. Please try again, or call or text <a href="tel:+19046852555">(904) 685-2555</a>.'})};
- if(live)$('#chatStart').onclick=e=>handoff(SITE.ghlChatWidgetId,e.currentTarget,'chat_start_ai');
- if(SITE.ghlVoiceWidgetId)$('#voiceStart').onclick=e=>handoff(SITE.ghlVoiceWidgetId,e.currentTarget,'voice_start_ai');
+ // GoHighLevel widget: load it once the page is idle, hide its own bubble and pop-up, and open it from our button
+ const G={ok:false};
+ const api=()=>window.leadConnector&&window.leadConnector.chatWidget;
+ const sync=()=>{const w=api(),on=!!(w&&w.isActive&&w.isActive());box.classList.toggle('open',on);box.classList.toggle('ghl-on',on);btn.setAttribute('aria-expanded',on);btn.setAttribute('aria-label',on?'Close chat':'Chat or talk with iTop Pools');return on};
+ const watch=()=>{clearInterval(G.t);G.t=setInterval(()=>{if(!sync())clearInterval(G.t)},400)};
+ btn.onclick=()=>{if(G.ok&&panel.hidden){const w=api();if(w.isActive()){w.closeWidget();sync()}else{w.openWidget();track('chat_open_ghl');sync();watch()}return}open(panel.hidden)};$('#chatClose').onclick=()=>{open(false);btn.focus()};
+ if(SITE.ghlWidgetId){const load=()=>{const s=document.createElement('script');s.src='https://widgets.leadconnectorhq.com/loader.js';s.dataset.resourcesUrl='https://widgets.leadconnectorhq.com/chat-widget/loader.js';s.dataset.widgetId=SITE.ghlWidgetId;document.body.appendChild(s);
+   let n=0;const t=setInterval(()=>{const el=document.querySelector('chat-widget'),sr=el&&el.shadowRoot,w=api();
+    if(sr&&sr.querySelector('.lc_text-widget--bubble')&&w&&w.openWidget){clearInterval(t);
+     if(!sr.getElementById('itop-hide')){const st=document.createElement('style');st.id='itop-hide';st.textContent='.lc_text-widget--bubble,.lc_text-widget--prompt{display:none!important}';sr.appendChild(st)}
+     G.ok=true}else if(++n>80)clearInterval(t)},250)};
+  setTimeout(()=>{try{'requestIdleCallback' in window?requestIdleCallback(load,{timeout:4000}):load()}catch(e){}},2500)}
  const fmt=el=>el.addEventListener('input',()=>{const d=el.value.replace(/\D/g,'').replace(/^1/,'').slice(0,10);el.value=d.length>6?`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`:d.length>3?`(${d.slice(0,3)}) ${d.slice(3)}`:d});
  fmt(ph);fmt($('#cbPhone'));
  const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;');
