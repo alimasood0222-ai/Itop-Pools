@@ -63,34 +63,60 @@ document.addEventListener('click',e=>{if(e.target.closest('a[href^="tel:"]'))tra
 /* a link to one question opens its answer */
 if(location.hash.startsWith('#q-')){const t=document.getElementById(location.hash.slice(1));if(t&&!t.classList.contains('open'))t.querySelector('button').click()}
 
-/* Chat widget, bottom right on every page. With SITE.ghlChatWidgetId set (src/data/site.json), GoHighLevel's own
-   chat widget loads instead. Otherwise messages post to SITE.chatWebhook, or, until that is set, the visitor sends
-   them by text or email, so nobody is told a message went through when it didn't. Messages go to the /api/lead relay
-   (GoHighLevel via GHL_CHAT_WEBHOOK_URL or GHL_WEBHOOK_URL in Vercel) unless SITE.chatWebhook is set. */
+/* Chat & voice widget, bottom right on every page. Two tabs:
+   Chat:  with SITE.ghlChatWidgetId set (src/data/site.json) it opens the GoHighLevel chatbot; until then the visitor
+          leaves a message that goes to GHL through the /api/lead relay (source "website_chat").
+   Voice: with SITE.ghlVoiceWidgetId set it starts GHL's Voice AI web call; tap-to-call and a "call me back" request
+          (source "website_chat", request "callback") always work.
+   GHL scripts load only when the visitor asks for them. */
 (()=>{const box=$('#chat');if(!box)return;
- if(SITE.ghlChatWidgetId){box.hidden=true;box.style.display='none';const load=()=>{const s=document.createElement('script');s.src='https://widgets.leadconnectorhq.com/loader.js';s.dataset.resourcesUrl='https://widgets.leadconnectorhq.com/chat-widget/loader.js';s.dataset.widgetId=SITE.ghlChatWidgetId;document.body.appendChild(s)};('requestIdleCallback' in window?requestIdleCallback:setTimeout)(load,2500);return}
  if($('#qNav'))box.classList.add('above-nav');
  const btn=$('#chatBtn'),panel=$('#chatPanel'),form=$('#chatForm'),done=$('#chatDone'),errEl=$('#chatErr'),name=$('#chatName'),ph=$('#chatPhone'),msg=$('#chatMsg');
- const open=o=>{panel.hidden=!o;box.classList.toggle('open',o);btn.setAttribute('aria-expanded',o);btn.setAttribute('aria-label',o?'Close chat':'Chat with iTop Pools');if(o){track('chat_open');if(!isTouch)setTimeout(()=>(form.hidden?btn:name).focus(),60)}};
+ const tabs=[$('#chatTabC'),$('#chatTabV')],panes=[$('#chatPaneC'),$('#chatPaneV')];let cur=0;
+ const live=!!SITE.ghlChatWidgetId;
+ if(live){$('#chatLive').hidden=false;form.hidden=true;$$('#chatPaneC>.chat-msg,#chatPaneC>.chat-quick').forEach(e=>e.hidden=true);$('#chatSub').textContent='Replies instantly, day or night'}
+ if(SITE.ghlVoiceWidgetId)$('#voiceStart').hidden=false;
+ const tab=i=>{cur=i;tabs.forEach((t,k)=>{t.setAttribute('aria-selected',k===i);t.tabIndex=k===i?0:-1;panes[k].hidden=k!==i});if(i===1)track('chat_tab_voice')};
+ tabs.forEach((t,i)=>{t.onclick=()=>tab(i);t.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();const n=1-i;tab(n);tabs[n].focus()}})});
+ const first=()=>cur===1?(SITE.ghlVoiceWidgetId?$('#voiceStart'):$('#cbName')):(live?$('#chatStart'):(form.hidden?btn:name));
+ const open=o=>{panel.hidden=!o;box.classList.toggle('open',o);btn.setAttribute('aria-expanded',o);btn.setAttribute('aria-label',o?'Close chat':'Chat or talk with iTop Pools');if(o){track('chat_open');if(!isTouch)setTimeout(()=>first().focus(),60)}};
  btn.onclick=()=>open(panel.hidden);$('#chatClose').onclick=()=>{open(false);btn.focus()};
  addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden){open(false);btn.focus()}});
- $$('.chat-quick a').forEach(a=>a.addEventListener('click',()=>track(a.dataset.track)));
- ph.addEventListener('input',()=>{const d=ph.value.replace(/\D/g,'').replace(/^1/,'').slice(0,10);ph.value=d.length>6?`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`:d.length>3?`(${d.slice(0,3)}) ${d.slice(3)}`:d});
+ $$('.chat-quick a,.chat-act[data-track]').forEach(a=>a.addEventListener('click',()=>track(a.dataset.track)));
+ // GoHighLevel widgets: load the script once, then open it with GHL's public widget API
+ const ghl=(id,label)=>new Promise(ok=>{const go=()=>{const w=window.leadConnector&&window.leadConnector.chatWidget;if(w&&w.openWidget){w.openWidget();ok(true);return true}};
+  if(!document.querySelector(`script[data-widget-id="${id}"]`)){const s=document.createElement('script');s.src='https://widgets.leadconnectorhq.com/loader.js';s.dataset.resourcesUrl='https://widgets.leadconnectorhq.com/chat-widget/loader.js';s.dataset.widgetId=id;document.body.appendChild(s)}
+  if(go())return;let n=0;const t=setInterval(()=>{if(go()||++n>40){clearInterval(t);if(n>40)ok(false)}},250)});
+ const handoff=(id,b,ev)=>{track(ev);const t=b.innerHTML;b.disabled=true;b.textContent='Connecting…';ghl(id).then(ok=>{b.disabled=false;b.innerHTML=t;if(ok){open(false);return}let m=b.parentElement.querySelector('.chat-err');if(!m){m=document.createElement('p');m.className='chat-err';m.setAttribute('role','alert');b.after(m)}m.innerHTML='Sorry, that did not load. Please try again, or call or text <a href="tel:+19046852555">(904) 685-2555</a>.'})};
+ if(live)$('#chatStart').onclick=e=>handoff(SITE.ghlChatWidgetId,e.currentTarget,'chat_start_ai');
+ if(SITE.ghlVoiceWidgetId)$('#voiceStart').onclick=e=>handoff(SITE.ghlVoiceWidgetId,e.currentTarget,'voice_start_ai');
+ const fmt=el=>el.addEventListener('input',()=>{const d=el.value.replace(/\D/g,'').replace(/^1/,'').slice(0,10);el.value=d.length>6?`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`:d.length>3?`(${d.slice(0,3)}) ${d.slice(3)}`:d});
+ fmt(ph);fmt($('#cbPhone'));
+ const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+ const post=body=>fetch(SITE.chatWebhook||'/api/lead/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,page:location.pathname,source:'website_chat'})}).then(r=>{if(!r.ok)throw 0});
+ const fallback=(n,p,m)=>{const text=`Hi iTop Pools, this is ${n} (${p}). ${m}`;return `<div class="chat-quick"><a href="sms:+19046852555?&body=${encodeURIComponent(text)}">Send as a text</a><a href="mailto:${SITE.leadEmail}?subject=${encodeURIComponent('Website message from '+n)}&body=${encodeURIComponent(text)}">Send by email</a></div>`};
  // Keep a half-written message if the visitor moves to another page
  try{const d=JSON.parse(sessionStorage.getItem('itop_chat')||'{}');name.value=d.n||'';ph.value=d.p||'';msg.value=d.m||''}catch(e){}
  form.addEventListener('input',()=>{errEl.textContent='';try{sessionStorage.setItem('itop_chat',JSON.stringify({n:name.value,p:ph.value,m:msg.value}))}catch(e){}});
- const finish=html=>{form.hidden=true;done.hidden=false;done.innerHTML=html;try{sessionStorage.setItem('itop_chat','{}')}catch(e){}};
+ const finish=(el,f,html)=>{f.hidden=true;el.hidden=false;el.innerHTML=html};
  form.addEventListener('submit',e=>{e.preventDefault();
   const n=name.value.trim(),p=ph.value,m=msg.value.trim(),bad=(el,t)=>{errEl.textContent=t;el.focus();return false};
   if(!n)return bad(name,'Please add your name.');if(p.replace(/\D/g,'').length!==10)return bad(ph,'Enter a 10-digit mobile number so we can reply.');if(!m)return bad(msg,'Type a short message.');
-  track('chat_message');
-  const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;'),first=esc(n.split(' ')[0]),text=`Hi iTop Pools, this is ${n} (${p}). ${m}`;
-  const manual=lead=>finish(`<p class="chat-msg"><b>Almost there, ${first}.</b> ${lead} Tap below to send your message by text or email.</p><div class="chat-quick"><a href="sms:+19046852555?&body=${encodeURIComponent(text)}">Send as a text</a><a href="mailto:${SITE.leadEmail}?subject=${encodeURIComponent('Website chat from '+n)}&body=${encodeURIComponent(text)}">Send by email</a></div>`);
-  $('#chatSend').disabled=true;
-  fetch(SITE.chatWebhook||'/api/lead/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({company:$('#chatCo').value,name:n,first_name:n.split(' ')[0],last_name:n.split(' ').slice(1).join(' '),phone:p,message:m,page:location.pathname,source:'website_chat'})})
-   .then(r=>{if(!r.ok)throw 0;finish(`<p class="chat-msg"><b>Thanks, ${first}.</b> Your message is with our crew. We'll reply by text or call during business hours.</p>`)})
-   .catch(()=>manual(''))
+  track('chat_message');const f1=esc(n.split(' ')[0]);$('#chatSend').disabled=true;
+  post({company:$('#chatCo').value,name:n,first_name:n.split(' ')[0],last_name:n.split(' ').slice(1).join(' '),phone:p,message:m})
+   .then(()=>{finish(done,form,`<p class="chat-msg"><b>Thanks, ${f1}.</b> Your message is with our crew. We'll reply by text or call during business hours.</p>`);try{sessionStorage.setItem('itop_chat','{}')}catch(e){}})
+   .catch(()=>finish(done,form,`<p class="chat-msg"><b>Almost there, ${f1}.</b> Tap below to send your message by text or email.</p>`+fallback(n,p,m)))
    .finally(()=>{$('#chatSend').disabled=false})});
+ const cb=$('#cbForm'),cbN=$('#cbName'),cbP=$('#cbPhone'),cbE=$('#cbErr');
+ cb.addEventListener('input',()=>cbE.textContent='');
+ cb.addEventListener('submit',e=>{e.preventDefault();
+  const n=cbN.value.trim(),p=cbP.value,bad=(el,t)=>{cbE.textContent=t;el.focus();return false};
+  if(!n)return bad(cbN,'Please add your name.');if(p.replace(/\D/g,'').length!==10)return bad(cbP,'Enter a 10-digit mobile number.');
+  track('voice_callback');const f1=esc(n.split(' ')[0]);$('#cbSend').disabled=true;
+  post({company:$('#cbCo').value,name:n,first_name:n.split(' ')[0],last_name:n.split(' ').slice(1).join(' '),phone:p,message:'Please call me back.',request:'callback'})
+   .then(()=>finish($('#cbDone'),cb,`<p class="chat-msg"><b>Thanks, ${f1}.</b> We'll call you at ${esc(p)} soon. During office hours that's usually quick.</p>`))
+   .catch(()=>finish($('#cbDone'),cb,`<p class="chat-msg"><b>Sorry, ${f1}, that didn't go through.</b> Please call us at <a href="tel:+19046852555">(904) 685-2555</a>, or send a text below.</p>`+fallback(n,p,'Please call me back.')))
+   .finally(()=>{$('#cbSend').disabled=false})});
 })();
 
 /* Leads that could not be delivered are kept here (max 5, 14 days) and re-sent on later page views. */

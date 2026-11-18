@@ -11,6 +11,7 @@
   "leadEmail": "hello@itoppools.com",
   "chatWebhook": "",
   "ghlChatWidgetId": "",
+  "ghlVoiceWidgetId": "",
   "business": {
     "@type": "HomeAndConstructionBusiness",
     "name": "iTop Pools",

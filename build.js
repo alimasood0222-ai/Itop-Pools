@@ -110,7 +110,7 @@ async function build() {
   const FIN = read('js/shared/finish.js'), GEO = read('js/shared/geo.js');
   const inject = t => t.replace('{{FINISH}}', () => FIN).replace('{{GEO}}', () => GEO);
   const engine = await emit('engine', '(function(){"use strict";\n' + inject(read('js/engine.js')) + '\n})();', 'js');
-  const siteForApp = { leadWebhook: site.leadWebhook, leadEmail: site.leadEmail, chatWebhook: site.chatWebhook || '', ghlChatWidgetId: site.ghlChatWidgetId || '', engine: engine.f };
+  const siteForApp = { leadWebhook: site.leadWebhook, leadEmail: site.leadEmail, chatWebhook: site.chatWebhook || '', ghlChatWidgetId: site.ghlChatWidgetId || '', ghlVoiceWidgetId: site.ghlVoiceWidgetId || '', engine: engine.f };
   const galByModel = {}; for (const g of json('data/gallery.json')) if (g.m) galByModel[g.m] = (galByModel[g.m] || 0) + 1;
   // Tremron paver library for the 3D studio (src/data/pavers.json, images in src/assets/pavers)
   const pavers = json('data/pavers.json');

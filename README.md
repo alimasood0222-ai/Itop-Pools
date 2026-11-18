@@ -175,3 +175,5 @@ All three live in `src/data/site.json`:
 
 - `itop-pools-knowledge-base.md` is generated from the site's data by `npm run chatbot-kb`. Re-run it after changing hours, prices, models, FAQs or guides, and send the new file to the GHL developer to replace the old one.
 - `itop-pools-bot-setup.md` holds the bot instructions, the field mapping (the same keys as the quote form) and the test checklist.
+
+The site's own Chat | Voice widget (bottom right, `#chat` in `src/body.html`, logic in `src/js/base.js`) opens the GHL chatbot when `ghlChatWidgetId` is set and the GHL Voice AI web call when `ghlVoiceWidgetId` is set, both in `src/data/site.json`. GHL scripts load only when a visitor clicks. Without the IDs, Chat sends a message and Voice offers tap-to-call and a callback request (`request: "callback"`), both through `/api/lead/`.

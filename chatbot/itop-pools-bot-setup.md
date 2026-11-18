@@ -109,3 +109,18 @@ Run these test chats and check the contact in GHL after each:
 6. Ask for a price for "my 30-foot pool with a spa". The bot should give the range and offer the site visit, not a number.
 
 Delete the test contacts afterwards.
+
+## The website's Chat | Voice widget
+
+The website has its own widget in the bottom-right corner, with two tabs:
+
+| Tab | Today | Once GHL widget IDs are added |
+|---|---|---|
+| Chat | Visitor leaves name, phone and message. It's sent to the inbound webhook with `source: website_chat`. | A **Start chatting** button opens the GHL chatbot (the Conversation AI widget). |
+| Voice | **Call (904) 685-2555**, and **Call me back** (name and phone). The callback arrives at the same webhook with `source: website_chat` and `request: callback`. | Adds **Talk to our assistant**, which opens the GHL Voice AI web-call widget. |
+
+What the GHL developer needs to do:
+
+1. **Callback requests:** in the inbound webhook workflow, branch on `request` = `callback`. Then trigger a Voice AI outbound call to the contact, or create a call task for the team and notify Fabio. Also tag the contact `callback requested`.
+2. **Widget IDs:** create the two widgets in GHL (Sites → Chat Widgets): the chat widget connected to the chatbot, and a **Voice AI** widget connected to the voice agent. Send Ali both **widget IDs**. They go into `ghlChatWidgetId` and `ghlVoiceWidgetId` in `src/data/site.json`.
+3. **Call routing:** make sure (904) 685-2555 rings the Voice AI agent or the team, as Fabio prefers, since the Voice tab's call button dials it.
