@@ -82,8 +82,17 @@ if(location.hash.startsWith('#q-')){const t=document.getElementById(location.has
  const G={ok:false};
  const api=()=>window.leadConnector&&window.leadConnector.chatWidget;
  const sync=()=>{const w=api(),on=!!(w&&w.isActive&&w.isActive());box.classList.toggle('open',on);box.classList.toggle('ghl-on',on);btn.setAttribute('aria-expanded',on);btn.setAttribute('aria-label',on?'Close chat':'Chat or talk with iTop Pools');return on};
+ // Always start on GHL's "Choose a chat option" screen: press its Back button if it reopened on Live Chat or Voice,
+ // unless a voice call is still running (GHL's widget keeps its own shadow roots, so search through them)
+ const deep=(root,sel,out=[])=>{root.querySelectorAll(sel).forEach(e=>out.push(e));root.querySelectorAll('*').forEach(e=>e.shadowRoot&&deep(e.shadowRoot,sel,out));return out};
+ const home=()=>{const el=document.querySelector('chat-widget'),sr=el&&el.shadowRoot;if(!sr)return;
+  const shown=deep(sr,'*').filter(e=>e.getBoundingClientRect().width);
+  if(shown.some(e=>e.matches('.chat-selection-button')))return;
+  const txt=shown.map(e=>[...e.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join(' ')).join(' ');
+  if(/end call|hang up|unmute|\bmute\b|on call|\b\d{1,2}:\d{2}\b(?!\s*[ap]m)/i.test(txt))return;
+  const back=shown.find(e=>e.matches('.lc_text-widget--back-button'));back&&back.click()};
  const watch=()=>{clearInterval(G.t);G.t=setInterval(()=>{if(!sync())clearInterval(G.t)},400)};
- btn.onclick=()=>{if(G.ok&&panel.hidden){const w=api();if(w.isActive()){w.closeWidget();sync()}else{w.openWidget();track('chat_open_ghl');sync();watch()}return}open(panel.hidden)};$('#chatClose').onclick=()=>{open(false);btn.focus()};
+ btn.onclick=()=>{if(G.ok&&panel.hidden){const w=api();if(w.isActive()){w.closeWidget();sync()}else{w.openWidget();track('chat_open_ghl');sync();watch();setTimeout(home,60)}return}open(panel.hidden)};$('#chatClose').onclick=()=>{open(false);btn.focus()};
  if(SITE.ghlWidgetId){const load=()=>{const s=document.createElement('script');s.src='https://widgets.leadconnectorhq.com/loader.js';s.dataset.resourcesUrl='https://widgets.leadconnectorhq.com/chat-widget/loader.js';s.dataset.widgetId=SITE.ghlWidgetId;document.body.appendChild(s);
    let n=0;const t=setInterval(()=>{const el=document.querySelector('chat-widget'),sr=el&&el.shadowRoot,w=api();
     if(sr&&sr.querySelector('.lc_text-widget--bubble')&&w&&w.openWidget){clearInterval(t);
