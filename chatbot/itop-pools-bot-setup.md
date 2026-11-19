@@ -122,3 +122,16 @@ What the GHL developer needs to do:
 2. **Callback requests from the backup panel:** in the inbound webhook workflow, branch on `request` = `callback`. Then trigger a Voice AI outbound call or create a call task, and notify Fabio. Tag the contact `callback requested`.
 3. **Call routing:** make sure (904) 685-2555 rings the Voice AI agent or the team, as Fabio prefers.
 4. **New widget ID:** if the widget is ever replaced, send Ali the new ID. It goes in `ghlWidgetId` in `src/data/site.json`.
+
+## Yard photos from the website form
+
+The quote form has four photo boxes. Each box arrives at the inbound webhook as its own field, holding a link that opens the photo:
+
+| Box on the form | Field |
+|---|---|
+| 1 · From the back door | `photo_1` |
+| 2 · From the far corner | `photo_2` |
+| 3 · Side yard or gate | `photo_3` |
+| 4 · Anything else | `photo_4` |
+
+An empty box sends no field. `photo_urls` lists every photo, comma-separated, and `photo_count` counts them. Map each field to its own **Single line** or **URL** custom field, for example "Yard Photo 1 – Back door". Don't use **File Upload** fields, because these are links.

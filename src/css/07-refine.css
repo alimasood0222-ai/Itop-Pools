@@ -496,3 +496,29 @@ footer .f-col a:hover,footer .f-col a:focus-visible{color:#fff}
 /* While the GoHighLevel chat is open: our button sits above it as the close button; on phones GHL fills the screen and has its own close */
 .chat.ghl-on{z-index:2147483647}
 @media (max-width:680px){.chat.ghl-on{display:none}}
+
+/* Yard photos: four labelled boxes, each its own field */
+.q-slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.q-slot{position:relative;aspect-ratio:1/1;border-radius:18px;border:1.5px dashed rgba(125,211,252,.35);background:rgba(125,211,252,.04);transition:background .2s,border-color .2s;overflow:hidden}
+.q-slot:hover,.q-slot.over{background:rgba(125,211,252,.1);border-color:var(--sky)}
+.q-slot-pick{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:12px;text-align:center;cursor:pointer}
+.q-slot-pick input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.q-slot:focus-within{outline:2px solid var(--sky);outline-offset:2px}
+.qs-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(125,211,252,.12);color:var(--sky);margin-bottom:6px}
+.qs-ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.qs-n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(235,248,255,.5)}
+.q-slot-pick b{font-size:14px;line-height:1.25;color:#fff}
+.q-slot-pick small{font-size:12px;line-height:1.35;color:rgba(235,248,255,.6)}
+.q-slot.has{border-style:solid;border-color:rgba(125,211,252,.4)}
+.q-slot figure{position:absolute;inset:0;margin:0;animation:qin .4s var(--ease) both}
+.q-slot figure img{width:100%;height:100%;object-fit:cover}
+.q-slot figure button{position:absolute;right:8px;top:8px;width:32px;height:32px;border-radius:50%;background:rgba(4,16,31,.82);color:#fff;font-size:13px;display:grid;place-items:center}
+.q-slot.up figure img{opacity:.45}
+.q-slot.up figure::after{content:"";position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px;border-radius:50%;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;animation:qspin .8s linear infinite}
+.q-slot.fail{border-color:var(--sun)}
+.qs-err{position:absolute;left:8px;right:8px;bottom:8px;padding:6px 8px;border-radius:10px;background:rgba(4,16,31,.85);color:#ffd28a;font-size:12px;line-height:1.3;text-align:center}
+.q-slots-hint{margin-top:8px}
+@media (max-width:760px){.q-slots{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.q-slot figure{background:var(--navy-900)}
+.q-slot figure figcaption{position:absolute;left:8px;bottom:8px;max-width:calc(100% - 16px);padding:4px 9px;border-radius:999px;background:rgba(4,16,31,.8);color:#fff;font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.q-slot.fail figure figcaption{display:none}
