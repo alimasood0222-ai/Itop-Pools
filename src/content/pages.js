@@ -4,7 +4,7 @@ const cta = (h, p) => `<div class="cta-band"><div class="wrap cb-in"><div><h2>${
 const costGuide = `
 <section class="sec guide" id="guide"><div class="wrap guide-w">
   <h2>How much does a fiberglass pool cost in Jacksonville, FL?</h2>
-  <p class="answer">A typical installed fiberglass pool runs about $58,000–$85,000 before deck, screen enclosure and fencing, based on published Florida guides. Concrete runs about $78,000–$110,000, and vinyl liner about $40,000–$65,000. Your final price depends on the shell, site and features, and iTop Pools gives a firm written price after the site visit.</p>
+  <p class="answer">A typical installed inground fiberglass pool runs about $58,000–$85,000 before deck, screen enclosure and fencing, based on published Florida guides. Concrete runs about $78,000–$110,000, and vinyl liner about $40,000–$65,000. Your final price depends on the shell, site and features, and iTop Pools gives a firm written price after the site visit.</p>
   <h2>What's included in the price of a fiberglass pool?</h2>
   <p>A complete quote covers more than the shell. When you compare bids, check that each of these is included, because a bid that leaves items out isn't cheaper, it's incomplete.</p>
   <div class="ct-wrap"><table class="cost-tbl"><thead><tr><th scope="col">Line item</th><th scope="col">What it covers</th><th scope="col">What moves the price</th></tr></thead><tbody>

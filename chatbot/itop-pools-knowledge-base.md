@@ -1,6 +1,6 @@
 # iTop Pools: chatbot knowledge base
 
-This document is the knowledge base for the iTop Pools website chatbot. It is generated from the website (itoppools.com), so it matches what the site says. Content updated: 2026-11-13.
+This document is the knowledge base for the iTop Pools website chatbot. It is generated from the website (itoppools.com), so it matches what the site says. Content updated: 2026-11-19.
 
 Rules for answering: only state facts found in this document. If something is not covered here (for example an exact price, a start date, availability, or a project detail), say a member of the iTop crew will confirm it, and offer to take the visitor's details or have them call (904) 685-2555.
 
@@ -316,17 +316,17 @@ More: https://itoppools.com/pool-school/choosing-a-color/
 The upgrades owners use most are a tanning ledge, a spa and a heat pump, which stretches the swim season in Florida's mild winters. LED lighting and automation are cheap to add during the build and awkward to add later. iTop Pools can price each one so you can decide.
 More: https://itoppools.com/pool-school/features/
 
-### Your build, week by week
+### Fiberglass pool installation timeline, week by week
 
 A fiberglass pool typically takes 2–6 weeks to install once permits and HOA approval are in hand, according to Barrier Reef. The steps are layout, excavation, setting the shell, backfilling while it fills, then deck, inspections and start-up. Weather, inspections and enclosure lead times can change the timeline.
 More: https://itoppools.com/pool-school/timeline/
 
-### Site access: how a shell gets into your yard
+### Pool crane installation and site access: getting the shell into your yard
 
 A fiberglass shell arrives on a truck in one piece, so it needs either a clear route through the side yard or a crane to lift it over. Fence panels can usually be removed and replaced. iTop Pools checks gate widths, overhead lines and slope on the free site visit in Northeast Florida.
 More: https://itoppools.com/pool-school/access/
 
-### Your first 30 days as a pool owner
+### New pool owner guide: your first 30 days
 
 In your first 30 days, run the pump as instructed, brush the surfaces in week one and keep the water balanced: about pH 7.4–7.6, free chlorine 1–3 ppm and alkalinity 80–120 ppm. After that, a weekly routine takes about 10 minutes. iTop Pools walks you through everything at handover.
 More: https://itoppools.com/pool-school/first-30/
@@ -380,7 +380,7 @@ A: Fiberglass and concrete/gunite, plus paver decks, water features and outdoor 
 ### Cost
 
 Q: How much does a fiberglass pool cost in Jacksonville, compared with concrete and vinyl liner?
-A: A typical installed fiberglass pool runs about $58,000–$85,000, compared with about $78,000–$110,000 for concrete and about $40,000–$65,000 for vinyl liner. These are published ranges, before deck, enclosure and fencing, and they vary with size, site and features. iTop Pools gives you a firm written price after the site visit. Build your own estimate to see how the pieces add up.
+A: A typical installed inground fiberglass pool runs about $58,000–$85,000, compared with about $78,000–$110,000 for concrete and about $40,000–$65,000 for vinyl liner. These are published ranges, before deck, enclosure and fencing, and they vary with size, site and features. iTop Pools gives you a firm written price after the site visit. Build your own estimate to see how the pieces add up.
 
 Q: What is the total cost including deck, screen enclosure and fencing?
 A: Your total depends mostly on deck size and material, whether you add a screen enclosure, and how much access your yard allows. Florida also requires a pool safety feature, which is included in iTop's permitting plan. Because each yard differs, we measure first and then give you one written price covering the pool, deck, enclosure and permits. The estimator shows which choices move the number most.

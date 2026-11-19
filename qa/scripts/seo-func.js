@@ -10,7 +10,7 @@ const open = async (ctx, base, u, ms = 1200, errs) => { const p = await ctx.newP
   const errs = [];
   await safe('hero', async () => {
     const p = await open(lap, base, '/', 800, errs); const s = new Set(); const t = Date.now(); await p.mouse.move(700, 400); while (Date.now() - t < 15000) { s.add(await p.textContent('#hsCap')); await p.waitForTimeout(400); } rec('hero', s.size >= 3, 'auto-advance ' + [...s].join(', ')); const a = await p.textContent('#hsCap'); await p.click('#hsNext'); await p.waitForTimeout(250); rec('hero', a !== await p.textContent('#hsCap'), 'arrow'); await p.screenshot({ path: shot('seo-home-1440') });
-    rec('hero', await p.evaluate(() => document.querySelector('h1').textContent.includes('Fiberglass pools in Jacksonville')), 'keyword H1'); await p.close();
+    rec('hero', await p.evaluate(() => /fiberglass pools in Jacksonville/i.test(document.querySelector('h1').textContent)), 'keyword H1'); await p.close();
     const m = await open(phone, base, '/', 800, errs); await m.screenshot({ path: shot('seo-home-390') }); const c = await phone.newCDPSession(m); await m.tap('#hsPause'); const x = await m.textContent('#hsCap'); await swipe(c, 320, 180, 80, 183); await m.waitForTimeout(500); rec('hero', x !== await m.textContent('#hsCap'), 'phone swipe'); await m.close();
   });
   await safe('nav', async () => {

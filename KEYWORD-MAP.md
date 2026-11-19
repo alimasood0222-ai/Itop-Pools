@@ -4,21 +4,21 @@ One primary keyword per page, so pages don't compete with each other. These are 
 
 | Target page | Primary keyword | Secondary keywords | Intent |
 |---|---|---|---|
-| `/` | fiberglass pool builder Jacksonville FL | fiberglass pools Jacksonville | Find a builder |
+| `/` | fiberglass pool builder Jacksonville FL | fiberglass pools Jacksonville, inground pool builder Jacksonville, inground fiberglass pools | Find a builder |
 | `/fiberglass-pools/` | Barrier Reef pools Jacksonville | Barrier Reef pool dealer Florida | Compare models |
 | `/fiberglass-pools/<model>/` | `<Model>` fiberglass pool | `<Model>` pool size, gallons | Research a model |
 | `/fiberglass-pools/rectangular/` | rectangular fiberglass pools | lap pool, modern pool | Browse a shape |
 | `/fiberglass-pools/freeform/` | freeform fiberglass pools | resort-style pool | Browse a shape |
 | `/fiberglass-pools/kidney/` | kidney-shaped fiberglass pool | small yard pool | Browse a shape |
 | `/fiberglass-pools/plunge/` | plunge fiberglass pools | small pool, courtyard pool | Browse a shape |
-| `/pool-cost-jacksonville/` | fiberglass pool cost Jacksonville | pool cost estimator, cost of ownership | Budget |
+| `/pool-cost-jacksonville/` | fiberglass pool cost Jacksonville | inground pool cost Jacksonville, inground fiberglass pool cost, pool cost estimator, cost of ownership | Budget |
 | `/fiberglass-vs-concrete-vs-vinyl/` | fiberglass vs concrete pool Florida | vinyl vs fiberglass | Compare types |
 | `/pool-financing/` | fiberglass pool financing | pool loan, HELOC for a pool | Pay for it |
-| `/faq/` | fiberglass pool questions | pool FAQ Jacksonville | Get answers |
+| `/faq/` | fiberglass pool questions | fiberglass pool FAQ, pool FAQ Jacksonville, Barrier Reef dealer Jacksonville | Get answers |
 | `/pool-colors/` | fiberglass pool colors | Barrier Reef finishes | Choose a finish |
 | `/3d-pool-design/` | 3D pool design | pool design tool | Visualize |
 | `/free-3d-design/` | free pool design Jacksonville | pool quote, site visit | Convert |
-| `/process-and-warranty/` | fiberglass pool warranty | pool installation process | Trust |
+| `/process-and-warranty/` | fiberglass pool warranty | fiberglass pool install process, Barrier Reef warranty | Trust |
 | `/service-areas/` | pool builder Northeast Florida | pool builder St. Johns County | Local |
 | `/about/` | iTop Pools | Barrier Reef dealer Jacksonville | Brand |
 | `/our-work/` | fiberglass pool gallery | pool photos | Inspiration |
@@ -36,6 +36,10 @@ One primary keyword per page, so pages don't compete with each other. These are 
 | `/pool-school/features/` | tanning ledge worth it | pool upgrades | Learn |
 | `/pool-school/access/` | pool crane installation | | Learn |
 | `/pool-school/first-30/` | new pool owner guide | | Learn |
+
+## Checked 20 November 2026
+
+Every page above has its primary keyword in the **title and meta description** (`scripts` audit on the built pages). Titles that didn't were fixed: FAQ, process and warranty, service areas, free 3D design, and the shapes, site access and first-30-days guides. "Inground" was added to the home page and cost page, because "inground pool" is how many people search even though every fiberglass pool is an inground pool.
 
 ## Where a keyword isn't in the H1
 
