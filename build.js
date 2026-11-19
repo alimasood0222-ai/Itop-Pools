@@ -10,7 +10,7 @@
 
     node build.js          build once
     node build.js --watch  rebuild whenever a file in src/ changes
-    SITE_ENV=live          removes the noindex tag (use at launch only)
+    SITE_ENV=preview       adds a noindex tag (the site is live by default since launch)
 
   The build fails if any page has invalid metadata or structured data.
 */
@@ -24,7 +24,7 @@ const SRC = path.join(__dirname, 'src');
 const DIST = path.join(__dirname, 'dist');
 const CACHE = path.join(__dirname, '.cache', 'img');
 const SITE = 'https://itoppools.com';
-const LIVE = process.env.SITE_ENV === 'live';
+const LIVE = process.env.SITE_ENV !== 'preview'; // live since launch (19 Nov 2026); vercel.app stays noindex via vercel.json
 const WIDTHS = [640, 828, 1200, 1920];
 const errors = [];
 

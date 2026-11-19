@@ -136,7 +136,7 @@ Events pushed to `window.dataLayer`: `generate_lead` (model, budget, ZIP), `form
 
 See `OFF-SITE-CHECKLIST.md` for the full order.
 
-1. Set `SITE_ENV=live` in Vercel. This removes the `noindex` tag. `*.vercel.app` addresses also send `X-Robots-Tag: noindex`, so previews stay out of search either way.
+1. The build is live by default since launch (19 November 2026): pages have no `noindex` tag. For a hidden preview build, set `SITE_ENV=preview`. `*.vercel.app` addresses always send `X-Robots-Tag: noindex`, so they stay out of search either way.
 2. Point itoppools.com at this project, and confirm the old URLs in `vercel.json` redirect to their new pages. Old `.html` URLs take two permanent hops (308, then 301), because Vercel's `cleanUrls` runs before the redirect rules.
 3. Submit `sitemap.xml` to Google and Bing, then run `node scripts/indexnow.js`.
 
